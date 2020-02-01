@@ -1,0 +1,19 @@
+.reviews{
+    width: 100%;
+    margin: 0vh 8% 0vh 8%;
+    font-size: 7vh;
+    margin-bottom: 10vh;
+}
+.header{
+    width: 100%;
+    float: left;
+    text-align: left;
+    font-weight: 700;
+  }
+
+  .no-reviews{
+      width: 100%;
+      font-size: 3vh;
+      margin-left: 30%;
+      text-align: left;
+  }
