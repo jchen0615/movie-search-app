@@ -11,7 +11,7 @@ class NavigationBar extends Component{
                     <li><img className = "logo" src = {require('../../../images/icon.png')} alt = "icon"/></li>
                     <li><Link to = "/" className = "menu">Home</Link></li>
                     <li className = "menu" id = "genre-menu">Genre</li>
-                    <li><Link to = "/now_playing" className = "menu">Now Playing</Link></li>
+                    <li><Link className = "menu" to = {{ pathname: "/Now_Playing", state:{id: null, now: true}}}>Now Playing</Link></li>
                     <li><Link to = "/" className = "menu">About</Link></li>
                     <div className = "genre-list">
                         <Link className = "genre" to = {{ pathname: "/Genre/Action", state:{id:28}}}>Action</Link>

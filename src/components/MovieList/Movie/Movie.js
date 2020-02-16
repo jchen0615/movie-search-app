@@ -20,7 +20,7 @@ class Movie extends Component{
                 }}><img className = "movie-cover" src = {this.props.moviePoster? posterString + this.props.moviePoster : require("../../../images/noImage.png")} 
                 alt = {this.props.movieTitle}/></Link>
                 <div className = "movie-info">
-                    <div className = "title">{this.props.movieTitle}</div>
+                    <div className = "title">{this.props.movieTitle.length < 40? this.props.movieTitle: this.props.movieTitle.slice(0,40)+"..."}</div>
                     <div className = "released-date">Released date: {this.props.date}</div>
                 </div>
              </div>

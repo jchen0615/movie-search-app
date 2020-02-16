@@ -20,7 +20,29 @@ class Genre extends Component{
 
     getMoviesByGenre =()=>{
         axios.get("/discover/movie"+apiKey+"&sort_by=popularity.desc&page="+this.state.pageNumber+"&primary_release_year="
-       +this.state.releaseYear+"&with_genres="+this.props.location.state.id)
+        +this.state.releaseYear+"&with_genres="+this.props.location.state.id)
+       .then(response =>{
+        const movieList = response.data.results.map(movie =>{
+            return{
+                id: movie.id,
+                title: movie.title,
+                poster: movie.poster_path,
+                date: movie.release_date,
+                voteAverage: movie.vote_count>0?movie.vote_average:"No rating available"
+                }
+            })
+            this.setState({
+                movies:movieList,
+                totalPages: response.data.total_pages,
+                lastPage: this.state.pageNumber===response.data.total_pages? true: false,
+                loading: false
+            })
+            window.scrollTo(0, 0)
+        })
+    }
+
+    getNowPlaying =()=>{
+        axios.get("/movie/now_playing"+apiKey+"&page="+this.state.pageNumber)
        .then(response =>{
         const movieList = response.data.results.map(movie =>{
             return{
@@ -42,15 +64,21 @@ class Genre extends Component{
     }
 
     componentDidMount(){
-        this.getMoviesByGenre()
+        console.log(this.props)
+        if(!this.props.location.state.now)
+            this.getMoviesByGenre()
+        else
+            this.getNowPlaying()
     }
 
     componentDidUpdate(prevProps, prevState){
         if(this.state.pageNumber!==prevState.pageNumber)
-            this.getMoviesByGenre()
+            if(!this.props.location.state.now)
+                this.getMoviesByGenre()
+            else
+                this.getNowPlaying()
     }
 
-    //<GenreGrid movieType = {this.props.match.params.genre} movies = {this.state.movies}/>
     render(){
 
         if(this.state.loading){
@@ -62,7 +90,7 @@ class Genre extends Component{
         return(
             <div className = "genre-page">
                 <Navigation/>
-                <MovieGrid movieType = {this.props.match.params.genre} movies = {this.state.movies}/>
+                <MovieGrid movieType = {this.props.match.params.genre? this.props.match.params.genre : "Now Playing"} movies = {this.state.movies}/>
                 <PageNavigation pageNumber = {this.state.pageNumber} lastPage = {this.state.lastPage} setState={(s,c)=>{this.setState(s, c)}}/>
             </div>
         )
