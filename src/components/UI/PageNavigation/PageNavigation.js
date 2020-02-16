@@ -28,10 +28,10 @@ class PageNavigation extends Component{
     render(){
         return(
             <div className = "page-navigation">
-                    <button type = "button" className = "prev-page" onClick ={this.prevPageHandler}>Previous page</button>
-                    <div className = "current-page"> {this.props.pageNumber}</div>
-                    <button type = "button" className = 'next-page' onClick ={this.nextPageHandler}>Next page</button>
-                </div>
+                <button type = "button" className = "prev-page" onClick ={this.prevPageHandler}>Previous page</button>
+                <div className = "current-page"> {this.props.pageNumber}</div>
+                <button type = "button" className = 'next-page' onClick ={this.nextPageHandler}>Next page</button>
+            </div>
         )
     }
 }

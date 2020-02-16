@@ -13,8 +13,8 @@ function App() {
         <Route path = "/" exact component={Home}/>
         <Route path = "/Detail/:id" exact render = {(props) =><Detail {...props}/>}/>
         <Route path = "/Search" exact render = {(props) => <SearchResult {...props}/>}/>
-        <Route path = "/Genre/:genre" exact render = {(props) => <Genre {...props}/>}/>
-        <Route path = "/Now_Playing" exact render = {(props) => <Genre {...props}/>}/>
+        <Route path = "/Genre/:genre" exact render = {(props) => <Genre key = {props.location.state.id} {...props}/>}/>
+        <Route path = "/Now_Playing" exact render = {(props) => <Genre key="now_playing" {...props}/>}/>
       </div>
     </BrowserRouter>
   );

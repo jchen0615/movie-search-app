@@ -10,6 +10,7 @@ const apiKey = "?api_key=0d727a18472e40764f879642668f20f9";
 class Genre extends Component{
    
     state = {
+        id: this.props.location.state.id,
         movies: null,
         pageNumber: 1,
         releaseYear: 2020,
@@ -69,6 +70,13 @@ class Genre extends Component{
             this.getMoviesByGenre()
         else
             this.getNowPlaying()
+    }
+
+    shouldComponentUpdate(nextProps, nextState){
+        console.log("Should update? " +this.state.id)
+        console.log(this.props)
+        //return this.props.match.params.genre!==nextProps.match.params.genre || this.state.loading!==nextState.loading
+        return this.state.id!==nextState.id || this.state.loading!==nextState.loading
     }
 
     componentDidUpdate(prevProps, prevState){
