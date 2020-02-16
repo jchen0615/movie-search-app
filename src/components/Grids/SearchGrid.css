@@ -10,46 +10,44 @@
     background-size: 100% 100%;
   }
   
-  .slogan{
-    width: 50vh;
-    margin-top: 12vh;
-    margin-left: 25vh;
-    float: left;
-    font-size: 3.5vh;
-    box-sizing: border-box;
-    color: white;
-    font-weight: 400;
-  }
   
   .search-bar{
-    margin-top: 25vh;
-    margin-left:10vh;
-    width:90vh;
+    margin-top: 20vh;
+    margin-left:30%;
+    width:40%;
     float: left;
   }
   
   .search-bar input{
+    font-family: 'Open Sans Condensed', sans-serif;
     float: left;
     margin-left: 2vh;
-    width: 80vh;
+    width: 90%;
     display: block;
-    color: black;
-    font-size: 5vh;
+    color: white;
     text-align: left;
     padding: 0.6vh 5vh 0.6vh 1vh;
     text-decoration: none;
-    font-size: 17px;
+    font-size: 3.5vh;
     box-sizing: border-box;
     background-color: transparent;
     border: none;
     background: transparent;
     border-bottom: 1px solid #fff;
     outline: none;
+    font-weight: 300;
+    font-style: italic;
   }
   
   .search-bar img{
     float: left;
     margin-left: 0vh;
-    width: 4vh;
+    width: 3.2vh;
+    padding-top: 1.4vh;
+    padding-left: 1vh;
+    transition: all .2s ease;
   }
   
+  .search-bar img:hover{
+    transform: scale(1.3);
+  }

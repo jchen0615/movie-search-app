@@ -9,7 +9,7 @@ class MovieGrid extends Component {
         return(
             <div className = "grid">
              <div className = "grid-header">{this.props.movieType+" Movies >"}</div>
-                <MovieList movies = {this.props.movies} key="movie-list"/>
+                <MovieList movies = {this.props.movies} key="movie-list" go/>
             </div>
         )
     }

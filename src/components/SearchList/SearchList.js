@@ -2,7 +2,10 @@ import React, {Component} from 'react'
 import ResultMovie from './ResultMovie/ResultMovie'
 
 class SearchList extends Component{
-   
+    shouldComponentUpdate(nextProps, nextState){
+        return this.props.list[0].id!==nextProps.list[0].id
+    }
+
     render(){
         return(
             <div className = "search-list">

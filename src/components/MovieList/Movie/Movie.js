@@ -17,8 +17,12 @@ class Movie extends Component{
                         date: this.props.date,
                         voteAverage: this.props.voteAverage
                     }
-                }}><img className = "movie-cover" src = {posterString + this.props.moviePoster} alt = {this.props.movieTitle}/></Link>
-                <p className = "title">{this.props.movieTitle} | {this.props.date}</p>
+                }}><img className = "movie-cover" src = {this.props.moviePoster? posterString + this.props.moviePoster : require("../../../images/noImage.png")} 
+                alt = {this.props.movieTitle}/></Link>
+                <div className = "movie-info">
+                    <div className = "title">{this.props.movieTitle}</div>
+                    <div className = "released-date">Released date: {this.props.date}</div>
+                </div>
              </div>
         )
     }

@@ -24,6 +24,15 @@
     margin-left: 30vh;
     width: 80vh;
     height: 47vh;
+    box-shadow: 15px 15px 18px #141414;
+}
+
+.no_video{
+    margin-top: 25vh;
+    margin-left: 30vh;
+    width: 80vh;
+    height: 47vh;
+    font-size: 4vh;
 }
 
 .overview-grid{
@@ -37,13 +46,14 @@
     width: auto;
     height: 70vh;
     padding: 0;
+    box-shadow: 15px 15px 18px #141414;
 }
 
 .detail-title{
     width: 50%;
     font-weight: 500;
-    font-size: 8vh;
-    height: 12vh;
+    font-size: 6vh;
+    height: 10vh;
     border-bottom: 1px solid #fff;
     outline: none;
     margin: 10vh 10vh 5vh 10vh;

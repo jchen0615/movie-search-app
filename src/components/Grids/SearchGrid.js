@@ -8,14 +8,16 @@ class SearchGrid extends Component{
         return(
             <div className = "top-grid">
                 <div className = "search-bar">
-                <input type="text" onChange = {this.props.inputHandler} placeholder="Search for movie here.."/>
-                <Link to = {{
+                <input type="text" onChange = {this.props.inputHandler} onKeyPress={this.props.keyHandler} placeholder="Search for movie here.." 
+                onFocus={(e) => e.target.placeholder = ""} onBlur={(e) => e.target.placeholder = "Search for movie here.."} />
+                <Link to = {this.props.searchValue? {
                                 pathname: "/search",
                                 state: {
                                     value: this.props.searchValue,
-                                } }}><img src = {require("../../images/search.png")} alt = "search"/></Link>
+                                }
+                            }: ""
+                        }><img src = {require("../../images/Search.png")} alt = "search"/></Link>
                 </div>
-                <p className = "slogan">Search movie from <br/>anywhere in the world..</p>
             </div>
         )
     }

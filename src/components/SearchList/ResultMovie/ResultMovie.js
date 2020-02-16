@@ -15,7 +15,8 @@ class ResultMovie extends Component{
                     voteAverage: this.props.voteAverage
                 }
             }}><div className = "result-movie">
-               <img className = "search-movie-cover" src = {posterString + this.props.moviePoster} alt = {this.props.movieTitle}/>
+               <img className = "search-movie-cover" src = {this.props.moviePoster? posterString+this.props.moviePoster : require("../../../images/noImage.png")}
+                alt = {this.props.movieTitle}/>
                 <div className = "search-info">
                     <div className = "search-title">{this.props.movieTitle} | Released: {this.props.date}</div>
                     <div className = "search-overview"> ---"{this.props.overview}"</div>
