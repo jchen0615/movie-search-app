@@ -5,6 +5,7 @@ import Home from './containers/Home';
 import SearchResult from './containers/SearchResult/SearchResult';
 import Detail from './components/DetailPage/Detail';
 import Genre from './containers/GenrePage/Genre'
+import NowPlaying from './containers/NowPlaying/NowPlaying'
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
         <Route path = "/Detail/:id" exact render = {(props) =><Detail {...props}/>}/>
         <Route path = "/Search" exact render = {(props) => <SearchResult {...props}/>}/>
         <Route path = "/Genre/:genre" exact render = {(props) => <Genre {...props}/>}/>
+        <Route path = "/now_playing" exact component={NowPlaying}/>
       </div>
     </BrowserRouter>
   );

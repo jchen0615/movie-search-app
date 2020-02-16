@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import NavigationBar from '../NavigationBar/Navigation';
+import NavigationBar from '../UI/NavigationBar/Navigation';
 import axios from '../../axios';
 import GeneralInfo from './GeneralInfo/GeneralInfo';
 import Reviews from './Reviews/Reviews';

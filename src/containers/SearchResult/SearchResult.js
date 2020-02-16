@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import NavigationBar from '../../components/NavigationBar/Navigation';
+import NavigationBar from '../../components/UI/NavigationBar/Navigation';
 import SearchList from '../../components/SearchList/SearchList'
 import axios from '../../axios'
 import Spinner from '../../components/UI/Spinner/Spinner'

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {Redirect} from 'react-router-dom'
-import NavigationBar from '../components/NavigationBar/Navigation';
+import NavigationBar from '../components/UI/NavigationBar/Navigation';
 import MovieGrid from '../components/Grids/MovieGrid';
 import SearchGrid from '../components/Grids/SearchGrid';
 import Spinner from '../components/UI/Spinner/Spinner'

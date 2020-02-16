@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
-import Navigation from '../../components/NavigationBar/Navigation'
+import Navigation from '../../components/UI/NavigationBar/Navigation'
 import axios from '../../axios'
-import GenreGrid from '../../components/Grids/GenreGrid/GenreGrid'
+import MovieGrid from '../../components/Grids/MovieGrid'
 import Spinner from '../../components/UI/Spinner/Spinner'
 import PageNavigation from '../../components/UI/PageNavigation/PageNavigation'
 import './Genre.css'
@@ -50,6 +50,7 @@ class Genre extends Component{
             this.getMoviesByGenre()
     }
 
+    //<GenreGrid movieType = {this.props.match.params.genre} movies = {this.state.movies}/>
     render(){
 
         if(this.state.loading){
@@ -61,7 +62,7 @@ class Genre extends Component{
         return(
             <div className = "genre-page">
                 <Navigation/>
-                <GenreGrid movieType = {this.props.match.params.genre} movies = {this.state.movies}/>
+                <MovieGrid movieType = {this.props.match.params.genre} movies = {this.state.movies}/>
                 <PageNavigation pageNumber = {this.state.pageNumber} lastPage = {this.state.lastPage} setState={(s,c)=>{this.setState(s, c)}}/>
             </div>
         )

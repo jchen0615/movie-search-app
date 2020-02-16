@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import './GeneralInfo.css';
 const posterString = "http://image.tmdb.org/t/p/w342";
 const youtubeString = "https://www.youtube.com/embed/";
-const apiKey = "?api_key=0d727a18472e40764f879642668f20f9";
 
 class GeneralInfo extends Component{
    
@@ -12,7 +11,6 @@ class GeneralInfo extends Component{
         if(this.props.video){
             video = <iframe className = "video" title = "trailer" key = {this.props.video} src={youtubeString+this.props.video} frameBorder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"></iframe>
         }        
-
 
         return(
             <div>

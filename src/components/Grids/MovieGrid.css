@@ -7,6 +7,13 @@
     margin-bottom: 0vh;
   }
   
+  .genre-page .grid{
+    color: white;
+    box-sizing: border-box;
+    float: left;
+    width: 100%;
+    height: 305vh;
+  }
   
   .grid-header{
     float: left;
