@@ -95,7 +95,8 @@ class Home extends Component {
         return(
             <div className="Home-page">
                 <NavigationBar/>
-                <SearchGrid inputHandler={this.searchInputHandler} searchValue={this.state.searchValue} keyHandler={this.EnterKeyHandler}/>
+                <SearchGrid inputHandler={this.searchInputHandler} searchValue={this.state.searchValue} keyHandler={this.EnterKeyHandler}
+                    search = "movie"/>
                 <MovieGrid movieType = "Popular" movies = {this.state.popularMovies}/>
                 <MovieGrid movieType = "Now Playing" movies = {this.state.nowPlaying}/>
             </div>

@@ -31,8 +31,8 @@ class Detail extends Component{
                 tagline: response.data.tagline? response.data.tagline:"",
                 hours: response.data.runtime>0? Math.floor(parseInt(response.data.runtime, 10)/60): null,
                 minutes: response.data.runtime>0? Math.floor(parseInt(response.data.runtime, 10)%60): null,
-                video: response.data.videos.results.find(element => element.type==="Trailer")? response.data.videos.results.find(element => element.type==="Trailer").key:null
-                //generalInfoLoaded: true,
+                video: response.data.videos.results.find(element => element.type==="Trailer")? response.data.videos.results.find(element => element.type==="Trailer").key:null,
+                generalInfoLoaded: true,
             })
         })
     }
@@ -70,7 +70,7 @@ class Detail extends Component{
     }
 
     render(){
-        if(!this.state.similarMovies || !this.state.video){
+        if(!this.state.similarMovies || !this.state.generalInfoLoaded){
             return(
                 <Spinner/>
             )

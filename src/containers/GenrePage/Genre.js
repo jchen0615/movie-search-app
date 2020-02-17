@@ -4,6 +4,7 @@ import axios from '../../axios'
 import MovieGrid from '../../components/Grids/MovieGrid'
 import Spinner from '../../components/UI/Spinner/Spinner'
 import PageNavigation from '../../components/UI/PageNavigation/PageNavigation'
+import SearchGrid from '../../components/Grids/SearchGrid'
 import './Genre.css'
 
 const apiKey = "?api_key=0d727a18472e40764f879642668f20f9";
@@ -65,7 +66,6 @@ class Genre extends Component{
     }
 
     componentDidMount(){
-        console.log(this.props)
         if(!this.props.location.state.now)
             this.getMoviesByGenre()
         else
@@ -73,8 +73,6 @@ class Genre extends Component{
     }
 
     shouldComponentUpdate(nextProps, nextState){
-        console.log("Should update? " +this.state.id)
-        console.log(this.props)
         //return this.props.match.params.genre!==nextProps.match.params.genre || this.state.loading!==nextState.loading
         return this.state.id!==nextState.id || this.state.loading!==nextState.loading
     }
@@ -89,6 +87,11 @@ class Genre extends Component{
 
     render(){
 
+        let searchGrid = null
+        if(!this.state.id) 
+            searchGrid =  <SearchGrid inputHandler={this.searchInputHandler} searchValue={this.state.searchValue} keyHandler={this.EnterKeyHandler}
+            search = "region"/>
+
         if(this.state.loading){
             return(
                 <Spinner/>
@@ -98,6 +101,7 @@ class Genre extends Component{
         return(
             <div className = "genre-page">
                 <Navigation/>
+                {searchGrid}
                 <MovieGrid movieType = {this.props.match.params.genre? this.props.match.params.genre : "Now Playing"} movies = {this.state.movies}/>
                 <PageNavigation pageNumber = {this.state.pageNumber} lastPage = {this.state.lastPage} setState={(s,c)=>{this.setState(s, c)}}/>
             </div>
