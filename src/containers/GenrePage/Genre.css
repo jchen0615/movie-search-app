@@ -1,3 +1,11 @@
 .genre-page{
     width: 100%
 }
+
+.search-error-message{
+    width: 100%;
+    font-size: 3vh;
+    margin-top: 10vh;
+    margin-left: 35%;
+    text-align: left;
+}

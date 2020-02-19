@@ -16,6 +16,13 @@ class Home extends Component {
         search: false
     }
 
+    searchClickHandler = (event) =>{
+        if(this.state.searchValue)
+        this.setState({
+            search:true
+        })
+    }
+
     searchInputHandler = (event) =>{
         this.setState({searchValue: event.target.value}, function(){
             console.log(this.state.searchValue)
@@ -96,7 +103,7 @@ class Home extends Component {
             <div className="Home-page">
                 <NavigationBar/>
                 <SearchGrid inputHandler={this.searchInputHandler} searchValue={this.state.searchValue} keyHandler={this.EnterKeyHandler}
-                    search = "movie"/>
+                    clickHandler={this.searchClickHandler} search = "movie"/>
                 <MovieGrid movieType = "Popular" movies = {this.state.popularMovies}/>
                 <MovieGrid movieType = "Now Playing" movies = {this.state.nowPlaying}/>
             </div>
