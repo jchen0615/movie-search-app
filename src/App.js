@@ -15,7 +15,6 @@ function App() {
         <Route path = "/Search" exact render = {(props) => <SearchResult {...props}/>}/>
         <Route path = "/Genre/:genre" exact render = {(props) => <Genre key = {props.location.state.id} {...props}/>}/>
         <Route path = "/Now_Playing" exact render = {(props) => <Genre key="now_playing" {...props}/>}/>
-        <Route path = "/Now_Playing/Region" exact render = {(props) => <Genre key={props.location.state.region} {...props}/>}/>
       </div>
     </BrowserRouter>
   );

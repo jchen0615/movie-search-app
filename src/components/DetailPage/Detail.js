@@ -1,14 +1,13 @@
 import React, { Component } from 'react';
 import NavigationBar from '../UI/NavigationBar/Navigation';
-import axios from '../../axios';
+import axios from 'axios';
 import GeneralInfo from './GeneralInfo/GeneralInfo';
 import Reviews from './Reviews/Reviews';
 import Spinner from '../UI/Spinner/Spinner'
 import MovieGrid from '../Grids/MovieGrid'
 import BackBtn from '../UI/BackBtn/BackBtn'
 import './Detail.css';
-
-const apiKey = "?api_key=0d727a18472e40764f879642668f20f9";
+const key = require('../../GlobalKey');
 
 class Detail extends Component{
     state= {
@@ -22,25 +21,13 @@ class Detail extends Component{
         video: null
     }
 
-    getMovieDetail=()=>{
-        axios.get("/movie/"+this.props.location.state.id+apiKey+"&append_to_response=videos")
-        .then( response =>{
-            this.setState({
-                overview: response.data.overview? response.data.overview : "No overview available",
-                genre: response.data.genres.length>0? response.data.genres[0].name:"No information available",
-                tagline: response.data.tagline? response.data.tagline:"",
-                hours: response.data.runtime>0? Math.floor(parseInt(response.data.runtime, 10)/60): null,
-                minutes: response.data.runtime>0? Math.floor(parseInt(response.data.runtime, 10)%60): null,
-                video: response.data.videos.results.find(element => element.type==="Trailer")? response.data.videos.results.find(element => element.type==="Trailer").key:null,
-                generalInfoLoaded: true,
-            })
-        })
-    }
-
-    getSimilarMovies=()=>{
-        axios.get("/movie/"+this.props.location.state.id+"/similar"+apiKey)
-        .then( response =>{
-            const movieList = response.data.results.slice(0,4).map(movie =>{
+    getData = () =>{
+        axios.all([
+            axios.get("/movie/"+this.props.location.state.id+key.apiKey+"&append_to_response=videos"),
+            axios.get("/movie/"+this.props.location.state.id+"/similar"+key.apiKey)
+        ]).then(responseArr =>{
+            const detail = responseArr[0].data
+            const movieList = responseArr[1].data.results.slice(0,4).map(movie =>{
                 return{
                     id: movie.id,
                     title: movie.title,
@@ -49,33 +36,37 @@ class Detail extends Component{
                     voteAverage: movie.vote_count>0? movie.vote_average:"No rating available"
                 }
             })
-   
+            
             this.setState({
+                overview: detail.overview? detail.overview : "No overview available",
+                genre: detail.genres.length>0? detail.genres[0].name:"No information available",
+                tagline: detail.tagline? detail.tagline:"",
+                hours: detail.runtime>0? Math.floor(parseInt(detail.runtime, 10)/60): null,
+                minutes: detail.runtime>0? Math.floor(parseInt(detail.runtime, 10)%60): null,
+                video: detail.videos.results.find(element => element.type==="Trailer")? detail.videos.results.find(element => element.type==="Trailer").key:null,
+                generalInfoLoaded: true,
                 similarMovies: movieList
             })
+   
             window.scrollTo(0, 0)
-         })
+        })
     }
 
     componentDidMount(){      
-        this.getMovieDetail()
-        this.getSimilarMovies()
+        this.getData()
     }
 
     componentDidUpdate(prevProps){
         if(this.props.location.state.id!==prevProps.location.state.id){
-            this.getMovieDetail()
-            this.getSimilarMovies()
+           this.getData()
         }
     }
 
     render(){
         if(!this.state.similarMovies || !this.state.generalInfoLoaded){
-            return(
-                <Spinner/>
-            )
+            return <Spinner/>
         }
-        console.log(this.props);
+
         return(
             <div className = "Detail">
                 <NavigationBar/>

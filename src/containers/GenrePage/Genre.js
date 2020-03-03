@@ -1,12 +1,12 @@
 import React, { Component } from 'react'
 import Navigation from '../../components/UI/NavigationBar/Navigation'
-import axios from '../../axios'
+import axios from 'axios'
 import MovieGrid from '../../components/Grids/MovieGrid'
 import Spinner from '../../components/UI/Spinner/Spinner'
 import PageNavigation from '../../components/UI/PageNavigation/PageNavigation'
 import './Genre.css'
+const key = require('../../GlobalKey')
 
-const apiKey = "?api_key=0d727a18472e40764f879642668f20f9";
 class Genre extends Component{
    
     state = {
@@ -20,7 +20,7 @@ class Genre extends Component{
     }
 
     getMoviesByGenre =()=>{
-        axios.get("/discover/movie"+apiKey+"&sort_by=popularity.desc&page="+this.state.pageNumber+"&primary_release_year="
+        axios.get("/discover/movie"+key.apiKey+"&sort_by=popularity.desc&page="+this.state.pageNumber+"&primary_release_year="
         +this.state.releaseYear+"&with_genres="+this.props.location.state.id)
        .then(response =>{
         const movieList = response.data.results.map(movie =>{
@@ -43,7 +43,7 @@ class Genre extends Component{
     }
 
     getNowPlaying =()=>{
-        axios.get("/movie/now_playing"+apiKey+"&page="+this.state.pageNumber)
+        axios.get("/movie/now_playing"+key.apiKey+"&page="+this.state.pageNumber)
        .then(response =>{
         const movieList = response.data.results.map(movie =>{
             return{

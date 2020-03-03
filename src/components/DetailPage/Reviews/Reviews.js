@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
-import axios from '../../../axios'
+import axios from 'axios'
 import './Reviews.css'
 import Review from './Review/Review'
 import Spinner from '../../UI/Spinner/Spinner'
-const apiKey = "?api_key=0d727a18472e40764f879642668f20f9";
+const key = require('../../../GlobalKey')
 
 class Reviews extends Component{
     
@@ -12,7 +12,7 @@ class Reviews extends Component{
     }
 
     getReviews(){
-        axios.get("/movie/"+this.props.id+"/reviews"+apiKey)
+        axios.get("/movie/"+this.props.id+"/reviews"+key.apiKey)
         .then(response=> {
             let results = response.data.results.length<=8? response.data.results : response.data.results.slice(0,8)
             results =  results.filter(function(element){

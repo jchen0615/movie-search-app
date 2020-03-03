@@ -4,8 +4,8 @@ import NavigationBar from '../components/UI/NavigationBar/Navigation';
 import MovieGrid from '../components/Grids/MovieGrid';
 import SearchGrid from '../components/Grids/SearchGrid';
 import Spinner from '../components/UI/Spinner/Spinner'
-import axios from '../axios'
-const apiKey = "?api_key=0d727a18472e40764f879642668f20f9";
+import axios from 'axios'
+const key = require('../GlobalKey')
 
 class Home extends Component {
 
@@ -24,9 +24,7 @@ class Home extends Component {
     }
 
     searchInputHandler = (event) =>{
-        this.setState({searchValue: event.target.value}, function(){
-            console.log(this.state.searchValue)
-        })
+        this.setState({searchValue: event.target.value}, function(){})
     }
     
     EnterKeyHandler = (event) =>{
@@ -39,26 +37,21 @@ class Home extends Component {
     }
 
     componentDidMount(){
-        axios.get("/movie/popular/"+apiKey)
-            .then( response =>{
-                const movieList = response.data.results.slice(0,4).map(movie =>{
-                    return{
-                        id: movie.id,
-                        title: movie.title,
-                        poster: movie.poster_path,
-                        date: movie.release_date,
-                        voteAverage: movie.vote_average
-                    }
-                })
+        axios.all([
+            axios.get("/movie/popular"+key.apiKey),
+            axios.get("/movie/now_playing"+key.apiKey)
+        ]).then(responseArr =>{
+            const popularList = responseArr[0].data.results.slice(0,4).map(movie =>{
+                return{
+                    id: movie.id,
+                    title: movie.title,
+                    poster: movie.poster_path,
+                    date: movie.release_date,
+                    voteAverage: movie.vote_average
+                }
+            })
 
-                this.setState({
-                    popularMovies: movieList,
-                })
-             })
-
-        axios.get("/movie/now_playing"+apiKey)
-        .then( response =>{
-            const movieList = response.data.results.slice(0,4).map(movie =>{
+            const nowPlayingList = responseArr[1].data.results.slice(0,4).map(movie =>{
                 return{
                     id: movie.id,
                     title: movie.title,
@@ -69,23 +62,16 @@ class Home extends Component {
             })
 
             this.setState({
-                nowPlaying: movieList,
+                nowPlaying: nowPlayingList,
+                popularMovies: popularList
             })
         })
     }
 
-    componentDidUpdate(prevProps, prevState) {
-        if (this.state.searchValue !== prevState.searchValue) {
-            
-        }
-      }
-
     render(){
-       
+         
         if(!this.state.nowPlaying || !this.state.popularMovies){
-            return(
-                <Spinner/>
-            )
+            return <Spinner/>
         }
 
         if(this.state.search){

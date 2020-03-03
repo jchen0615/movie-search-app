@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import NavigationBar from '../../components/UI/NavigationBar/Navigation';
 import SearchList from '../../components/SearchList/SearchList'
-import axios from '../../axios'
+import axios from 'axios'
 import Spinner from '../../components/UI/Spinner/Spinner'
 import PageNavigation from '../../components/UI/PageNavigation//PageNavigation'
 import './SearchResult.css'
-const apiKey = "?api_key=0d727a18472e40764f879642668f20f9";
+const key = require('../../GlobalKey')
 
 class SearchResult extends Component {
 
@@ -19,7 +19,7 @@ class SearchResult extends Component {
     }
 
     getSearchResults =()=>{
-        axios.get("/search/movie/"+apiKey+"&query="+this.props.location.state.value+"&page="+this.state.pageNumber)
+        axios.get("/search/movie/"+key.apiKey+"&query="+this.props.location.state.value+"&page="+this.state.pageNumber)
         .then( response =>{
             const movieList = response.data.results.map(movie =>{
                 return{
@@ -57,6 +57,7 @@ class SearchResult extends Component {
     }
 
     render(){
+        console.log("search")
         if(this.state.loading)
             return(<Spinner/>)
 
