@@ -15,6 +15,13 @@ axios.interceptors.request.use(request =>{
     return request;
 })
 */
+/*
+axios.interceptors.request.use(request =>{
+    return request;
+}, error=>{
+    return Promise.reject(error);
+})
+*/
 ReactDOM.render(<App />, document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change

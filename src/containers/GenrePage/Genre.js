@@ -4,6 +4,7 @@ import axios from 'axios'
 import MovieGrid from '../../components/Grids/MovieGrid'
 import Spinner from '../../components/UI/Spinner/Spinner'
 import PageNavigation from '../../components/UI/PageNavigation/PageNavigation'
+import Error from '../../components/ErrorPage/Error'
 import './Genre.css'
 const key = require('../../GlobalKey')
 
@@ -16,9 +17,10 @@ class Genre extends Component{
         releaseYear: 2020,
         totalPages: null,
         lastPage: null,
-        loading: true
+        loading: true,
+        error: false
     }
-
+    
     getMoviesByGenre =()=>{
         axios.get("/discover/movie"+key.apiKey+"&sort_by=popularity.desc&page="+this.state.pageNumber+"&primary_release_year="
         +this.state.releaseYear+"&with_genres="+this.props.location.state.id)
@@ -39,6 +41,10 @@ class Genre extends Component{
                 loading: false
             })
             window.scrollTo(0, 0)
+        }).catch(error=>{
+            this.setState({
+                error:true
+            })
         })
     }
 
@@ -61,6 +67,10 @@ class Genre extends Component{
                 loading: false
             })
             window.scrollTo(0, 0)
+        }).catch(error=>{
+            this.setState({
+                error:true
+            })
         })
     }
 
@@ -72,7 +82,7 @@ class Genre extends Component{
     }
 
     shouldComponentUpdate(nextProps, nextState){
-        return this.state.id!==nextState.id || this.state.loading!==nextState.loading
+        return this.state.id!==nextState.id || this.state.loading!==nextState.loading ||(this.state.error !==nextState.error)
     }
 
     componentDidUpdate(prevProps, prevState){
@@ -85,8 +95,15 @@ class Genre extends Component{
 
     render(){
 
-        if(this.state.loading)
+        if(this.state.error){
+            console.log("render error")
+            return <Error/>
+        }
+        else if(this.state.loading){
+            console.log("render loading")
             return <Spinner/>
+        }
+               
            
         return(
             <div className = "genre-page">

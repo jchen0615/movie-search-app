@@ -5,6 +5,7 @@ import MovieGrid from '../components/Grids/MovieGrid';
 import SearchGrid from '../components/Grids/SearchGrid';
 import Spinner from '../components/UI/Spinner/Spinner'
 import axios from 'axios'
+import Error from '../components/ErrorPage/Error'
 const key = require('../GlobalKey')
 
 class Home extends Component {
@@ -13,7 +14,8 @@ class Home extends Component {
         popularMovies: null,
         nowPlaying: null,
         searchValue: null,
-        search: false
+        search: false,
+        error: false
     }
 
     searchClickHandler = (event) =>{
@@ -65,11 +67,19 @@ class Home extends Component {
                 nowPlaying: nowPlayingList,
                 popularMovies: popularList
             })
+        }).catch(error=>{
+            this.setState({
+                error:true
+            })
         })
     }
 
     render(){
          
+        if(this.state.error){
+            return <Error/>
+        }
+
         if(!this.state.nowPlaying || !this.state.popularMovies){
             return <Spinner/>
         }

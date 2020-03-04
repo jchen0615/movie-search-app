@@ -6,6 +6,7 @@ import Reviews from './Reviews/Reviews';
 import Spinner from '../UI/Spinner/Spinner'
 import MovieGrid from '../Grids/MovieGrid'
 import BackBtn from '../UI/BackBtn/BackBtn'
+import Error from '../ErrorPage/Error'
 import './Detail.css';
 const key = require('../../GlobalKey');
 
@@ -18,7 +19,8 @@ class Detail extends Component{
         tagline: null,
         hours: null,
         minutes: null,
-        video: null
+        video: null,
+        error: false
     }
 
     getData = () =>{
@@ -49,6 +51,10 @@ class Detail extends Component{
             })
    
             window.scrollTo(0, 0)
+        }).catch(error=>{
+            this.setState({
+                error: true
+            })
         })
     }
 
@@ -63,6 +69,11 @@ class Detail extends Component{
     }
 
     render(){
+
+        if(this.state.error){
+            return <Error/>
+        }
+
         if(!this.state.similarMovies || !this.state.generalInfoLoaded){
             return <Spinner/>
         }

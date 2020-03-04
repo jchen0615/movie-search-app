@@ -8,7 +8,8 @@ const key = require('../../../GlobalKey')
 class Reviews extends Component{
     
     state = {
-        list: null
+        list: null,
+        error: false
     }
 
     getReviews(){
@@ -28,6 +29,10 @@ class Reviews extends Component{
             this.setState({
                 list: results,
             })
+        }).catch(error=>{
+            this.setState({
+                error:true
+            })
         })
     }
 
@@ -41,7 +46,11 @@ class Reviews extends Component{
     }
 
     render(){
-
+    
+        let reviewMsg = "Sorry, this movie currently has no reviews..."
+        if(this.state.error){
+            reviewMsg = "Sorry, an error has occurred..."
+        }
         if(!this.state.list){
             return(
                 <Spinner/>
@@ -53,7 +62,7 @@ class Reviews extends Component{
                 <div className = "header">Reviews</div>
                 {this.state.list.length>0? this.state.list.map(review =>(
                         <Review author = {review.author} content = {review.content} key = {review.author}/>
-                    )): <p className = "no-reviews">Sorry, this movie currently has no reviews...</p>}
+                )): <p className = "no-reviews">{reviewMsg}</p>}
             </div>
         )
     }

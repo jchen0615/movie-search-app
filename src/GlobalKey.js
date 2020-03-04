@@ -6,6 +6,6 @@ const youtubeString = "https://www.youtube.com/embed/";
 //export default apiKey
 module.exports = {
     'poster':posterString,
-    'apiKey':apiKey,
+    'apiKey':"?api_key="+apiKey,
     'youtube':youtubeString
 }

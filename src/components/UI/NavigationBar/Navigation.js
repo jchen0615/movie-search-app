@@ -12,7 +12,7 @@ class NavigationBar extends Component{
                     <li><Link to = "/" className = "menu">Home</Link></li>
                     <li className = "menu" id = "genre-menu">Genre</li>
                     <li><Link className = "menu" to = {{ pathname: "/Now_Playing", state:{id: null, now: true}}}>Now Playing</Link></li>
-                    <li><Link to = "/" className = "menu">About</Link></li>
+                    <li><Link to = "/About" className = "menu">About</Link></li>
                     <div className = "genre-list">
                         <Link className = "genre" to = {{ pathname: "/Genre/Action", state:{id:28}}}>Action</Link>
                         <Link className = "genre" to = {{ pathname: "/Genre/Adventure", state:{id:12}}}>Adventure</Link>
