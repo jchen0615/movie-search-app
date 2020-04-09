@@ -4,9 +4,8 @@ import NavigationBar from '../components/UI/NavigationBar/Navigation';
 import MovieGrid from '../components/Grids/MovieGrid';
 import SearchGrid from '../components/Grids/SearchGrid';
 import Spinner from '../components/UI/Spinner/Spinner'
-import axios from 'axios'
 import Error from '../components/ErrorPage/Error'
-const key = require('../GlobalKey')
+const Client = require('../TMDB_client')
 
 class Home extends Component {
 
@@ -15,9 +14,10 @@ class Home extends Component {
         nowPlaying: null,
         searchValue: null,
         search: false,
-        error: false
+        errorMsg: null
     }
 
+    //Handles click on search button
     searchClickHandler = (event) =>{
         if(this.state.searchValue)
         this.setState({
@@ -25,10 +25,12 @@ class Home extends Component {
         })
     }
 
+    //Stores user input value for search field
     searchInputHandler = (event) =>{
         this.setState({searchValue: event.target.value}, function(){})
     }
     
+    //Handles 'Enter' key press for search field
     EnterKeyHandler = (event) =>{
         if(event.charCode === 13){
             if(this.state.searchValue)
@@ -39,51 +41,29 @@ class Home extends Component {
     }
 
     componentDidMount(){
-        axios.all([
-            axios.get("/movie/popular"+key.apiKey),
-            axios.get("/movie/now_playing"+key.apiKey)
-        ]).then(responseArr =>{
-            const popularList = responseArr[0].data.results.slice(0,4).map(movie =>{
-                return{
-                    id: movie.id,
-                    title: movie.title,
-                    poster: movie.poster_path,
-                    date: movie.release_date,
-                    voteAverage: movie.vote_average
-                }
-            })
-
-            const nowPlayingList = responseArr[1].data.results.slice(0,4).map(movie =>{
-                return{
-                    id: movie.id,
-                    title: movie.title,
-                    poster: movie.poster_path,
-                    date: movie.release_date,
-                    voteAverage: movie.vote_average
-                }
-            })
-
+        Client.getHomePage().then((result)=>{
             this.setState({
-                nowPlaying: nowPlayingList,
-                popularMovies: popularList
+                nowPlaying: result.nowPlaying,
+                popularMovies: result.popularMovies
             })
-        }).catch(error=>{
+        })
+        .catch((error)=>{
             this.setState({
-                error:true
+                errorMsg: error
             })
         })
     }
 
     render(){
          
-        if(this.state.error){
-            return <Error/>
+        if(this.state.errorMsg){
+            return <Error msg ={this.state.errorMsg}/>
         }
-
-        if(!this.state.nowPlaying || !this.state.popularMovies){
+        else if(!this.state.nowPlaying || !this.state.popularMovies){
             return <Spinner/>
         }
 
+        //Redirects to search page with value inputted by user
         if(this.state.search){
             return(
                 <Redirect to = {{

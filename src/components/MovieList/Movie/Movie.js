@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import './Movie.css';
 import {Link} from 'react-router-dom';
-const key = require('../../../GlobalKey')
 
+//Component that renders movie's title, poster and released date.
 class Movie extends Component{
 
     render(){
@@ -17,7 +17,7 @@ class Movie extends Component{
                         date: this.props.date,
                         voteAverage: this.props.voteAverage
                     }
-                }}><img className = "movie-cover" src = {this.props.moviePoster? key.poster + this.props.moviePoster : require("../../../images/noImage.png")} 
+                }}><img className = "movie-cover" src = {this.props.moviePoster? this.props.moviePoster : require("../../../images/noImage.png")} 
                 alt = {this.props.movieTitle}/></Link>
                 <div className = "movie-info">
                     <div className = "title">{this.props.movieTitle.length < 40? this.props.movieTitle: this.props.movieTitle.slice(0,40)+"..."}</div>

@@ -1,68 +1,66 @@
 import React, { Component } from 'react'
-import axios from 'axios'
 import './Reviews.css'
 import Review from './Review/Review'
 import Spinner from '../../UI/Spinner/Spinner'
-const key = require('../../../GlobalKey')
+const Client = require('../../../TMDB_client')
 
+//Component that handles list of 'Review' components in 'Detail' page
 class Reviews extends Component{
     
     state = {
         list: null,
-        error: false
+        errorMsg: null
     }
 
-    getReviews(){
-        axios.get("/movie/"+this.props.id+"/reviews"+key.apiKey)
-        .then(response=> {
-            let results = response.data.results.length<=8? response.data.results : response.data.results.slice(0,8)
-            results =  results.filter(function(element){
-                return element.content.length<1000
-            })
-            results.map(review=>{
-                return {
-                    author: review.author,
-                    content: review.content
-                }
-            })
-            
+    //Gets few reviews for selected movie
+    getReviews = (id) =>{
+        Client.getReviews(id).then((result)=>{
             this.setState({
-                list: results,
+                list: result
             })
-        }).catch(error=>{
+        })
+        .catch((error)=>{
             this.setState({
-                error:true
+                errorMsg: error
             })
         })
     }
 
     componentDidMount(){
-        this.getReviews()
+        this.getReviews(this.props.id)
     }
 
     componentDidUpdate(prevProps){
         if(this.props.id!==prevProps.id)
-           this.getReviews()
+           this.getReviews(this.props.id)
     }
 
     render(){
     
         let reviewMsg = "Sorry, this movie currently has no reviews..."
-        if(this.state.error){
-            reviewMsg = "Sorry, an error has occurred..."
+        let renderMsg = <p className = "no-reviews">{reviewMsg}</p>
+
+        if(this.state.errorMsg){
+        renderMsg = <p>{"Error: "+this.state.errorMsg}</p>
+        }else if(this.state.list && this.state.list.length>0){
+            renderMsg = this.state.list.map(review =>(
+                <Review 
+                    author = {review.author}
+                    content = {review.content}
+                    key = {review.author}/>
+                ))
         }
-        if(!this.state.list){
-            return(
-                <Spinner/>
-            )
+
+        if(!this.state.list && !this.state.errorMsg){
+            return <Spinner/>
         }
 
         return(
             <div className = "reviews">
                 <div className = "header">Reviews</div>
-                {this.state.list.length>0? this.state.list.map(review =>(
-                        <Review author = {review.author} content = {review.content} key = {review.author}/>
-                )): <p className = "no-reviews">{reviewMsg}</p>}
+                <div className = "list_reviews">
+                    {renderMsg}
+                </div>
             </div>
         )
     }

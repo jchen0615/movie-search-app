@@ -2,10 +2,10 @@ import React, {Component} from 'react';
 import Movie from './Movie/Movie';
 import './MovieList.css'
 
+//Component that holds list of 'movie' components
 class MovieList extends Component {
     
     render(){
-        //const list = this.props.movies;
         return(
             <div className = "movie-list">
                 {this.props.movies.length>0? this.props.movies.map(movie =>(

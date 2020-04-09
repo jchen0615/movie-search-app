@@ -1,13 +1,13 @@
 import React, { Component } from 'react'
 import Navigation from '../../components/UI/NavigationBar/Navigation'
-import axios from 'axios'
 import MovieGrid from '../../components/Grids/MovieGrid'
 import Spinner from '../../components/UI/Spinner/Spinner'
 import PageNavigation from '../../components/UI/PageNavigation/PageNavigation'
 import Error from '../../components/ErrorPage/Error'
+import Client from '../../TMDB_client'
 import './Genre.css'
-const key = require('../../GlobalKey')
 
+//Component that renders a 'genre' page
 class Genre extends Component{
    
     state = {
@@ -18,69 +18,54 @@ class Genre extends Component{
         totalPages: null,
         lastPage: null,
         loading: true,
-        error: false
+        errorMsg: null
     }
     
-    getMoviesByGenre =()=>{
-        axios.get("/discover/movie"+key.apiKey+"&sort_by=popularity.desc&page="+this.state.pageNumber+"&primary_release_year="
-        +this.state.releaseYear+"&with_genres="+this.props.location.state.id)
-       .then(response =>{
-        const movieList = response.data.results.map(movie =>{
-            return{
-                id: movie.id,
-                title: movie.title,
-                poster: movie.poster_path,
-                date: movie.release_date,
-                voteAverage: movie.vote_count>0?movie.vote_average:"No rating available"
-                }
-            })
+    //Gets movies based on genre ID
+    getMoviesByGenre =(pageNumber, releaseYear, id)=>{
+        Client.getMoviesByGenre(pageNumber, releaseYear, id).then((result)=>{
             this.setState({
-                movies:movieList,
-                totalPages: response.data.total_pages,
-                lastPage: this.state.pageNumber===response.data.total_pages? true: false,
+                movies:result.movieList,
+                totalPages: result.totalPages,
+                lastPage: this.state.pageNumber===result.totalPages? true: false,
                 loading: false
             })
             window.scrollTo(0, 0)
-        }).catch(error=>{
+        }).catch((error)=>{
             this.setState({
-                error:true
+                errorMsg:error,
+                loading: false
             })
         })
     }
 
-    getNowPlaying =()=>{
-        axios.get("/movie/now_playing"+key.apiKey+"&page="+this.state.pageNumber)
-       .then(response =>{
-        const movieList = response.data.results.map(movie =>{
-            return{
-                id: movie.id,
-                title: movie.title,
-                poster: movie.poster_path,
-                date: movie.release_date,
-                voteAverage: movie.vote_count>0?movie.vote_average:"No rating available"
-                }
-            })
+    //Gets movies that are currently playing in theater
+    getNowPlaying =(pageNumber)=>{
+        Client.getNowPlaying(pageNumber).then((result)=>{
             this.setState({
-                movies:movieList,
-                totalPages: response.data.total_pages,
-                lastPage: this.state.pageNumber===response.data.total_pages? true: false,
+                movies:result.movieList,
+                totalPages: result.totalPages,
+                lastPage: this.state.pageNumber===result.totalPages? true: false,
                 loading: false
             })
             window.scrollTo(0, 0)
-        }).catch(error=>{
+        }).catch((error)=>{
             this.setState({
-                error:true
+                errorMsg: error,
+                loading: false
             })
         })
     }
 
+    //Render page based on wheterh a 'genre' page or 'now playing' page is accessed
     componentDidMount(){
         if(!this.props.location.state.now)
-            this.getMoviesByGenre()
+            this.getMoviesByGenre(this.state.pageNumber, this.state.releaseYear, this.state.id)
         else
-            this.getNowPlaying()
+            this.getNowPlaying(this.state.pageNumber)
     }
 
+    //Update if genre ID has changed
     shouldComponentUpdate(nextProps, nextState){
         return this.state.id!==nextState.id || this.state.loading!==nextState.loading ||(this.state.error !==nextState.error)
     }
@@ -88,22 +73,19 @@ class Genre extends Component{
     componentDidUpdate(prevProps, prevState){
         if(this.state.pageNumber!==prevState.pageNumber)
             if(!this.props.location.state.now)
-                this.getMoviesByGenre()
+                this.getMoviesByGenre(this.state.pageNumber, this.state.releaseYear, this.state.id)
             else
-                this.getNowPlaying()
+                this.getNowPlaying(this.state.pageNumber)
     }
 
     render(){
 
-        if(this.state.error){
-            console.log("render error")
-            return <Error/>
+        if(this.state.errorMsg){
+            return <Error msg = {this.state.errorMsg}/>
         }
         else if(this.state.loading){
-            console.log("render loading")
             return <Spinner/>
         }
-               
            
         return(
             <div className = "genre-page">

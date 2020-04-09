@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './SearchGrid.css';
 
+//Grid component for search field on 'Home' page
 class SearchGrid extends Component{
   
     render(){

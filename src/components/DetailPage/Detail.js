@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import NavigationBar from '../UI/NavigationBar/Navigation';
-import axios from 'axios';
 import GeneralInfo from './GeneralInfo/GeneralInfo';
 import Reviews from './Reviews/Reviews';
 import Spinner from '../UI/Spinner/Spinner'
@@ -8,8 +7,9 @@ import MovieGrid from '../Grids/MovieGrid'
 import BackBtn from '../UI/BackBtn/BackBtn'
 import Error from '../ErrorPage/Error'
 import './Detail.css';
-const key = require('../../GlobalKey');
+const Client = require('../../TMDB_client')
 
+//Component that contains detail information for selected movie
 class Detail extends Component{
     state= {
         initialRender: false,
@@ -20,58 +20,43 @@ class Detail extends Component{
         hours: null,
         minutes: null,
         video: null,
-        error: false
+        errorMsg: null
     }
 
-    getData = () =>{
-        axios.all([
-            axios.get("/movie/"+this.props.location.state.id+key.apiKey+"&append_to_response=videos"),
-            axios.get("/movie/"+this.props.location.state.id+"/similar"+key.apiKey)
-        ]).then(responseArr =>{
-            const detail = responseArr[0].data
-            const movieList = responseArr[1].data.results.slice(0,4).map(movie =>{
-                return{
-                    id: movie.id,
-                    title: movie.title,
-                    poster: movie.poster_path,
-                    date: movie.release_date,
-                    voteAverage: movie.vote_count>0? movie.vote_average:"No rating available"
-                }
-            })
-            
+    //Gets detail information for selected movie
+    getDetail = (id) =>{
+        Client.getDetailData(id).then((result)=>{
             this.setState({
-                overview: detail.overview? detail.overview : "No overview available",
-                genre: detail.genres.length>0? detail.genres[0].name:"No information available",
-                tagline: detail.tagline? detail.tagline:"",
-                hours: detail.runtime>0? Math.floor(parseInt(detail.runtime, 10)/60): null,
-                minutes: detail.runtime>0? Math.floor(parseInt(detail.runtime, 10)%60): null,
-                video: detail.videos.results.find(element => element.type==="Trailer")? detail.videos.results.find(element => element.type==="Trailer").key:null,
+                overview: result.detail.overview,
+                genre: result.detail.genre,
+                tagline: result.detail.tagline,
+                hours: result.detail.hours,
+                minutes: result.detail.minutes,
+                video: result.detail.video,
                 generalInfoLoaded: true,
-                similarMovies: movieList
+                similarMovies: result.movieList
             })
-   
-            window.scrollTo(0, 0)
-        }).catch(error=>{
+        }).catch((error)=>{
             this.setState({
-                error: true
+                errorMsg: error
             })
         })
+        window.scrollTo(0, 0)
     }
 
     componentDidMount(){      
-        this.getData()
+        this.getDetail(this.props.location.state.id)
     }
 
     componentDidUpdate(prevProps){
-        if(this.props.location.state.id!==prevProps.location.state.id){
-           this.getData()
-        }
+        if(this.props.location.state.id!==prevProps.location.state.id)
+            this.getDetail(this.props.location.state.id)
     }
 
     render(){
 
-        if(this.state.error){
-            return <Error/>
+        if(this.state.errorMsg){
+            return <div><Error msg = {this.state.errorMsg}/></div>
         }
 
         if(!this.state.similarMovies || !this.state.generalInfoLoaded){

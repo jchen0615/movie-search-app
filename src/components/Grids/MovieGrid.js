@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import './MovieGrid.css';
 import MovieList from '../MovieList/MovieList'
 
-
+//Grid component that holds 'movieList'
 class MovieGrid extends Component {
 
     render(){

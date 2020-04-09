@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import './PageNavigation.css'
 
+//Component that holds 'prev' and 'next' page when navigate through pages
 class PageNavigation extends Component{
 
     nextPageHandler =()=>{

@@ -23,5 +23,3 @@ function App() {
 }
 
 export default App;
-
-// <Route path = "/Search" exact render = {(props) => <Search {...props}/>}/>

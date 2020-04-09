@@ -1,20 +1,20 @@
 import React, { Component } from 'react';
 import './GeneralInfo.css';
-const key = require('../../../GlobalKey')
 
+//Component that holds general information for 'Detail' page
 class GeneralInfo extends Component{
    
     render(){
 
         let video = <div className = "no_video">No trailer available</div>
         if(this.props.video){
-            video = <iframe className = "video" title = "trailer" key = {this.props.video} src={key.youtube+this.props.video} frameBorder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"></iframe>
+            video = <iframe className = "video" title = "trailer" key = {this.props.video} src={this.props.video} frameBorder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"></iframe>
         }        
 
         return(
             <div>
                 <div className = 'overview-grid'>
-                    <img className = "detail-cover" src = {key.poster + this.props.poster} alt = {this.props.title}/>
+                    <img className = "detail-cover" src = {this.props.poster} alt = {this.props.title}/>
                     <div className = 'detail-title'>{this.props.title}</div>
                     <div className = 'detail-overview'>{this.props.overview}</div>
                     <div className = 'tagline'>{this.props.tagline}</div>

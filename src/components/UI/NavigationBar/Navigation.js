@@ -41,13 +41,3 @@ class NavigationBar extends Component{
 }
 
 export default NavigationBar;
-//<img src = {require("../../images/search.png")} alt = "search"/>
-/*
-<input type="text" onChange = {this.props.inputHandler} placeholder="Search"/>
-                <Link className = "search-btn" to = {{
-                            pathname: "/search",
-                            state: {
-                                value: this.props.searchValue,
-                                limit: 20
-                            } }}><img className = "search-btn-image" src = {require("../../images/search.png")} alt = "search"/></Link>
-*/

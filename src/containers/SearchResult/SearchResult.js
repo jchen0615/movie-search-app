@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import NavigationBar from '../../components/UI/NavigationBar/Navigation';
 import SearchList from '../../components/SearchList/SearchList'
-import axios from 'axios'
 import Spinner from '../../components/UI/Spinner/Spinner'
 import PageNavigation from '../../components/UI/PageNavigation//PageNavigation'
+import Error from '../../components/ErrorPage/Error'
 import './SearchResult.css'
-const key = require('../../GlobalKey')
+const Client = require('../../TMDB_client')
 
+//Renders Search Result page after a user search for keyword(s)
 class SearchResult extends Component {
 
     state = {
@@ -16,35 +17,30 @@ class SearchResult extends Component {
         totalResults: null,
         lastPage: false,
         loading: true,
+        errorMsg: null
     }
 
-    getSearchResults =()=>{
-        axios.get("/search/movie/"+key.apiKey+"&query="+this.props.location.state.value+"&page="+this.state.pageNumber)
-        .then( response =>{
-            const movieList = response.data.results.map(movie =>{
-                return{
-                    id: movie.id,
-                    title: movie.title,
-                    poster: movie.poster_path,
-                    date: movie.release_date,
-                    voteAverage: movie.vote_count>0?movie.vote_average:"No rating available",
-                    overview: movie.overview
-                }
-            })
-   
+    //Gets a list of movies based on search input and page number
+    getSearchResults =(value, page)=>{
+        Client.getSearchResults(value, page).then((result)=>{
             this.setState({
-                searchList: movieList,
-                totalResults: response.data.total_results,
-                totalPages: response.data.total_pages,
-                lastPage: this.state.pageNumber===response.data.total_pages? true: false,
+                searchList: result.movieList,
+                totalResults: result.totalResults,
+                totalPages: result.totalPages,
+                lastPage: this.state.pageNumber===result.totalPages? true: false,
                 loading: false
             })
-            window.scrollTo(0, 0)
-         })
+        }).catch((error)=>{
+            this.setState({
+                errorMsg: error,
+                loading: false
+            })
+        })
+        window.scrollTo(0, 0)
     }
 
     componentDidMount(){
-        this.getSearchResults()
+        this.getSearchResults(this.props.location.state.value, this.state.pageNumber)
     }
 
     shouldComponentUpdate(nextProps, nextState){
@@ -53,13 +49,17 @@ class SearchResult extends Component {
 
     componentDidUpdate(prevProps, prevState){
         if(this.state.pageNumber!==prevState.pageNumber)
-            this.getSearchResults()
+        this.getSearchResults(this.props.location.state.value, this.state.pageNumber)
     }
 
     render(){
-        console.log("search")
-        if(this.state.loading)
-            return(<Spinner/>)
+        
+        if(this.state.errorMsg){
+            return <Error msg = {this.state.errorMsg}/>
+        }
+        else if(this.state.loading){
+            return <Spinner/>
+        }
 
         return(
             <div className="search-result">

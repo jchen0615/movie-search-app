@@ -1,7 +1,7 @@
 .reviews{
     width: 84%;
-    margin: 0vh 8% 0vh 8%;
-    font-size: 7vh;
+    margin: 0vh 5% 0vh 5%;
+    font-size: 5vh;
     margin-bottom: 10vh;
 }
 .header{
@@ -9,6 +9,10 @@
     float: left;
     text-align: left;
     font-weight: 700;
+  }
+
+  .list_reviews{
+    margin-left: 8%;
   }
 
   .no-reviews{
