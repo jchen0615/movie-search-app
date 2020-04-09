@@ -16,11 +16,11 @@ In short, this web app leaverages React and React-Router-Dom to implement a sing
 Axios is being used in regards of sending HTTP requests to The Movie Database (TMDB) API to retrieve information regarding movies.
 
 ### Quick Setup
-This application leverages The Movie Database (TMDB) API. Please visit https://www.themoviedb.org/?language=en-US for account signup and request for an API key before using this application. After you have completed registration and received an API key, open up 'AccessToken.json' file that is located in 'src' folder and replace 'Enter your API key here' with your API key. You are now ready to run npm start in the terminal to start up the application. 
+This application leverages The Movie Database (TMDB) API. Please visit https://www.themoviedb.org/?language=en-US for account signup and request for an **API key** before using this application. After you have completed registration and received an API key, open up **'AccessToken.json'** file that is located in 'src' folder and replace 'Enter your API key here' with your API key. You are now ready to run npm start in the terminal to start up the application. 
 
 ### Features
 **Home page**
-- After running 'npm start' in the terminal, navigate to 'http://localhost:3000', where the homepage of this application will be located. There is a navigation bar located at the top of the page at all time to ensure users can navigate through pages as they would like. Located right below the navigation bar is a search input that takes keywords as parameters and query for any matching movies. Below that, we are showing some popular movies as well as movies that are now playing in theater. By clicking on any movies, it will redirect user to a page with more detailed information for that particular movie.
+- After running 'npm start' in the terminal, navigate to 'http://localhost:8080', where the homepage of this application will be located. There is a navigation bar located at the top of the page at all time to ensure users can navigate through pages as they would like. Located right below the navigation bar is a search input that takes keywords as parameters and query for any matching movies. Below that, we are showing some popular movies as well as movies that are now playing in theater. By clicking on any movies, it will redirect user to a page with more detailed information for that particular movie.
 ![Image description](https://github.com/jchen0615/movie-search-app/blob/master/public/images/homepage.PNG)
 
 **Search**
