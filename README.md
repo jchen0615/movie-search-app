@@ -8,6 +8,8 @@ Runs the app in the development mode.<br />
 Open [http://localhost:8080](http://localhost:8080) to view it in the browser.
 Google Chrome is highly recommended.
 
+*Before running the application, please run **npm install** to install all necessary dependencies.
+
 ### Quick Introduction
 This web application is a personal project for the sole puporse of practicing React. It is in no way intended for any profit-making.
 Please feel free to leverage any code as you would like.
