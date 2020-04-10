@@ -9,9 +9,10 @@ function getDetailData(id){
     return new promise(function(resolve, reject){
         axios.all([
             axios.get("/movie/"+id+key.apiKey+"&append_to_response=videos"),
-            axios.get("/movie/"+id+"/similar"+key.apiKey)
+            axios.get("/movie/"+id+"/similar"+key.apiKey),
+            axios.get("/movie/"+id+"/reviews"+key.apiKey)
         ]).then(responseArr =>{
-
+            console.log(responseArr)
             let detail = {
                 overview: responseArr[0].data.overview? responseArr[0].data.overview : "No overview available",
                 genre: responseArr[0].data.genres.length>0? responseArr[0].data.genres[0].name:"No information available",
@@ -30,33 +31,22 @@ function getDetailData(id){
                     voteAverage: movie.vote_count>0? movie.vote_average:"No rating available"
                 }
             })      
-            resolve({detail, movieList})
-    
-        }).catch(error=>{
-            reject(error.response.data.status_message)
-        })
-    })
-}
 
-//Make axios get request to TMDB API to get viewers reviews for selected movie
-function getReviews(id){
-    return new promise(function(resolve, reject){
-        axios.get("/movie/"+id+"/reviews"+key.apiKey)
-        .then(response=> {
-            let results = response.data.results.length<=8? response.data.results : response.data.results.slice(0,8)
-            results =  results.filter(function(element){
+            let list = responseArr[2].data.results.length<=8? responseArr[2].data.results : responseArr[2].data.results.slice(0,8)
+            let reviews =  list.filter(function(element){
                 return element.content.length<1000
             })
-            results.map(review=>{
+            reviews.map(review=>{
                 return {
                     author: review.author,
                     content: review.content
                 }
             })
-
-            resolve(results)
-        })
-        .catch(error =>{
+            
+            resolve({detail:detail, movieList:movieList, reviews:reviews})
+    
+        }).catch(error=>{
+            console.log(error)
             reject(error.response.data.status_message)
         })
     })
@@ -72,7 +62,7 @@ function getSearchResults(searchValue, pageNumber){
                 return{
                     id: movie.id,
                     title: movie.title,
-                    poster: movie.poster_path,
+                    poster: key.poster+movie.poster_path,
                     date: movie.release_date,
                     voteAverage: movie.vote_count>0?movie.vote_average:"No rating available",
                     overview: movie.overview
@@ -177,7 +167,6 @@ function getHomePage(){
 
 module.exports = {
     'getDetailData': getDetailData,
-    'getReviews': getReviews,
     'getSearchResults': getSearchResults,
     'getMoviesByGenre': getMoviesByGenre,
     'getNowPlaying': getNowPlaying,

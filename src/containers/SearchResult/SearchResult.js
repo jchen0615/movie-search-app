@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import NavigationBar from '../../components/UI/NavigationBar/Navigation';
 import SearchList from '../../components/SearchList/SearchList'
 import Spinner from '../../components/UI/Spinner/Spinner'
-import PageNavigation from '../../components/UI/PageNavigation//PageNavigation'
+import PageNavigation from '../../components/UI/PageNavigation/PageNavigation'
 import Error from '../../components/ErrorPage/Error'
 import './SearchResult.css'
 const Client = require('../../TMDB_client')
@@ -62,7 +62,7 @@ class SearchResult extends Component {
         }
 
         return(
-            <div className="search-result">
+            <div className="search-page">
                 <NavigationBar/>
                 <div className = "search-message-container">
                 <div className = "search-message">Showing {this.state.pageNumber} of {this.state.totalPages} pages for keyword: "{this.props.location.state.value}"</div> 

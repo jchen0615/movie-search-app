@@ -1,7 +1,6 @@
 import React, {Component} from 'react'
 import {Link} from 'react-router-dom'
 import './ResultMovie.css'
-const key = require('../../../GlobalKey')
 
 class ResultMovie extends Component{
     render(){
@@ -16,7 +15,7 @@ class ResultMovie extends Component{
                     voteAverage: this.props.voteAverage
                 }
             }}><div className = "result-movie">
-               <img className = "search-movie-cover" src = {this.props.moviePoster? key.poster+this.props.moviePoster : require("../../../images/noImage.png")}
+               <img className = "search-movie-cover" src = {this.props.moviePoster? this.props.moviePoster : require("../../../images/noImage.png")}
                 alt = {this.props.movieTitle}/>
                 <div className = "search-info">
                     <div className = "search-title">{this.props.movieTitle} | Released: {this.props.date}</div>

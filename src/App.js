@@ -3,7 +3,7 @@ import './App.css';
 import {BrowserRouter, Route} from 'react-router-dom';
 import Home from './containers/Home';
 import SearchResult from './containers/SearchResult/SearchResult';
-import Detail from './components/DetailPage/Detail';
+import Detail from './containers/DetailPage/Detail';
 import Genre from './containers/GenrePage/Genre'
 import About from './components/AboutPage/AboutPage'
 

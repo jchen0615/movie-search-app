@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import NavigationBar from '../UI/NavigationBar/Navigation';
-import GeneralInfo from './GeneralInfo/GeneralInfo';
-import Reviews from './Reviews/Reviews';
-import Spinner from '../UI/Spinner/Spinner'
-import MovieGrid from '../Grids/MovieGrid'
-import BackBtn from '../UI/BackBtn/BackBtn'
-import Error from '../ErrorPage/Error'
+import NavigationBar from '../../components/UI/NavigationBar/Navigation';
+import GeneralInfo from '../../components/GeneralInfo/GeneralInfo';
+import Reviews from '../../components/Reviews/Reviews';
+import Spinner from '../../components/UI/Spinner/Spinner'
+import MovieGrid from '../../components/Grids/MovieGrid'
+import BackBtn from '../../components/UI/BackBtn/BackBtn'
+import Error from '../../components/ErrorPage/Error'
 import './Detail.css';
 const Client = require('../../TMDB_client')
 
@@ -20,12 +20,15 @@ class Detail extends Component{
         hours: null,
         minutes: null,
         video: null,
-        errorMsg: null
+        reviews: null,
+        errorMsg: null,
+        Loaded:false
     }
 
     //Gets detail information for selected movie
     getDetail = (id) =>{
         Client.getDetailData(id).then((result)=>{
+            console.log(result.reviews)
             this.setState({
                 overview: result.detail.overview,
                 genre: result.detail.genre,
@@ -33,16 +36,20 @@ class Detail extends Component{
                 hours: result.detail.hours,
                 minutes: result.detail.minutes,
                 video: result.detail.video,
-                generalInfoLoaded: true,
-                similarMovies: result.movieList
+                similarMovies: result.movieList,
+                reviews: result.reviews,
+                Loaded: true
             })
         }).catch((error)=>{
             this.setState({
-                errorMsg: error
+                errorMsg: error,
+                Loaded: true
             })
         })
         window.scrollTo(0, 0)
     }
+
+
 
     componentDidMount(){      
         this.getDetail(this.props.location.state.id)
@@ -58,8 +65,7 @@ class Detail extends Component{
         if(this.state.errorMsg){
             return <div><Error msg = {this.state.errorMsg}/></div>
         }
-
-        if(!this.state.similarMovies || !this.state.generalInfoLoaded){
+        else if(!this.state.Loaded){
             return <Spinner/>
         }
 
@@ -70,7 +76,7 @@ class Detail extends Component{
                 <GeneralInfo id = {this.props.location.state.id} title = {this.props.location.state.title} date = {this.props.location.state.date} 
                     vote = {this.props.location.state.voteAverage} poster={this.props.location.state.poster} overview = {this.state.overview} genre = {this.state.genre}
                     tagline = {this.state.tagline} hours = {this.state.hours} minutes = {this.state.minutes} video = {this.state.video}/>
-                <Reviews id = {this.props.location.state.id} list = {this.state.review_list}/>
+                <Reviews list = {this.state.reviews}/>
                 <MovieGrid id = {this.props.location.state.id} movieType = "Similar" movies = {this.state.similarMovies}/>
             </div>
         )
