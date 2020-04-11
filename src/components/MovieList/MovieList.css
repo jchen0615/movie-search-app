@@ -1,8 +1,8 @@
 .movie-list{
     float:left;
     height:100%;
-    width: 98%;
-    padding-left: 2%;
+    width: 100%;
+    padding:0;
     margin-top: 0;
 }
 

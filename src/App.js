@@ -7,6 +7,7 @@ import Detail from './containers/DetailPage/Detail';
 import Genre from './containers/GenrePage/Genre'
 import About from './components/AboutPage/AboutPage'
 
+
 function App() {
   return (
     <BrowserRouter>

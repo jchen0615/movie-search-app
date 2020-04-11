@@ -5,7 +5,7 @@ import Spinner from '../../components/UI/Spinner/Spinner'
 import PageNavigation from '../../components/UI/PageNavigation/PageNavigation'
 import Error from '../../components/ErrorPage/Error'
 import './SearchResult.css'
-const Client = require('../../TMDB_client')
+const Client = require('../../service/TMDB_client')
 
 //Renders Search Result page after a user search for keyword(s)
 class SearchResult extends Component {

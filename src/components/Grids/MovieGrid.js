@@ -8,8 +8,12 @@ class MovieGrid extends Component {
     render(){
         return(
             <div className = "grid">
-             <div className = "grid-header">{this.props.movieType}</div>
-                <MovieList movies = {this.props.movies} key="movie-list" go/>
+                <div className = "header-grid">
+                    <div className = "grid-header">{this.props.movieType}</div>
+                </div>
+                <div className = 'grid-list'>
+                    <MovieList movies = {this.props.movies} key="movie-list" go/>
+                </div>
             </div>
         )
     }

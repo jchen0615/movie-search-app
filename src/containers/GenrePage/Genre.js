@@ -4,7 +4,7 @@ import MovieGrid from '../../components/Grids/MovieGrid'
 import Spinner from '../../components/UI/Spinner/Spinner'
 import PageNavigation from '../../components/UI/PageNavigation/PageNavigation'
 import Error from '../../components/ErrorPage/Error'
-import Client from '../../TMDB_client'
+import Client from '../../service/TMDB_client'
 import './Genre.css'
 
 //Component that renders a 'genre' page

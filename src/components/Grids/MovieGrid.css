@@ -15,10 +15,14 @@
     height: 315vh;
   }
   
+  .header-grid{
+    width: 100%;
+    margin-top: 5vh;
+  }
+
   .grid-header{
-    float: left;
-    margin: 4vh 5vh 0 5vh;
     text-align: left;
+    margin-left: 10vh;
     font-weight: 500;  
     font-size: 5vh;
     width: 90%;
@@ -26,3 +30,15 @@
     border-bottom: 0.1vh solid white;
     padding: 0;
   }
+  .grid-movies{
+    width:100%;
+    text-align:center;
+  }
+
+  .grid-list{
+    width:160vh;
+    margin-left: 20vh;
+    display: inline-block;
+    padding: 0;
+  }
+

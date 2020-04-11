@@ -3,11 +3,11 @@ import NavigationBar from '../../components/UI/NavigationBar/Navigation';
 import GeneralInfo from '../../components/GeneralInfo/GeneralInfo';
 import Reviews from '../../components/Reviews/Reviews';
 import Spinner from '../../components/UI/Spinner/Spinner'
-import MovieGrid from '../../components/Grids/MovieGrid'
 import BackBtn from '../../components/UI/BackBtn/BackBtn'
 import Error from '../../components/ErrorPage/Error'
+import Carousel from '../Carousel/Carousel'
 import './Detail.css';
-const Client = require('../../TMDB_client')
+const Client = require('../../service/TMDB_client')
 
 //Component that contains detail information for selected movie
 class Detail extends Component{
@@ -77,7 +77,7 @@ class Detail extends Component{
                     vote = {this.props.location.state.voteAverage} poster={this.props.location.state.poster} overview = {this.state.overview} genre = {this.state.genre}
                     tagline = {this.state.tagline} hours = {this.state.hours} minutes = {this.state.minutes} video = {this.state.video}/>
                 <Reviews list = {this.state.reviews}/>
-                <MovieGrid id = {this.props.location.state.id} movieType = "Similar" movies = {this.state.similarMovies}/>
+                <Carousel movieType = {"Similar"} movies = {this.state.similarMovies}/>
             </div>
         )
     }

@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 import {Redirect} from 'react-router-dom'
 import NavigationBar from '../components/UI/NavigationBar/Navigation';
-import MovieGrid from '../components/Grids/MovieGrid';
 import SearchGrid from '../components/Grids/SearchGrid';
 import Spinner from '../components/UI/Spinner/Spinner'
 import Error from '../components/ErrorPage/Error'
-const Client = require('../TMDB_client')
+import Carousel from '../containers/Carousel/Carousel'
+const Client = require('../service/TMDB_client')
 
 class Home extends Component {
+
 
     state = {
         popularMovies: null,
@@ -40,7 +41,8 @@ class Home extends Component {
         }
     }
 
-    componentDidMount(){
+    //Fetch data through client service file
+    getData =()=>{
         Client.getHomePage().then((result)=>{
             this.setState({
                 nowPlaying: result.nowPlaying,
@@ -52,6 +54,10 @@ class Home extends Component {
                 errorMsg: error
             })
         })
+    }
+
+    componentDidMount(){
+       this.getData()
     }
 
     render(){
@@ -80,8 +86,8 @@ class Home extends Component {
                 <NavigationBar/>
                 <SearchGrid inputHandler={this.searchInputHandler} searchValue={this.state.searchValue} keyHandler={this.EnterKeyHandler}
                     clickHandler={this.searchClickHandler} search = "movie"/>
-                <MovieGrid movieType = "Popular" movies = {this.state.popularMovies}/>
-                <MovieGrid movieType = "Now Playing" movies = {this.state.nowPlaying}/>
+                <Carousel movieType = {"Now Playing"} movies = {this.state.nowPlaying}/>
+                <Carousel movieType = {"Popular"} movies = {this.state.popularMovies}/>
             </div>
         )
     }

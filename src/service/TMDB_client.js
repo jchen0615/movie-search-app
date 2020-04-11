@@ -1,5 +1,5 @@
 const axios = require('axios')
-const key = require('./GlobalKey')
+const key = require('../GlobalKey')
 const promise = require('promise')
 
 //Client service file that handles all HTTP requests to TMDB API
@@ -12,7 +12,7 @@ function getDetailData(id){
             axios.get("/movie/"+id+"/similar"+key.apiKey),
             axios.get("/movie/"+id+"/reviews"+key.apiKey)
         ]).then(responseArr =>{
-            console.log(responseArr)
+            
             let detail = {
                 overview: responseArr[0].data.overview? responseArr[0].data.overview : "No overview available",
                 genre: responseArr[0].data.genres.length>0? responseArr[0].data.genres[0].name:"No information available",
@@ -22,11 +22,11 @@ function getDetailData(id){
                 video: responseArr[0].data.videos.results.find(element => element.type==="Trailer")? key.youtube+responseArr[0].data.videos.results.find(element => element.type==="Trailer").key:null
             }
          
-            const movieList = responseArr[1].data.results.slice(0,4).map(movie =>{
+            const movieList = responseArr[1].data.results.slice(0,12).map(movie =>{
                 return{
                     id: movie.id,
                     title: movie.title,
-                    poster: key.poster+movie.poster_path,
+                    poster: movie.poster_path? key.poster+movie.poster_path : null,
                     date: movie.release_date,
                     voteAverage: movie.vote_count>0? movie.vote_average:"No rating available"
                 }
@@ -46,7 +46,6 @@ function getDetailData(id){
             resolve({detail:detail, movieList:movieList, reviews:reviews})
     
         }).catch(error=>{
-            console.log(error)
             reject(error.response.data.status_message)
         })
     })
@@ -62,7 +61,7 @@ function getSearchResults(searchValue, pageNumber){
                 return{
                     id: movie.id,
                     title: movie.title,
-                    poster: key.poster+movie.poster_path,
+                    poster: movie.poster_path? key.poster+movie.poster_path : null,
                     date: movie.release_date,
                     voteAverage: movie.vote_count>0?movie.vote_average:"No rating available",
                     overview: movie.overview
@@ -94,7 +93,7 @@ function getMoviesByGenre(pageNumber, releaseYear, id){
             return{
                 id: movie.id,
                 title: movie.title,
-                poster: key.poster+movie.poster_path,
+                poster: movie.poster_path? key.poster+movie.poster_path : null,
                 date: movie.release_date,
                 voteAverage: movie.vote_count>0?movie.vote_average:"No rating available"
                 }
@@ -116,7 +115,7 @@ function getNowPlaying(pageNumber){
              return{
                  id: movie.id,
                  title: movie.title,
-                 poster: key.poster+movie.poster_path,
+                 poster: movie.poster_path? key.poster+movie.poster_path : null,
                  date: movie.release_date,
                  voteAverage: movie.vote_count>0?movie.vote_average:"No rating available"
                  }
@@ -138,17 +137,17 @@ function getHomePage(){
             axios.get("/movie/popular"+key.apiKey),
             axios.get("/movie/now_playing"+key.apiKey)
         ]).then(responseArr =>{
-            const popularList = responseArr[0].data.results.slice(0,4).map(movie =>{
+            const popularList = responseArr[0].data.results.slice(0,12).map(movie =>{
                 return{
                     id: movie.id,
                     title: movie.title,
-                    poster: key.poster+movie.poster_path,
+                    poster: movie.poster_path? key.poster+movie.poster_path : null,
                     date: movie.release_date,
                     voteAverage: movie.vote_average
                 }
             })
     
-            const nowPlayingList = responseArr[1].data.results.slice(0,4).map(movie =>{
+            const nowPlayingList = responseArr[1].data.results.slice(0,12).map(movie =>{
                 return{
                     id: movie.id,
                     title: movie.title,
