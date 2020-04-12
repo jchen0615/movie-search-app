@@ -11,6 +11,46 @@ Google Chrome is highly recommended.
 ### `npm test`
 To run unit testing that uses Jest Enzyme
 
+### Project Structure
+```bash
+├───public/
+├───src/
+│   ├───components/
+│   │   ├───AboutPage/
+│   │   ├───ErrorPage/
+│   │   ├───GeneralInfo/
+│   │   ├───Grids/
+│   │   ├───MovieList/
+│   │   ├───Reviews/
+│   │   ├───SearchList/
+│   │   └───UI/
+│   ├───containers/
+│   │   ├───Carousel/
+│   │   ├───DetailPage/
+│   │   ├───GenrePage/
+│   │   ├───Home/
+│   │   └───SearchResult/
+│   ├───images/
+│   ├───service/
+│   │   ├───CarouselSrvice/
+│   │   └───TMDB_client/
+│   ├───__mocks__/
+│   │   └───fileMock.js
+│   ├───AccessToken.json
+│   ├───App.css
+│   ├───App.js
+│   ├───App.test.js
+│   ├───GlobalKey.js
+│   ├───index.css
+│   ├───index.html
+│   ├───index.js
+│   └───jest.config.js
+├───.gitignore
+├───package-lock.json
+├───package.json
+├───README.md
+└───webpack.config.js
+```
 ### Quick Introduction
 This app allows you to browse collection of movies and their detail information (duration, released date, overview, trailer, similar movies, reviews, etc.)
 
