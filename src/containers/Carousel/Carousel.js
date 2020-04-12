@@ -1,14 +1,14 @@
 import React, {Component} from 'react'
-import MovieGrid from '../../components/Grids/MovieGrid'
+import MovieGrid from '../../components/Grids/MovieGrid/MovieGrid'
 import Spinner from '../../components/UI/Spinner/Spinner'
-import CarouselSerivce from '../../service/CarouselService'
+import CarouselSerivce from '../../service/CarouselSrvice/CarouselService'
 import './Carousel.css'
 class Carousel extends Component{
 
     _carouselService = new CarouselSerivce(4, this.props.movies.length)
 
     state={
-        showList: null,
+        showList: null
     }
 
     NextListHandler =()=>{   
@@ -35,9 +35,9 @@ class Carousel extends Component{
 
         return(
             <div className = 'Carousel'>
-                <button type='button' className = 'carousel-left-button' onClick={this.PrevListHandler}>&#8249;</button>
+                <button type='button' data-testid="carousel-left-button" className = 'carousel-left-button' onClick={this.PrevListHandler}>&#8249;</button>
                     <MovieGrid movieType = {this.props.movieType} movies = {this.state.showList}/>
-                <button type='button' className = 'carousel-right-button' onClick={this.NextListHandler}>&#8250;</button>
+                <button type='button' data-testid="carousel-right-button" className = 'carousel-right-button' onClick={this.NextListHandler}>&#8250;</button>
             </div>
         )
     }

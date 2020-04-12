@@ -7,12 +7,11 @@ import BackBtn from '../../components/UI/BackBtn/BackBtn'
 import Error from '../../components/ErrorPage/Error'
 import Carousel from '../Carousel/Carousel'
 import './Detail.css';
-const Client = require('../../service/TMDB_client')
+const Client = require('../../service/TMDB_client/TMDB_client')
 
 //Component that contains detail information for selected movie
 class Detail extends Component{
     state= {
-        initialRender: false,
         similarMovies: null,
         overview: null,
         genre: null,
@@ -28,7 +27,6 @@ class Detail extends Component{
     //Gets detail information for selected movie
     getDetail = (id) =>{
         Client.getDetailData(id).then((result)=>{
-            console.log(result.reviews)
             this.setState({
                 overview: result.detail.overview,
                 genre: result.detail.genre,
@@ -48,7 +46,6 @@ class Detail extends Component{
         })
         window.scrollTo(0, 0)
     }
-
 
 
     componentDidMount(){      

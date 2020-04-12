@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 import {BrowserRouter, Route} from 'react-router-dom';
-import Home from './containers/Home';
+import Home from './containers/Home/Home';
 import SearchResult from './containers/SearchResult/SearchResult';
 import Detail from './containers/DetailPage/Detail';
 import Genre from './containers/GenrePage/Genre'
@@ -11,7 +11,7 @@ import About from './components/AboutPage/AboutPage'
 function App() {
   return (
     <BrowserRouter>
-      <div className="App">
+      <div className="App" data-testid = "App">
         <Route path = "/" exact component={Home}/>
         <Route path = "/Detail/:id" exact render = {(props) =><Detail {...props}/>}/>
         <Route path = "/Search" exact render = {(props) => <SearchResult {...props}/>}/>

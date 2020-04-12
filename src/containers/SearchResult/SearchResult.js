@@ -5,7 +5,7 @@ import Spinner from '../../components/UI/Spinner/Spinner'
 import PageNavigation from '../../components/UI/PageNavigation/PageNavigation'
 import Error from '../../components/ErrorPage/Error'
 import './SearchResult.css'
-const Client = require('../../service/TMDB_client')
+const Client = require('../../service/TMDB_client/TMDB_client')
 
 //Renders Search Result page after a user search for keyword(s)
 class SearchResult extends Component {
@@ -64,8 +64,8 @@ class SearchResult extends Component {
         return(
             <div className="search-page">
                 <NavigationBar/>
-                <div className = "search-message-container">
-                <div className = "search-message">Showing {this.state.pageNumber} of {this.state.totalPages} pages for keyword: "{this.props.location.state.value}"</div> 
+                <div className = "search-message-container" data-testid = "search-message-container">
+                    <div className = "search-message" data-testid = "search-message">Showing {this.state.pageNumber} of {this.state.totalPages} pages for keyword: "{this.props.location.state.value}"</div> 
                 </div>
                 <SearchList list = {this.state.searchList}/>
                 <PageNavigation pageNumber = {this.state.pageNumber} lastPage = {this.state.lastPage} setState={(s,c)=>{this.setState(s, c)}}/>

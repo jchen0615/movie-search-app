@@ -7,7 +7,7 @@ class About extends Component{
         return(
             <div className = 'about-page'>
                 <Navigation/>
-                <div className ='about-text'>Hello there, <br/><br/><br/>
+                <div className ='about-text' data-testid = 'about-text'>Hello there, <br/><br/><br/>
                 this web app allows you to browse movies that are currently playing in theather or by genre. It also provides a search feature based on keywords.<br/>
                 <br/><br/>It leverages TMDB API to fetch such information as well as more detailed information for movies including overview, trailer, reviews, similar movies, etc. for movies. 
                 <br/><br/>Enjoy browsing :) -----Jing</div>

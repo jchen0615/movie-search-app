@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 import Navigation from '../../components/UI/NavigationBar/Navigation'
-import MovieGrid from '../../components/Grids/MovieGrid'
+import MovieGrid from '../../components/Grids/MovieGrid/MovieGrid'
 import Spinner from '../../components/UI/Spinner/Spinner'
 import PageNavigation from '../../components/UI/PageNavigation/PageNavigation'
 import Error from '../../components/ErrorPage/Error'
-import Client from '../../service/TMDB_client'
+import Client from '../../service/TMDB_client/TMDB_client'
 import './Genre.css'
 
 //Component that renders a 'genre' page

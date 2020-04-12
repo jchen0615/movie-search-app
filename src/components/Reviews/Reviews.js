@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import './Reviews.css'
 import Review from './Review/Review'
-import Spinner from '../UI/Spinner/Spinner'
 
 //Component that renders a list of 'Review' components in 'Detail' page
 class Reviews extends Component{
@@ -20,8 +19,8 @@ class Reviews extends Component{
 
         return(
             <div className = "reviews">
-                <div className = "header">Reviews</div>
-                <div className = "list_reviews">
+                <div className = "header" data-testid = "header">Reviews</div>
+                <div className = "list_reviews" data-testid = "list-reviews">
                     {reviewMsg}
                 </div>
             </div>
