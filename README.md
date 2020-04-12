@@ -49,5 +49,5 @@ This application leverages The Movie Database (TMDB) API. Please visit https://w
 ![Image description](https://github.com/jchen0615/movie-search-app/blob/master/public/images/detail3.PNG)
 
 
-**Credits**
+### Credits
 This product uses the TMDb API but is not endorsed or certified by TMDb. All data and images regarding to movies come from TMDb.
