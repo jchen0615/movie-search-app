@@ -36,7 +36,7 @@
   .menu:hover, Link:hover {
     background-color: #111;
     color: green;
-    font-size: 2.9vh;
+    font-size: 2.5vh;
     transition: color 0.2s, font-size 0.2s;
   }
   
@@ -46,7 +46,7 @@
     max-height: 100%;
     width: 4vh;
     display: block;
-    padding: 2vh 5vh;
+    padding: 2.5vh 5vh 2vh 5vh;
   }
 
   .genre-list{

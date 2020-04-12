@@ -120,10 +120,10 @@ function getNowPlaying(pageNumber){
                  }
              })
 
-            return({movieList: movieList, totalPage: response.data.total_pages})
+            resolve({movieList: movieList, totalPage: response.data.total_pages})
 
          }).catch((error)=>{
-            return(error.response.data.status_message)
+            reject(error.response.data.status_message)
          })
     })
 }

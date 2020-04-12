@@ -29,7 +29,7 @@
     "test": "jest --watch -o"
   },
   "keywords": [],
-  "author": "",
+  "author": "Jingjun Chen",
   "license": "ISC",
   "dependencies": {
     "axios": "^0.19.2",

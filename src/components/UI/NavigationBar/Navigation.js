@@ -8,7 +8,7 @@ class NavigationBar extends Component{
         return(
             <div className = "navigation-bar">
                 <ul>
-                    <li><img className = "logo" src = {require('../../../images/icon.png')} alt = "icon"/></li>
+                    <li><img className = "logo" src = {require('../../../images/TMDbLogo.png')} alt = "icon"/></li>
                     <li><Link to = "/" className = "menu">Home</Link></li>
                     <li className = "menu" id = "genre-menu">Genre</li>
                     <li><Link className = "menu" to = {{ pathname: "/Now_Playing", state:{id: null, now: true}}}>Now Playing</Link></li>
