@@ -1,3 +1,4 @@
+const promise = require('promise')
 const axios = require('axios')
 const key = require('../../GlobalKey')
 
@@ -5,7 +6,8 @@ const key = require('../../GlobalKey')
     
 //Make axios get request to TMDB API to get detail information for selected movie
 function getDetailData(id){
-    return axios.all([
+    return new promise((resolve, reject)=>{
+        axios.all([
             axios.get("/movie/"+id+key.apiKey+"&append_to_response=videos"),
             axios.get("/movie/"+id+"/similar"+key.apiKey),
             axios.get("/movie/"+id+"/reviews"+key.apiKey)
@@ -41,16 +43,18 @@ function getDetailData(id){
                 }
             })
             
-            return ({detail:detail, movieList:movieList, reviews:reviews})
+            resolve({detail:detail, movieList:movieList, reviews:reviews})
     
         }).catch(error=>{
-            return (error.response.data.status_message)
+            reject(error.response.data.status_message)
         })
+    })
 }
 
 //Make axios get request to TMDB API to get search results
 function getSearchResults(searchValue, pageNumber){
-    return axios.get("/search/movie/"+key.apiKey+"&query="+searchValue+"&page="+pageNumber)
+    return new promise((resolve, reject)=>{
+        axios.get("/search/movie/"+key.apiKey+"&query="+searchValue+"&page="+pageNumber)
         .then( response =>{
 
             const movieList = response.data.results.map(movie =>{
@@ -70,16 +74,18 @@ function getSearchResults(searchValue, pageNumber){
                 totalPages: response.data.total_pages
             }
          
-            return(result)
+            resolve(result)
          })
          .catch((error)=>{
-            return(error.response.data.status_message)
+            reject(error.response.data.status_message)
          })
+    })
 }
 
 //Make axios get request to TMDB API to get movies by genre
 function getMoviesByGenre(pageNumber, releaseYear, id){
-    return axios.get("/discover/movie"+key.apiKey+"&sort_by=popularity.desc&page="+pageNumber+"&primary_release_year="
+    return new promise((resolve, reject)=>{
+        axios.get("/discover/movie"+key.apiKey+"&sort_by=popularity.desc&page="+pageNumber+"&primary_release_year="
         +releaseYear+"&with_genres="+id)
        .then(response =>{
         const movieList = response.data.results.map(movie =>{
@@ -92,15 +98,17 @@ function getMoviesByGenre(pageNumber, releaseYear, id){
                 }
             })
 
-            return({ movieList: movieList, totalPages: response.data.total_pages,})
+            resolve({ movieList: movieList, totalPages: response.data.total_pages,})
         }).catch((error)=>{
-            return(error.response.data.status_message)
+            reject(error.response.data.status_message)
         })
+    })  
 }
 
 //Make axios get request to TMDB API to get movies that are currently in theater
 function getNowPlaying(pageNumber){
-    return axios.get("/movie/now_playing"+key.apiKey+"&page="+pageNumber)
+    return new promise((resolve, reject)=>{
+        axios.get("/movie/now_playing"+key.apiKey+"&page="+pageNumber)
         .then(response =>{
          const movieList = response.data.results.map(movie =>{
              return{
@@ -117,12 +125,14 @@ function getNowPlaying(pageNumber){
          }).catch((error)=>{
             return(error.response.data.status_message)
          })
+    })
 }
 
 //Make axios get requests to TMDB API to get data needed to render home page
 function getHomePage(){
    
-    return axios.all([
+    return new promise(function(resolve, reject){
+        axios.all([
             axios.get("/movie/popular"+key.apiKey),
             axios.get("/movie/now_playing"+key.apiKey)
         ]).then(responseArr =>{
@@ -146,10 +156,11 @@ function getHomePage(){
                 }
             })
     
-            return({nowPlaying: nowPlayingList, popularMovies: popularList})
+            resolve({nowPlaying: nowPlayingList, popularMovies: popularList})
         }).catch((error)=>{
-            return(error.response.data.status_message)
+            reject(error.response.data.status_message)
         })
+    })
 }
 
 module.exports = {
