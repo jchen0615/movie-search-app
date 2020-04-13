@@ -57,8 +57,8 @@ This app allows you to browse collection of movies and their detail information 
 This web application is a personal project for the sole puporse of practicing React. It is in no way intended for any profit-making.
 Please feel free to leverage any code as you would like.
 
-In short, this web app leaverages React and React-Router-Dom to implement a single-page web application with a multi-page feeling.
-Axios is being used in regards of sending HTTP requests to The Movie Database (TMDB) API to retrieve information regarding movies.
+In short, this web app leaverages **React** to implement a single-page web application with a multi-page feeling.
+**Axios** is being used in regards of sending HTTP requests to The Movie Database (TMDB) API to retrieve information regarding movies.**Jest Enzyme** is leveraged for unit testing.
 
 ### Quick Setup
 This application leverages The Movie Database (TMDB) API. Please visit https://www.themoviedb.org/?language=en-US for account signup and request for an **API key** before using this application. After you have completed registration and received an API key, open up **'AccessToken.json'** file that is located in 'src' folder and replace 'Enter your API key here' with your API key. You are now ready to run npm start in the terminal to start up the application. 
