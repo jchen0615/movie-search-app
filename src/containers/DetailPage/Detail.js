@@ -2,11 +2,12 @@ import React, { Component } from 'react';
 import NavigationBar from '../../components/UI/NavigationBar/Navigation';
 import GeneralInfo from '../../components/GeneralInfo/GeneralInfo';
 import Reviews from '../../components/Reviews/Reviews';
-import Spinner from '../../components/UI/Spinner/Spinner'
-import BackBtn from '../../components/UI/BackBtn/BackBtn'
-import Error from '../../components/ErrorPage/Error'
-import Carousel from '../Carousel/Carousel'
+import Spinner from '../../components/UI/Spinner/Spinner';
+import BackBtn from '../../components/UI/BackBtn/BackBtn';
+import Error from '../../components/ErrorPage/Error';
+import Carousel from '../Carousel/Carousel';
 import './Detail.css';
+const promise = require('promise')
 const Client = require('../../service/TMDB_client/TMDB_client')
 
 //Component that contains detail information for selected movie

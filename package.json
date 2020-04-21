@@ -33,6 +33,7 @@
   "license": "ISC",
   "dependencies": {
     "axios": "^0.19.2",
+    "prettier": "^2.0.4",
     "promise": "^8.1.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",

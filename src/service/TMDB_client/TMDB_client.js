@@ -6,11 +6,12 @@ const key = require('../../GlobalKey')
     
 //Make axios get request to TMDB API to get detail information for selected movie
 function getDetailData(id){
+    console.log("NOT MOCK ---------------")
     return new promise((resolve, reject)=>{
         axios.all([
-            axios.get("/movie/"+id+key.apiKey+"&append_to_response=videos"),
-            axios.get("/movie/"+id+"/similar"+key.apiKey),
-            axios.get("/movie/"+id+"/reviews"+key.apiKey)
+            axios.get(`/movie/${id}${key.apiKey}&append_to_response=videos`),
+            axios.get(`/movie/${id}/similar${key.apiKey}`),
+            axios.get(`/movie/${id}/reviews${key.apiKey}`)
         ]).then(responseArr =>{
             
             let detail = {
@@ -54,7 +55,7 @@ function getDetailData(id){
 //Make axios get request to TMDB API to get search results
 function getSearchResults(searchValue, pageNumber){
     return new promise((resolve, reject)=>{
-        axios.get("/search/movie/"+key.apiKey+"&query="+searchValue+"&page="+pageNumber)
+        axios.get(`/search/movie/${key.apiKey}&query=${searchValue}&page=${pageNumber}`)
         .then( response =>{
 
             const movieList = response.data.results.map(movie =>{
@@ -85,8 +86,7 @@ function getSearchResults(searchValue, pageNumber){
 //Make axios get request to TMDB API to get movies by genre
 function getMoviesByGenre(pageNumber, releaseYear, id){
     return new promise((resolve, reject)=>{
-        axios.get("/discover/movie"+key.apiKey+"&sort_by=popularity.desc&page="+pageNumber+"&primary_release_year="
-        +releaseYear+"&with_genres="+id)
+        axios.get(`/discover/movie${key.apiKey}&sort_by=popularity.desc&page=${pageNumber}&primary_release_year=${releaseYear}&with_genres=${id}`)
        .then(response =>{
         const movieList = response.data.results.map(movie =>{
             return{
@@ -108,7 +108,7 @@ function getMoviesByGenre(pageNumber, releaseYear, id){
 //Make axios get request to TMDB API to get movies that are currently in theater
 function getNowPlaying(pageNumber){
     return new promise((resolve, reject)=>{
-        axios.get("/movie/now_playing"+key.apiKey+"&page="+pageNumber)
+        axios.get(`/movie/now_playing${key.apiKey}&page=${pageNumber}`)
         .then(response =>{
          const movieList = response.data.results.map(movie =>{
              return{
@@ -133,8 +133,8 @@ function getHomePage(){
    
     return new promise(function(resolve, reject){
         axios.all([
-            axios.get("/movie/popular"+key.apiKey),
-            axios.get("/movie/now_playing"+key.apiKey)
+            axios.get(`/movie/popular${key.apiKey}`),
+            axios.get(`/movie/now_playing${key.apiKey}`)
         ]).then(responseArr =>{
             const popularList = responseArr[0].data.results.slice(0,12).map(movie =>{
                 return{

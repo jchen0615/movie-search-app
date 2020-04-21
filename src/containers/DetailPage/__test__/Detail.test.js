@@ -96,3 +96,21 @@ describe("'Detail'", ()=>{
         expect(wrapper.find("Carousel").props().movies).toBe(test_state.similarMovies)
     })
 })
+
+jest.mock("../../../service/TMDB_client/TMDB_client")
+test("Fetches movie detail from TMDb", (done)=>{
+    const wrapper = shallow(<Detail {...test_props}/>);
+    setTimeout(()=>{
+        wrapper.update();
+        const state = wrapper.instance().state;
+        expect(state.overview).toEqual("test-overview");
+        expect(state.genre).toEqual("test-genre");
+        expect(state.tagline).toEqual("test-tagline");
+        expect(state.hours).toEqual("test-hours");
+        expect(state.minutes).toEqual("test-minutes");
+        expect(state.video).toEqual("test-video");
+        expect(state.similarMovies).toEqual(["test-movie-1", "test-movie-2"]);
+        expect(state.reviews).toEqual(["test-review-1, test-review-2"])
+        done();
+    })
+})
