@@ -4,6 +4,7 @@ import EnzymeAdapter from 'enzyme-adapter-react-16'
 import Genre from '../Genre'
 
 Enzyme.configure({adapter: new EnzymeAdapter()})
+window.scrollTo = jest.fn();
 
 const test_state = {
     id: "test-id",
@@ -16,10 +17,11 @@ const test_state = {
     errorMsg: null
 }
 
-const test_props_true = {
+const test_props_now = {
     location:{
         state: {
-            now: true
+            now: true,
+            id: null
         }
     },
     match:{
@@ -29,10 +31,11 @@ const test_props_true = {
     }
 }
 
-const test_props_false = {
+const test_props_genre = {
     location:{
         state: {
-            now: false
+            now: false,
+            id: "test-id"
         }
     },
     match:{
@@ -42,8 +45,16 @@ const test_props_false = {
     }
 }
 
+const error_props ={
+    location:{
+        state:{
+            id: "test_error"
+        }
+    }
+}
+
 describe("'Genre page'", ()=>{
-    const wrapper = shallow(<Genre {...test_props_false}/>, {disableLifecycleMethods: true})
+    const wrapper = shallow(<Genre {...test_props_genre}/>, {disableLifecycleMethods: true})
     wrapper.instance().getMoviesByGenre = jest.fn()
 
     test("renders correctly when still loading", ()=>{
@@ -55,7 +66,7 @@ describe("'Genre page'", ()=>{
         wrapper.setState({loading:false})
         expect(wrapper.find("NavigationBar").length).toBe(1)
         expect(wrapper.find("MovieGrid").length).toBe(1)
-        expect(wrapper.find("MovieGrid").props().movieType).toBe(test_props_false.match.params.genre)
+        expect(wrapper.find("MovieGrid").props().movieType).toBe(test_props_genre.match.params.genre)
         expect(wrapper.find("MovieGrid").props().movies).toBe(test_state.movies)
         expect(wrapper.find("PageNavigation").length).toBe(1)
     })
@@ -73,8 +84,9 @@ describe("'Genre page'", ()=>{
     })
 })
 
+
 describe("'Now Playing page'", ()=>{
-    const wrapper = shallow(<Genre {...test_props_true}/>, {disableLifecycleMethods: true})
+    const wrapper = shallow(<Genre {...test_props_now}/>, {disableLifecycleMethods: true})
     wrapper.instance().getNowPlaying = jest.fn()
 
     test("renders correctly when still loading", ()=>{
@@ -101,5 +113,42 @@ describe("'Now Playing page'", ()=>{
         wrapper.instance().componentDidMount()
         expect(spy).toHaveBeenCalled()
         spy.mockClear()
+    })
+})
+
+jest.mock("../../../service/TMDB_client/TMDB_client")
+describe("Fetch data from TMDb", ()=>{
+
+    test("'Genre age' fetches data from TMDb API", (done)=>{
+        const wrapper = shallow(<Genre {...test_props_genre}/>)
+        setTimeout(()=>{
+            wrapper.update()
+            const state = wrapper.instance().state;
+            expect(state.movies).toEqual(["test_movie_1", "test_movie_2"]);
+            expect(state.totalPages).toEqual("3");
+            done();
+        })
+    })
+
+    test("'Now Playing' page fetches data from TMDb API", (done)=>{
+        const wrapper = shallow(<Genre {...test_props_now}/>)
+        setTimeout(()=>{
+            wrapper.update()
+            const state = wrapper.instance().state;
+            expect(state.movies).toEqual(["test_movie_1", "test_movie_2"]);
+            expect(state.totalPages).toEqual("3");
+            done();
+        })
+    })
+
+    test("receives error message if request to TMDb fails", (done)=>{
+        const wrapper = shallow(<Genre {...error_props}/>);
+        setTimeout(()=>{
+            wrapper.update();
+            expect(wrapper.instance().state.errorMsg).toEqual("test_error");
+            expect(wrapper.find("Spinner").length).toBe(0)
+            expect(wrapper.find("Error").length).toBe(1)
+            done();
+        })
     })
 })

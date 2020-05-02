@@ -52,8 +52,6 @@ class Home extends Component {
             })
         })
         .catch((error)=>{
-            console.log("IN ERROR")
-            console.log("IN ERROR"+error)
             this.setState({
                 errorMsg: error
             })

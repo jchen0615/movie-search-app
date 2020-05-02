@@ -1,3 +1,4 @@
+
 import React from 'react'
 import Enzyme, {shallow, mount} from 'enzyme'
 import EnzymeAdapter from 'enzyme-adapter-react-16'
@@ -8,11 +9,11 @@ Enzyme.configure({adapter: new EnzymeAdapter()})
 const test_props = {
     location:{
         state:{
-            id: "test-id",
-            title: "test-title",
-            date: "test-date",
-            voteAverage: "test-vote",
-            poster: "test-poster",
+            id: "test_id",
+            title: "test_title",
+            date: "test_date",
+            voteAverage: "test_vote",
+            poster: "test_poster",
         }
     },
     history:{
@@ -20,15 +21,23 @@ const test_props = {
     }
 }
 
+const error_props ={
+    location:{
+        state:{
+            id: "test_error"
+        }
+    }
+}
+
 const test_state = {
-    similarMovies: ["test-movie-1", "test-movie-2"],
-    overview: "test-overview",
-    genre: "test-genre",
-    tagline: "test-tagline",
-    hours: "test-horus",
-    minutes: "test-minutes",
-    video: "test-video",
-    reviews: "test-reviews",
+    similarMovies: ["test_movie-1", "test_movie-2"],
+    overview: "test_overview",
+    genre: "test_genre",
+    tagline: "test_tagline",
+    hours: "test_horus",
+    minutes: "test_minutes",
+    video: "test_video",
+    reviews: "test_reviews",
     errorMsg: null,
     Loaded:true
 }
@@ -98,19 +107,36 @@ describe("'Detail'", ()=>{
 })
 
 jest.mock("../../../service/TMDB_client/TMDB_client")
-test("Fetches movie detail from TMDb", (done)=>{
-    const wrapper = shallow(<Detail {...test_props}/>);
-    setTimeout(()=>{
-        wrapper.update();
-        const state = wrapper.instance().state;
-        expect(state.overview).toEqual("test-overview");
-        expect(state.genre).toEqual("test-genre");
-        expect(state.tagline).toEqual("test-tagline");
-        expect(state.hours).toEqual("test-hours");
-        expect(state.minutes).toEqual("test-minutes");
-        expect(state.video).toEqual("test-video");
-        expect(state.similarMovies).toEqual(["test-movie-1", "test-movie-2"]);
-        expect(state.reviews).toEqual(["test-review-1, test-review-2"])
-        done();
+describe("Detail page fetch", ()=>{
+
+    window.scrollTo = jest.fn();
+
+    test("fetches movie detail from TMDb", (done)=>{
+        const wrapper = shallow(<Detail {...test_props}/>);
+        setTimeout(()=>{
+            wrapper.update();
+            const state = wrapper.instance().state;
+            expect(state.overview).toEqual("test_overview");
+            expect(state.genre).toEqual("test_genre");
+            expect(state.tagline).toEqual("test_tagline");
+            expect(state.hours).toEqual("test_hours");
+            expect(state.minutes).toEqual("test_minutes");
+            expect(state.video).toEqual("test_video");
+            expect(state.similarMovies).toEqual(["test_movie_1", "test_movie_2"]);
+            expect(state.reviews).toEqual(["test_review_1, test_review_2"])
+            done();
+        })
     })
+
+    test("receives error message if request to TMDb fails", (done)=>{
+        const wrapper = shallow(<Detail {...error_props}/>);
+        setTimeout(()=>{
+            wrapper.update();
+            expect(wrapper.instance().state.errorMsg).toEqual("test_error");
+            expect(wrapper.find("Spinner").length).toBe(0)
+            expect(wrapper.find("Error").length).toBe(1)
+            done();
+        })
+    })
+
 })

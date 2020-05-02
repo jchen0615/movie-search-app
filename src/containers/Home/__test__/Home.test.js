@@ -100,3 +100,20 @@ describe("Enter key handler", ()=>{
         expect(wrapper.state('search')).toBeTruthy()
     })    
 })
+
+//Mocks TMDb client
+jest.mock("../../../service/TMDB_client/TMDB_client")
+describe("'Home Page' fetches", ()=>{
+
+    test("Fetches data from TMDb API", (done)=>{
+        const wrapper = shallow(<Home />)
+        setTimeout(()=>{
+            wrapper.update()
+            const state = wrapper.instance().state;
+            expect(state.popularMovies).toEqual(["test_popular_movie_1", "test_popular_movie_2"])
+            expect(state.nowPlaying).toEqual(["test_now_playing_movie_1", "test_now_playing_movie_2"])
+            done();
+        })
+    })
+
+})

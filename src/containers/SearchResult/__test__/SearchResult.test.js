@@ -27,6 +27,16 @@ const test_props = {
     }
 }
 
+const error_props = {
+    location:{
+        state: {
+            value: "test-error"
+        }
+    }
+}
+
+window.scrollTo = jest.fn();
+
 describe("'Search Result'", ()=>{
     const wrapper = shallow(<SearchResult {...test_props}/>, {disableLifecycleMethods: true})
     wrapper.instance().getSearchResults = jest.fn()
@@ -55,5 +65,31 @@ describe("'Search Result'", ()=>{
         const spy = jest.spyOn(wrapper.instance(), 'getSearchResults')
         wrapper.instance().componentDidMount()
         expect(spy).toHaveBeenCalled()
+    })
+})
+
+jest.mock("../../../service/TMDB_client/TMDB_client")
+describe("'Search Result' fetch", ()=>{
+    const wrapper = shallow(<SearchResult {...test_props}/>)
+    test("Fetches data from TMDb API", (done)=>{
+        setTimeout(()=>{
+            wrapper.update();
+            const state = wrapper.instance().state;
+            expect(state.searchList).toEqual(["test_movie_1", "test_movie_2"]);
+            expect(state.totalPages).toEqual("3");
+            expect(state.totalResults).toEqual("25");
+            done();
+        })
+    })
+
+    test("receives error message if request to TMDb fails", (done)=>{
+        const wrapper = shallow(<SearchResult {...error_props}/>);
+        setTimeout(()=>{
+            wrapper.update();
+            expect(wrapper.instance().state.errorMsg).toEqual("test_error");
+            expect(wrapper.find("Spinner").length).toBe(0)
+            expect(wrapper.find("Error").length).toBe(1)
+            done();
+        })
     })
 })
