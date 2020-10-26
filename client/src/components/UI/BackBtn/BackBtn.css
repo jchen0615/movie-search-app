@@ -1,0 +1,15 @@
+.back-btn{
+    position: absolute;
+    top: 8vh;
+    left: 3vh;
+    font-size: 2.5vh;
+    font-weight: 400;
+    border:none;
+    outline: none;
+    transition: all .2s ease;
+}
+
+.back-btn:hover{
+    color: green;
+    transform: scale(1.2);
+}

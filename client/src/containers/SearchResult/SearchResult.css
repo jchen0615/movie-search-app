@@ -1,0 +1,48 @@
+.search-message-container{
+    width: 100%;
+    font-style: italic;
+}
+
+.search-message{
+    width: 80%;
+    font-size: 4vh;
+    text-align: left;
+    font-weight: 500;
+    margin: 8vh 15vh 2vh 15vh;
+    border-bottom: 0.1vh solid white;
+}
+
+.page-navigation{
+    border-top: 0.1vh solid white;
+    width: 80%;
+    margin: 10vh 10%;
+    font-size: 3vh;
+    font-weight: 300;
+}
+
+.prev-page{
+    left: 30%;
+}
+
+.current-page{
+    position: absolute;
+    left: 50%;
+    margin-top: 3vh;
+}
+
+.next-page{
+    right: 30%;
+}
+
+button{
+    position: absolute;
+    margin-top: 3vh;
+    background: transparent;
+    border: none;
+    font-size: 2.5vh;
+    transition: all .2s;
+}
+
+button:hover{
+    transform: scale(1.1);
+}

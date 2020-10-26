@@ -1,0 +1,15 @@
+.movie-list{
+    float:left;
+    height:100%;
+    width: 100%;
+    padding:0;
+    margin-top: 0;
+}
+
+.no-movies{
+    width: 100%;
+    font-size: 3vh;
+    margin-top: 5vh;
+    margin-left: 35%;
+    text-align: left;
+}
