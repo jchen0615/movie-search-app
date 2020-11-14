@@ -1,8 +1,7 @@
 const promise = require('promise')
 const axios = require('axios')
-//require('dotenv').config()
 const api_key = ""
-const key = require('../../../client/src/GlobalKey')
+const key = require('./GlobalKey')
 
 //Client service file that handles all HTTP requests to TMDB API
     
@@ -10,9 +9,9 @@ const key = require('../../../client/src/GlobalKey')
 function getDetailData(id){
     return new promise((resolve, reject)=>{
         axios.all([
-            axios.get(`/movie/${id}?api_key=${api_key}&append_to_response=videos`),
-            axios.get(`/movie/${id}/similar?api_key=${api_key}`),
-            axios.get(`/movie/${id}/reviews?api_key=${api_key}`)
+            axios.get(`https://api.themoviedb.org/3/movie/${id}?api_key=${api_key}&append_to_response=videos`),
+            axios.get(`https://api.themoviedb.org/3/movie/${id}/similar?api_key=${api_key}`),
+            axios.get(`https://api.themoviedb.org/3/movie/${id}/reviews?api_key=${api_key}`)
         ]).then(responseArr =>{
             
             let detail = {
@@ -48,7 +47,7 @@ function getDetailData(id){
             resolve({detail:detail, movieList:movieList, reviews:reviews})
     
         }).catch(error=>{
-            reject(error.response.data.status_message)
+            reject({errorCode: error.response.status, errorMsg:error.response.data.status_message})
         })
     })
 }
@@ -56,7 +55,7 @@ function getDetailData(id){
 //Make axios get request to TMDB API to get search results
 function getSearchResults(searchValue, pageNumber){
     return new promise((resolve, reject)=>{
-        axios.get(`/search/movie/?api_key=${api_key}&query=${searchValue}&page=${pageNumber}`)
+        axios.get(`https://api.themoviedb.org/3/search/movie/?api_key=${api_key}&query=${searchValue}&page=${pageNumber}`)
         .then( response =>{
 
             const movieList = response.data.results.map(movie =>{
@@ -79,7 +78,7 @@ function getSearchResults(searchValue, pageNumber){
             resolve(result)
          })
          .catch((error)=>{
-            reject(error.response.data.status_message)
+            reject({errorCode: error.response.status, errorMsg:error.response.data.status_message})
          })
     })
 }
@@ -87,7 +86,7 @@ function getSearchResults(searchValue, pageNumber){
 //Make axios get request to TMDB API to get movies by genre
 function getMoviesByGenre(pageNumber, releaseYear, id){
     return new promise((resolve, reject)=>{
-        axios.get(`/discover/movie?api_key=${api_key}&sort_by=popularity.desc&page=${pageNumber}&primary_release_year=${releaseYear}&with_genres=${id}`)
+        axios.get(`https://api.themoviedb.org/3/discover/movie?api_key=${api_key}&sort_by=popularity.desc&page=${pageNumber}&primary_release_year=${releaseYear}&with_genres=${id}`)
        .then(response =>{
         const movieList = response.data.results.map(movie =>{
             return{
@@ -101,7 +100,7 @@ function getMoviesByGenre(pageNumber, releaseYear, id){
 
             resolve({ movieList: movieList, totalPages: response.data.total_pages,})
         }).catch((error)=>{
-            reject(error.response.data.status_message)
+            reject({errorCode: error.response.status, errorMsg:error.response.data.status_message})
         })
     })  
 }
@@ -109,7 +108,7 @@ function getMoviesByGenre(pageNumber, releaseYear, id){
 //Make axios get request to TMDB API to get movies that are currently in theater
 function getNowPlaying(pageNumber){
     return new promise((resolve, reject)=>{
-        axios.get(`/movie/now_playing?api_key=${api_key}&page=${pageNumber}`)
+        axios.get(`https://api.themoviedb.org/3/movie/now_playing?api_key=${api_key}&page=${pageNumber}`)
         .then(response =>{
          const movieList = response.data.results.map(movie =>{
              return{
@@ -124,7 +123,7 @@ function getNowPlaying(pageNumber){
             resolve({movieList: movieList, totalPage: response.data.total_pages})
 
          }).catch((error)=>{
-            reject(error.response.data.status_message)
+            reject({errorCode: error.response.status, errorMsg:error.response.data.status_message})
          })
     })
 }
@@ -134,8 +133,8 @@ function getHomePage(){
    
     return new promise(function(resolve, reject){
         axios.all([
-            axios.get(`/movie/popular?api_key=${api_key}`),
-            axios.get(`/movie/now_playing?api_key=${api_key}`)
+            axios.get(`https://api.themoviedb.org/3/movie/popular?api_key=${api_key}`),
+            axios.get(`https://api.themoviedb.org/3/movie/now_playing?api_key=${api_key}`)
         ]).then(responseArr =>{
             const popularList = responseArr[0].data.results.slice(0,12).map(movie =>{
                 return{
@@ -159,8 +158,7 @@ function getHomePage(){
     
             resolve({nowPlaying: nowPlayingList, popularMovies: popularList})
         }).catch((error)=>{
-            console.log(error)
-            reject(error.response.data.status_message)
+            reject({errorCode: error.response.status, errorMsg:error.response.data.status_message})
         })
     })
 }

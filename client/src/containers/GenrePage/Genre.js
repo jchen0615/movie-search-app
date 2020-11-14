@@ -1,11 +1,11 @@
-import React, { Component } from 'react'
-import Navigation from '../../components/UI/NavigationBar/Navigation'
-import MovieGrid from '../../components/Grids/MovieGrid/MovieGrid'
-import Spinner from '../../components/UI/Spinner/Spinner'
-import PageNavigation from '../../components/UI/PageNavigation/PageNavigation'
-import Error from '../../components/ErrorPage/Error'
-import Client from '../../service/TMDB_client/TMDB_client'
-import './Genre.css'
+import React, { Component } from 'react';
+import Navigation from '../../components/UI/NavigationBar/Navigation';
+import MovieGrid from '../../components/Grids/MovieGrid/MovieGrid';
+import Spinner from '../../components/UI/Spinner/Spinner';
+import PageNavigation from '../../components/UI/PageNavigation/PageNavigation';
+import Error from '../../components/ErrorPage/Error';
+import axios from 'axios';
+import './Genre.css';
 
 //Component that renders a 'genre' page
 class Genre extends Component{
@@ -22,47 +22,47 @@ class Genre extends Component{
     }
     
     //Gets movies based on genre ID
-    getMoviesByGenre =(pageNumber, releaseYear, id)=>{
-        Client.getMoviesByGenre(pageNumber, releaseYear, id).then((result)=>{
+    getMoviesByGenre =()=>{
+        axios.get("http://localhost:5000/api/genre", {params: {pageNumber:this.state.pageNumber, releaseYear:this.state.releaseYear, id:this.state.id}}).then(response =>{
             this.setState({
-                movies:result.movieList,
-                totalPages: result.totalPages,
-                lastPage: this.state.pageNumber===result.totalPages? true: false,
+                movies:response.data.movieList,
+                totalPages: response.data.totalPages,
+                lastPage: this.state.pageNumber===response.data.totalPages? true: false,
                 loading: false
             })
-            window.scrollTo(0, 0)
+            window.scrollTo(0, 0);
         }).catch((error)=>{
             this.setState({
-                errorMsg:error,
+                errorMsg: error.response.data.errorMsg,
                 loading: false
             })
         })
     }
 
     //Gets movies that are currently playing in theater
-    getNowPlaying =(pageNumber)=>{
-        Client.getNowPlaying(pageNumber).then((result)=>{
+    getNowPlaying =()=>{
+        axios.get("http://localhost:5000/api/now_playing", {params: {pageNumber: this.state.pageNumber}}).then(response =>{
             this.setState({
-                movies:result.movieList,
-                totalPages: result.totalPages,
-                lastPage: this.state.pageNumber===result.totalPages? true: false,
+                movies:response.data.movieList,
+                totalPages: response.data.totalPages,
+                lastPage: this.state.pageNumber===response.data.totalPages? true: false,
                 loading: false
             })
-            window.scrollTo(0, 0)
         }).catch((error)=>{
             this.setState({
-                errorMsg: error,
+                errorMsg: error.response.data.errorMsg,
                 loading: false
             })
         })
+        window.scrollTo(0, 0);
     }
 
     //Render page based on wheterh a 'genre' page or 'now playing' page is accessed
     componentDidMount(){
         if(!this.props.location.state.now)
-            this.getMoviesByGenre(this.state.pageNumber, this.state.releaseYear, this.state.id)
+            this.getMoviesByGenre()
         else
-            this.getNowPlaying(this.state.pageNumber)
+            this.getNowPlaying()
     }
 
     //Update if genre ID has changed
@@ -73,13 +73,15 @@ class Genre extends Component{
     componentDidUpdate(prevProps, prevState){
         if(this.state.pageNumber!==prevState.pageNumber)
             if(!this.props.location.state.now)
-                this.getMoviesByGenre(this.state.pageNumber, this.state.releaseYear, this.state.id)
+                this.getMoviesByGenre()
             else
-                this.getNowPlaying(this.state.pageNumber)
+                this.getNowPlaying()
     }
 
     render(){
 
+        //Display error message if error occurs
+        //Display spinner while loading for data
         if(this.state.errorMsg){
             return <Error msg = {this.state.errorMsg}/>
         }

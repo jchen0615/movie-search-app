@@ -7,8 +7,7 @@ import BackBtn from '../../components/UI/BackBtn/BackBtn';
 import Error from '../../components/ErrorPage/Error';
 import Carousel from '../Carousel/Carousel';
 import './Detail.css';
-const promise = require('promise')
-const Client = require('../../service/TMDB_client/TMDB_client')
+import axios from 'axios';
 
 //Component that contains detail information for selected movie
 class Detail extends Component{
@@ -22,48 +21,50 @@ class Detail extends Component{
         video: null,
         reviews: null,
         errorMsg: null,
-        Loaded:false
+        loading:true
     }
 
     //Gets detail information for selected movie
-    getDetail = (id) =>{
-        Client.getDetailData(id).then((result)=>{
+    getDetail = () =>{
+        axios.get("http://localhost:5000/api/detail", {params: {id:this.props.location.state.id}}).then(response =>{
             this.setState({
-                overview: result.detail.overview,
-                genre: result.detail.genre,
-                tagline: result.detail.tagline,
-                hours: result.detail.hours,
-                minutes: result.detail.minutes,
-                video: result.detail.video,
-                similarMovies: result.movieList,
-                reviews: result.reviews,
-                Loaded: true
+                overview: response.data.detail.overview,
+                genre: response.data.detail.genre,
+                tagline: response.data.detail.tagline,
+                hours: response.data.detail.hours,
+                minutes: response.data.detail.minutes,
+                video: response.data.detail.video,
+                similarMovies: response.data.movieList,
+                reviews: response.data.reviews,
+                loading: false
             })
         }).catch((error)=>{
             this.setState({
-                errorMsg: error,
-                Loaded: true
+                errorMsg: error.response.data.errorMsg,
+                loading: false
             })
-        })
-        window.scrollTo(0, 0)
-    }
+        });
+        window.scrollTo(0, 0);
+    };
 
 
     componentDidMount(){      
-        this.getDetail(this.props.location.state.id)
+        this.getDetail()
     }
 
     componentDidUpdate(prevProps){
         if(this.props.location.state.id!==prevProps.location.state.id)
-            this.getDetail(this.props.location.state.id)
+            this.getDetail()
     }
 
     render(){
 
+        //Display error message if error occurs
+        //Display spinner while loading for data
         if(this.state.errorMsg){
             return <div><Error msg = {this.state.errorMsg}/></div>
         }
-        else if(!this.state.Loaded){
+        else if(this.state.loading){
             return <Spinner/>
         }
 

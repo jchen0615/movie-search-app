@@ -18,7 +18,7 @@ class Home extends Component {
         searchValue: null,
         search: false,
         errorMsg: null,
-        loaded: false
+        loading: true
     }
 
     //Handles click on search button
@@ -44,48 +44,34 @@ class Home extends Component {
         }
     }
 
-    //Fetch data through client service file
-    /*
-    getData =()=>{
-        Client.getHomePage().then((result)=>{
+    //Send get request to backend
+    getHome =()=>{
+        axios.get("http://localhost:5000/api/home").then(response =>{
             this.setState({
-                nowPlaying: result.nowPlaying,
-                popularMovies: result.popularMovies,
-                loaded: true
-            })
-        })
-        .catch((error)=>{
-            this.setState({
-                errorMsg: error
-            })
-        })
-    }
-*/
-    getData =async()=>{
-        
-        await axios.get('/api/home').then(response =>{
-            this.setState({
-                nowPlaying: response.nowPlaying,
-                popularMovies: response.popularMovies,
-                loaded: true
+                nowPlaying: response.data.nowPlaying,
+                popularMovies: response.data.popularMovies,
+                loading: false
             })
         }).catch((error)=>{
             this.setState({
-                errorMsg: error
+                errorMsg: error.response.data.errorMsg,
+                loading: false
             })
         })
     }
 
     componentDidMount(){
-       this.getData()
+       this.getHome()
     }
 
     render(){
          
+        //Display error message if error occurs
+        //Display spinner while loading for data
         if(this.state.errorMsg){
             return <Error data-test= "error" msg ={this.state.errorMsg}/>
         }
-        else if(!this.state.loaded){
+        else if(this.state.loading){
             return <Spinner data-testid="spinner"/>
         }
 
