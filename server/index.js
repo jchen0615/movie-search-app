@@ -1,6 +1,4 @@
-const keys = require('./keys');
 const express = require('express');
-const axios = require('axios')
 const cors = require('cors');
 const TMDB_client = require('./TMDB_client');
 const bodyParser = require('body-parser');
@@ -13,7 +11,7 @@ app.use(cors());
 app.use(bodyParser.json());
 
 //Send get request to TMDb API to fetch data needed for frontend homepage
-app.get('/api/home', (req, res) => {
+app.get('/home', (req, res) => {
     TMDB_client.getHomePage().then((response)=>{
         res.send({
             nowPlaying: response.nowPlaying,
@@ -25,7 +23,7 @@ app.get('/api/home', (req, res) => {
 });
 
 //Send get request to TMDb API to fetch search result based on keyword entered
-app.get('/api/search', (req, res) => {
+app.get('/search', (req, res) => {
     TMDB_client.getSearchResults(req.query.value, req.query.pageNumber).then((response)=>{
         res.send({
             movieList: response.movieList,
@@ -38,7 +36,7 @@ app.get('/api/search', (req, res) => {
 });
 
 //Send get request to TMDb API to fetch movies by genre
-app.get('/api/genre', (req, res) => {
+app.get('/genre', (req, res) => {
     TMDB_client.getMoviesByGenre(req.query.pageNumber, req.query.releaseYear, req.query.id).then((response)=>{
         res.send({
             movieList:response.movieList,
@@ -50,7 +48,7 @@ app.get('/api/genre', (req, res) => {
 });
 
 //Send get request to TMDb API to fetch movies that are now playing
-app.get('/api/now_playing', (req, res) => {
+app.get('/now_playing', (req, res) => {
     TMDB_client.getNowPlaying(req.query.pageNumber).then((response)=>{
         res.send({
             movieList:response.movieList,
@@ -62,7 +60,7 @@ app.get('/api/now_playing', (req, res) => {
 });
 
 //Send get request to TMDb API to fetch details for selected movie
-app.get('/api/detail', (req, res) => {
+app.get('/detail', (req, res) => {
     TMDB_client.getDetailData(req.query.id).then((response)=>{
         res.send({
             detail: response.detail,

@@ -22,7 +22,7 @@ class SearchResult extends Component {
 
     //Gets a list of movies based on search input and page number
     getSearchResults =(value, page)=>{
-        axios.get("http://localhost:5000/api/search", {params: {value: this.props.location.state.value, pageNumber: this.state.pageNumber}}).then(response =>{
+        axios.get("/api/search", {params: {value: this.props.location.state.value, pageNumber: this.state.pageNumber}}).then(response =>{
             this.setState({
                 movieList: response.data.movieList,
                 totalResults: response.data.totalResults,

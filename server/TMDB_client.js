@@ -1,7 +1,7 @@
 const promise = require('promise')
 const axios = require('axios')
 const api_key = ""
-const key = require('./GlobalKey')
+const keys = require('./keys');
 
 //Client service file that handles all HTTP requests to TMDB API
     
@@ -20,14 +20,14 @@ function getDetailData(id){
                 tagline: responseArr[0].data.tagline? responseArr[0].data.tagline:"",
                 hours: responseArr[0].data.runtime>0? Math.floor(parseInt(responseArr[0].data.runtime, 10)/60): null,
                 minutes: responseArr[0].data.runtime>0? Math.floor(parseInt(responseArr[0].data.runtime, 10)%60): null,
-                video: responseArr[0].data.videos.results.find(element => element.type==="Trailer")? key.youtube+responseArr[0].data.videos.results.find(element => element.type==="Trailer").key:null
+                video: responseArr[0].data.videos.results.find(element => element.type==="Trailer")? keys.youtubeString+responseArr[0].data.videos.results.find(element => element.type==="Trailer").key:null
             }
          
             const movieList = responseArr[1].data.results.slice(0,12).map(movie =>{
                 return{
                     id: movie.id,
                     title: movie.title,
-                    poster: movie.poster_path? key.poster+movie.poster_path : null,
+                    poster: movie.poster_path? keys.posterString+movie.poster_path : null,
                     date: movie.release_date,
                     voteAverage: movie.vote_count>0? movie.vote_average:"No rating available"
                 }
@@ -62,7 +62,7 @@ function getSearchResults(searchValue, pageNumber){
                 return{
                     id: movie.id,
                     title: movie.title,
-                    poster: movie.poster_path? key.poster+movie.poster_path : null,
+                    poster: movie.poster_path? keys.posterString+movie.poster_path : null,
                     date: movie.release_date,
                     voteAverage: movie.vote_count>0?movie.vote_average:"No rating available",
                     overview: movie.overview
@@ -92,7 +92,7 @@ function getMoviesByGenre(pageNumber, releaseYear, id){
             return{
                 id: movie.id,
                 title: movie.title,
-                poster: movie.poster_path? key.poster+movie.poster_path : null,
+                poster: movie.poster_path? keys.posterString+movie.poster_path : null,
                 date: movie.release_date,
                 voteAverage: movie.vote_count>0?movie.vote_average:"No rating available"
                 }
@@ -114,7 +114,7 @@ function getNowPlaying(pageNumber){
              return{
                  id: movie.id,
                  title: movie.title,
-                 poster: movie.poster_path? key.poster+movie.poster_path : null,
+                 poster: movie.poster_path? keys.posterString+movie.poster_path : null,
                  date: movie.release_date,
                  voteAverage: movie.vote_count>0?movie.vote_average:"No rating available"
                  }
@@ -140,7 +140,7 @@ function getHomePage(){
                 return{
                     id: movie.id,
                     title: movie.title,
-                    poster: movie.poster_path? key.poster+movie.poster_path : null,
+                    poster: movie.poster_path? keys.posterString+movie.poster_path : null,
                     date: movie.release_date,
                     voteAverage: movie.vote_average
                 }
@@ -150,7 +150,7 @@ function getHomePage(){
                 return{
                     id: movie.id,
                     title: movie.title,
-                    poster: key.poster+movie.poster_path,
+                    poster: keys.posterString+movie.poster_path,
                     date: movie.release_date,
                     voteAverage: movie.vote_average
                 }
