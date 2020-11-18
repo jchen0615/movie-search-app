@@ -33,7 +33,7 @@ class Genre extends Component{
             window.scrollTo(0, 0);
         }).catch((error)=>{
             this.setState({
-                errorMsg: error.response.data.errorMsg,
+                errorMsg: error.response.data.errorMsg? error.response.data.errorMsg: error.response.statusText,
                 loading: false
             })
         })
@@ -50,7 +50,7 @@ class Genre extends Component{
             })
         }).catch((error)=>{
             this.setState({
-                errorMsg: error.response.data.errorMsg,
+                errorMsg: error.response.data.errorMsg? error.response.data.errorMsg: error.response.statusText,
                 loading: false
             })
         })

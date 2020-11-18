@@ -32,7 +32,7 @@ class SearchResult extends Component {
             })
         }).catch((error)=>{
             this.setState({
-                errorMsg: error.response.data.errorMsg,
+                errorMsg: error.response.data.errorMsg? error.response.data.errorMsg: error.response.statusText,
                 loading: false
             })
         });

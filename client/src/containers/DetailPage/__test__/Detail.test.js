@@ -1,8 +1,9 @@
 
-import React from 'react'
-import Enzyme, {shallow, mount} from 'enzyme'
-import EnzymeAdapter from 'enzyme-adapter-react-16'
-import Detail from '../Detail'
+import React from 'react';
+import Enzyme, {shallow, mount} from 'enzyme';
+import EnzymeAdapter from 'enzyme-adapter-react-16';
+import Detail from '../Detail';
+import {mockData as mockData} from '../../../../__mocks__/data.json';
 
 Enzyme.configure({adapter: new EnzymeAdapter()})
 
@@ -21,11 +22,25 @@ const test_props = {
     }
 }
 
-const error_props ={
+const api_error_props ={
     location:{
         state:{
-            id: "test_error"
+            id: "test_api_error"
         }
+    },
+    history:{
+        goBack: jest.fn()
+    }
+}
+
+const backend_error_props ={
+    location:{
+        state:{
+            id: "test_backend_error"
+        }
+    },
+    history:{
+        goBack: jest.fn()
     }
 }
 
@@ -39,7 +54,7 @@ const test_state = {
     video: "test_video",
     reviews: "test_reviews",
     errorMsg: null,
-    Loaded:true
+    loading:false
 }
 
 const findByTestId = (wrapper, val)=>{
@@ -62,32 +77,28 @@ describe("'Detail'", ()=>{
     })
 
     test("renders correctly with error message", ()=>{
-        wrapper.setState({errorMsg: "test-error"})
-        expect(wrapper.state().errorMsg).toBe("test-error")
-        expect(wrapper.find("Error").length).toBe(1)
-    })
-    
-    test("does not render loading when error message is not null", ()=>{
-        wrapper.setState({Loaded: false})
-        expect(wrapper.state().errorMsg).toBeTruthy()
-        expect(wrapper.find("Spinner").length).toBe(0)
+        wrapper.setState({errorMsg: "test_error_message", loading:false})
+        expect(wrapper.state().errorMsg).toBe("test_error_message");
+        expect(wrapper.find("Error").length).toBe(1);
+        expect(wrapper.find("Spinner").length).toBe(0);
     })
 
     test("render loading correctly when no error message received", ()=>{
-        wrapper.setState({Loaded: false})
+        wrapper.setState({loading: true})
         wrapper.setState({errorMsg: null})
         expect(wrapper.state().errorMsg).toBeFalsy()
         expect(wrapper.find("Spinner").length).toBe(1)
     })
 
     test("render correctly when finish loading", ()=>{
-        wrapper.setState(test_state)
+        wrapper.setState(test_state);
         expect(wrapper.find("Spinner").length).toBe(0)
         expect(wrapper.find("Error").length).toBe(0)
         expect(wrapper.find("BackBtn")).toBeTruthy()
         expect(wrapper.find("Navigation")).toBeTruthy()
         expect(wrapper.find("GeneralInfo").length).toBe(1)
         const info = wrapper.find("GeneralInfo").props()
+
         //Check general info has correct props
         expect(info.id).toBe(test_props.location.state.id)
         expect(info.title).toBe(test_props.location.state.title)
@@ -106,37 +117,53 @@ describe("'Detail'", ()=>{
     })
 })
 
-jest.mock("../../../service/TMDB_client/TMDB_client")
+
 describe("Detail page fetch", ()=>{
+     
+    const detail = mockData.detail.data.detail;
+    const movieList = mockData.detail.data.movieList;
+    const reviews = mockData.detail.data.reviews;
+    const errorMsg = mockData.error.response.data.errorMsg;
+    const backendErrorMsg = mockData.backendError.response.statusText;
 
     window.scrollTo = jest.fn();
-
+    jest.mock("axios")
     test("fetches movie detail from TMDb", (done)=>{
         const wrapper = shallow(<Detail {...test_props}/>);
         setTimeout(()=>{
             wrapper.update();
             const state = wrapper.instance().state;
-            expect(state.overview).toEqual("test_overview");
-            expect(state.genre).toEqual("test_genre");
-            expect(state.tagline).toEqual("test_tagline");
-            expect(state.hours).toEqual("test_hours");
-            expect(state.minutes).toEqual("test_minutes");
-            expect(state.video).toEqual("test_video");
-            expect(state.similarMovies).toEqual(["test_movie_1", "test_movie_2"]);
-            expect(state.reviews).toEqual(["test_review_1, test_review_2"])
+            expect(state.overview).toEqual(detail.overview);
+            expect(state.genre).toEqual(detail.genre);
+            expect(state.tagline).toEqual(detail.tagline);
+            expect(state.hours).toEqual(detail.hours);
+            expect(state.minutes).toEqual(detail.minutes);
+            expect(state.video).toEqual(detail.video);
+            expect(state.similarMovies).toEqual(movieList);
+            expect(state.reviews).toEqual(reviews)
             done();
         })
     })
 
-    test("receives error message if request to TMDb fails", (done)=>{
-        const wrapper = shallow(<Detail {...error_props}/>);
+    test("displays error message if request to TMDb fails", (done)=>{
+        const wrapper = shallow(<Detail {...api_error_props}/>);
         setTimeout(()=>{
             wrapper.update();
-            expect(wrapper.instance().state.errorMsg).toEqual("test_error");
+            expect(wrapper.instance().state.errorMsg).toEqual(errorMsg);
             expect(wrapper.find("Spinner").length).toBe(0)
             expect(wrapper.find("Error").length).toBe(1)
             done();
         })
     })
 
+    test("displays error message if request to backend fails", (done)=>{
+        const wrapper = shallow(<Detail {...backend_error_props}/>);
+        setTimeout(()=>{
+            wrapper.update();
+            expect(wrapper.instance().state.errorMsg).toEqual(backendErrorMsg);
+            expect(wrapper.find("Spinner").length).toBe(0)
+            expect(wrapper.find("Error").length).toBe(1)
+            done();
+        })
+    })
 })
