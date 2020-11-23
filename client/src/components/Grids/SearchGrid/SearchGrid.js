@@ -12,7 +12,7 @@ class SearchGrid extends Component{
                     placeholder = "Search for movie here.." 
                     onFocus={(e) => e.target.placeholder = ""} 
                     onBlur={(e) => e.target.placeholder = "Search for movie here.."}/>
-                <img src = {require("../../../images/Search.png")} data-testid = "search-icon" onClick = {this.props.clickHandler} alt = "search"/>
+                <img src = {require("../../../images/search.png")} data-testid = "search-icon" onClick = {this.props.clickHandler} alt = "search"/>
                 </div>
             </div>
         )
