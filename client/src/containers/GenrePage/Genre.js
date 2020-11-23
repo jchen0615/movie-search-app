@@ -23,7 +23,7 @@ class Genre extends Component{
     
     //Gets movies based on genre ID
     getMoviesByGenre =()=>{
-        axios.get("api/genre", {params: {pageNumber:this.state.pageNumber, releaseYear:this.state.releaseYear, id:this.state.id}}).then(response =>{
+        axios.get("/api/genre", {params: {pageNumber:this.state.pageNumber, releaseYear:this.state.releaseYear, id:this.state.id}}).then(response =>{
             this.setState({
                 movies:response.data.movieList,
                 totalPages: response.data.totalPages,
@@ -33,7 +33,7 @@ class Genre extends Component{
             window.scrollTo(0, 0);
         }).catch((error)=>{
             this.setState({
-                errorMsg: error.response.data.errorMsg? error.response.data.errorMsg: error.response.statusText,
+                errorMsg: error.response.data? error.response.data.errorMsg: error.response.statusText,
                 loading: false
             })
         })
@@ -50,7 +50,7 @@ class Genre extends Component{
             })
         }).catch((error)=>{
             this.setState({
-                errorMsg: error.response.data.errorMsg? error.response.data.errorMsg: error.response.statusText,
+                errorMsg: error.response.data? error.response.data.errorMsg: error.response.statusText,
                 loading: false
             })
         })

@@ -38,6 +38,85 @@
                 ]
             }
         },
+        "genre":{
+            "data":{
+                "movieList": [ 
+                    {
+                        "id": "test_id_1",
+                        "title": "test_title_1",
+                        "poster": "test_poster_1",
+                        "date": "test_release_date_1",
+                        "voteAverage": "test_vote_average_1" 
+                    },
+                    {
+                        "id": "test_id_2",
+                        "title": "test_title_2",
+                        "poster": "test_poster_2",
+                        "date": "test_release_date_2",
+                        "voteAverage": "test_vote_average_2" 
+                    }
+                ],
+                "totalPages":"test_total_pages"
+            }
+        },
+        "home":{
+            "data":{
+                "nowPlaying": [ 
+                    {
+                        "id": "test_nowPlaying_id_1",
+                        "title": "test_nowPlaying_title_1",
+                        "poster": "test_nowPlaying_poster_1",
+                        "date": "test_nowPlaying_release_date_1",
+                        "voteAverage": "test_nowPlaying_vote_average_1" 
+                    },
+                    {
+                        "id": "test_nowPlaying_id_2",
+                        "title": "test_nowPlaying_title_2",
+                        "poster": "test_nowPlaying_poster_2",
+                        "date": "test_nowPlaying_release_date_2",
+                        "voteAverage": "test_nowPlaying_vote_average_2" 
+                    }
+                ],
+                "popularMovies": [ 
+                    {
+                        "id": "test_popular_id_1",
+                        "title": "test_popular_title_1",
+                        "poster": "test_popular_poster_1",
+                        "date": "test_popular_release_date_1",
+                        "voteAverage": "test_popular_vote_average_1" 
+                    },
+                    {
+                        "id": "test_popular_id_2",
+                        "title": "test_popular_title_2",
+                        "poster": "test_popular_poster_2",
+                        "date": "test_popular_release_date_2",
+                        "voteAverage": "test_popular_vote_average_2" 
+                    }
+                ]
+            }
+        },
+        "search":{
+            "data":{
+                "movieList": [ 
+                    {
+                        "id": "test_id_1",
+                        "title": "test_title_1",
+                        "poster": "test_poster_1",
+                        "date": "test_release_date_1",
+                        "voteAverage": "test_vote_average_1" 
+                    },
+                    {
+                        "id": "test_id_2",
+                        "title": "test_title_2",
+                        "poster": "test_poster_2",
+                        "date": "test_release_date_2",
+                        "voteAverage": "test_vote_average_2" 
+                    }
+                ],
+                "totalPages":"test_total_pages",
+                "totalResults": "test_total_results"
+            }
+        },
         "error":{
             "response": {
                 "data":{

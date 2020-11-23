@@ -18,7 +18,7 @@ app.get('/home', (req, res) => {
             popularMovies: response.popularMovies
         }).status(200);
     }).catch((error)=>{
-        res.status(error.errorCode).send({errorMsg: error.errorMsg});
+        res.status(error.errorCode).send({errorMsg: error.errorMsg? error.errorMsg: "Unexpected error"});
     });
 });
 
@@ -68,7 +68,7 @@ app.get('/detail', (req, res) => {
             reviews: response.reviews
         }).status(200);
     }).catch((error)=>{
-        res.status(error.errorCode).send({errorMsg: error.errorMsg});
+        res.status(error.errorCode).send({errorMsg: error.errorMsg? error.errorMsg: "Unexpected error"});
     });
 });
 

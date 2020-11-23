@@ -1,7 +1,8 @@
-import React from 'react'
-import Enzyme, {shallow, mount} from 'enzyme'
-import EnzymeAdapter from 'enzyme-adapter-react-16'
-import Genre from '../Genre'
+import React from 'react';
+import Enzyme, {shallow, mount} from 'enzyme';
+import EnzymeAdapter from 'enzyme-adapter-react-16';
+import Genre from '../Genre';
+import {mockData as mockData} from '../../../../__mocks__/data.json';
 
 Enzyme.configure({adapter: new EnzymeAdapter()})
 window.scrollTo = jest.fn();
@@ -41,14 +42,6 @@ const test_props_genre = {
     match:{
         params:{
             genre: "Test genre"
-        }
-    }
-}
-
-const error_props ={
-    location:{
-        state:{
-            id: "test_error"
         }
     }
 }
@@ -116,16 +109,45 @@ describe("'Now Playing page'", ()=>{
     })
 })
 
-jest.mock("../../../service/TMDB_client/TMDB_client")
+
 describe("Fetch data from TMDb", ()=>{
 
-    test("'Genre age' fetches data from TMDb API", (done)=>{
+    const movieList = mockData.genre.data.movieList;
+    const totalPages = mockData.genre.data.totalPages;
+    const errorMsg = mockData.error.response.data.errorMsg;
+    const backendErrorMsg = mockData.backendError.response.statusText;
+
+    const api_error_props ={
+        location:{
+            state:{
+                id: "test_api_error"
+            }
+        },
+        history:{
+            goBack: jest.fn()
+        }
+    }
+    
+    const backend_error_props ={
+        location:{
+            state:{
+                id: "test_backend_error"
+            }
+        },
+        history:{
+            goBack: jest.fn()
+        }
+    }
+    
+    jest.mock("axios");
+    
+    test("'Genre page' fetches data from TMDb API", (done)=>{
         const wrapper = shallow(<Genre {...test_props_genre}/>)
         setTimeout(()=>{
             wrapper.update()
             const state = wrapper.instance().state;
-            expect(state.movies).toEqual(["test_movie_1", "test_movie_2"]);
-            expect(state.totalPages).toEqual("3");
+            expect(state.movies).toEqual(movieList);
+            expect(state.totalPages).toEqual(totalPages);
             done();
         })
     })
@@ -135,17 +157,28 @@ describe("Fetch data from TMDb", ()=>{
         setTimeout(()=>{
             wrapper.update()
             const state = wrapper.instance().state;
-            expect(state.movies).toEqual(["test_movie_1", "test_movie_2"]);
-            expect(state.totalPages).toEqual("3");
+            expect(state.movies).toEqual(movieList);
+            expect(state.totalPages).toEqual(totalPages);
             done();
         })
     })
 
-    test("receives error message if request to TMDb fails", (done)=>{
-        const wrapper = shallow(<Genre {...error_props}/>);
+    test("displays error message if request to TMDb fails", (done)=>{
+        const wrapper = shallow(<Genre {...api_error_props}/>);
         setTimeout(()=>{
             wrapper.update();
-            expect(wrapper.instance().state.errorMsg).toEqual("test_error");
+            expect(wrapper.instance().state.errorMsg).toEqual(errorMsg);
+            expect(wrapper.find("Spinner").length).toBe(0)
+            expect(wrapper.find("Error").length).toBe(1)
+            done();
+        })
+    })
+
+    test("displays error message if request to backend fails", (done)=>{
+        const wrapper = shallow(<Genre {...backend_error_props}/>);
+        setTimeout(()=>{
+            wrapper.update();
+            expect(wrapper.instance().state.errorMsg).toEqual(backendErrorMsg);
             expect(wrapper.find("Spinner").length).toBe(0)
             expect(wrapper.find("Error").length).toBe(1)
             done();

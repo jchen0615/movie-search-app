@@ -1,7 +1,7 @@
 const promise = require('promise')
 const axios = require('axios')
 //require('dotenv').config()
-const api_key = ""
+const api_key = process.env.TMDbAPI;
 const key = require('../../GlobalKey')
 
 //Client service file that handles all HTTP requests to TMDB API

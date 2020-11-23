@@ -1,4 +1,3 @@
-
 import React from 'react';
 import Enzyme, {shallow, mount} from 'enzyme';
 import EnzymeAdapter from 'enzyme-adapter-react-16';
@@ -22,27 +21,6 @@ const test_props = {
     }
 }
 
-const api_error_props ={
-    location:{
-        state:{
-            id: "test_api_error"
-        }
-    },
-    history:{
-        goBack: jest.fn()
-    }
-}
-
-const backend_error_props ={
-    location:{
-        state:{
-            id: "test_backend_error"
-        }
-    },
-    history:{
-        goBack: jest.fn()
-    }
-}
 
 const test_state = {
     similarMovies: ["test_movie-1", "test_movie-2"],
@@ -126,6 +104,28 @@ describe("Detail page fetch", ()=>{
     const errorMsg = mockData.error.response.data.errorMsg;
     const backendErrorMsg = mockData.backendError.response.statusText;
 
+    const api_error_props ={
+        location:{
+            state:{
+                id: "test_api_error"
+            }
+        },
+        history:{
+            goBack: jest.fn()
+        }
+    }
+    
+    const backend_error_props ={
+        location:{
+            state:{
+                id: "test_backend_error"
+            }
+        },
+        history:{
+            goBack: jest.fn()
+        }
+    }
+    
     window.scrollTo = jest.fn();
     jest.mock("axios")
     test("fetches movie detail from TMDb", (done)=>{
