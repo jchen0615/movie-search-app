@@ -1,4 +1,3 @@
-import { redisPort } from '../../server/keys';
 import {mockData as data} from "./data.json";
 
 const DETAIL_ENDPOINT = "/api/detail";
