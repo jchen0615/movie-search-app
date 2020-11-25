@@ -18,3 +18,15 @@ after_sucess:
     - docker push jchen96/movie-client
     - docker push jchen96/movie-nginx
     - docker push jchen96/movie-server
+
+deploy:
+  provider: elasticbeanstalk
+  region: 'us-east-2'
+  app: 'movie-docker'
+  env: 'MovieDocker-env'
+  bucket_name: 'elasticbeanstalk-us-east-2-519589258831'
+  bucket_path: 'movie-docker'
+  on:
+    branch: master
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key: $AWS_SECRET_KEY
