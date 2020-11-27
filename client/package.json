@@ -26,7 +26,8 @@
   },
   "scripts": {
     "start": "webpack-dev-server --host 0.0.0.0 --port 8080 --disable-host-check",
-    "test": "jest"
+    "test": "jest",
+    "build": "webpack"
   },
   "keywords": [],
   "author": "Jingjun Chen",
