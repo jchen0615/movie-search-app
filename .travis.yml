@@ -23,7 +23,7 @@ deploy:
   provider: elasticbeanstalk
   region: 'us-east-2'
   app: 'movie-docker'
-  env: 'MovieDocker-env'
+  env: 'MovieDocker-env-1'
   bucket_name: 'elasticbeanstalk-us-east-2-519589258831'
   bucket_path: 'movie-docker'
   on:
