@@ -10,6 +10,7 @@ module.exports = merge(common, {
         new CleanWebpackPlugin(),
         new HtmlWebpackPlugin({
           title: 'Production',
+          template: './src/index.html'
         }),
     ]
 })

@@ -10,9 +10,7 @@ module.exports = merge(common, {
         new CleanWebpackPlugin(),
         new HtmlWebpackPlugin({
           title: 'Development',
-        }),
-    ],
-    devServer: {
-      contentBase: './dist',
-    },
-})
+          template: './src/index.html'
+        })
+    ]
+});
