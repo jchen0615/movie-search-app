@@ -21,7 +21,10 @@ class Movie extends Component{
                 alt = {this.props.movieTitle}/></Link>
                 <div className = "movie-info">
                     <div className = "title" data-testid="title">{this.props.movieTitle.length < 40? this.props.movieTitle: this.props.movieTitle.slice(0,40)+"..."}</div>
-                    <div className = "released-date" data-testid = "released-date">Released date: {this.props.date}</div>
+                    <div className = "released-date" data-testid = "released-date">
+                        <p className = "released-date-header">Released date: </p>
+                        <p className = "date-text">{this.props.date}</p>
+                    </div>
                 </div>
              </div>
         )

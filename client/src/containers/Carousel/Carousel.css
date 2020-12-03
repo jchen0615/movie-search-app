@@ -1,43 +1,186 @@
-.Carousel{
-    color: white;
-    box-sizing: border-box;
+
+.carousel-display{
+  width: 100%;
+  height:100%;
+  margin: 0;
+  position:absolute;
+}
+
+.carousel-display input{
+  display: none;
+}
+
+.carousel-navigation-auto,
+.carousel-navigation-manual{
+  display: flex;
+  position: absolute;
+  right:0;
+}
+
+.carousel-navigation-auto div,
+.manual-btn{
+  width: 0.1vh;
+  border: 1.5px solid white;
+  padding: 4px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.carousel-navigation-auto div:not(:first-child),
+.manual-btn:not(:first-child){
+  margin-left: 0.5vh;
+}
+
+#radio1:checked ~ .carousel-navigation-auto #auto-btn1,
+#radio2:checked ~ .carousel-navigation-auto #auto-btn2,
+#radio3:checked ~ .carousel-navigation-auto #auto-btn3,
+#radio4:checked ~ .carousel-navigation-auto #auto-btn4,
+#radio5:checked ~ .carousel-navigation-auto #auto-btn5{
+  background: white;
+}
+
+.manual-btn:hover{
+  background: white;
+}
+
+#radio1:checked ~ .carousel-slider > .first{
+    margin-top: 0;
+}
+#radio2:checked ~ .carousel-slider > .first{
+    margin-top: -52.1%;
+}
+#radio3:checked ~ .carousel-slider > .first{
+    margin-top: -104.2%;
+}
+#radio4:checked ~ .carousel-slider > .first{
+    margin-top: -156.3%;
+}
+#radio5:checked ~ .carousel-slider > .first{
+  margin-top: -208.4%;
+}
+#radio1:checked ~ .carousel-slider:hover .radio1,
+#radio2:checked ~ .carousel-slider:hover .radio2,
+#radio3:checked ~ .carousel-slider:hover .radio3,
+#radio4:checked ~ .carousel-slider:hover .radio4,
+#radio5:checked ~ .carousel-slider:hover .radio5{
+  visibility: visible;
+  opacity: 1;
+  cursor: zoom-in;
+}
+
+#radio1 {
+  right: 8vh;
+}
+#radio2 {
+  right: 6vh;
+}
+#radio3 {
+  right: 4vh;
+}
+#radio4 {
+  right: 2vh;
+}
+#radio5 {
+  right: 0;
+}
+
+.carousel-slider{
+  height: 90%;
+  margin-top: 2%;
+  width:100%;
+  background: transparent;
+  float: left;
+  transition: 2s;
+  overflow: hidden;
+  background-image:  linear-gradient( rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1) ), url('../../images/background.jpg');
+  background-size: 100% 100%;
+}
+
+.carousel-slide{
+  height: 100%;
+  width: 100%;
+  background: transparent;
+  transition: 1s;
+  display: flex;
+}
+
+.carousel-slider:hover .carousel-slide-text,
+.carousel-slider:hover .carousel-slide-image{
+  filter: blur(12px);
+  opacity:1;
+  background-color: black;
+}
+
+
+.carousel-slide-image{
+    width: 40%;
+    height: 100%;
+    margin:0;
+    background: transparent;
     float: left;
-    width: 100%;
-    height: 80vh;
-    margin-bottom: 0vh;
-    position: relative;
-  }
-  
-  .carousel-left-button1{
-    display: inline-block;
-    margin-left:8vh;
-    margin-top:25vh;
-    font-size: 5vh;
-    transition: all .2s ease;
-  }
+    transition: 0.5s;
+}
 
-  .carousel-left-button{
-    position: absolute;
-    top:30vh;
-    left: 10vh;
-    font-size: 5vh;
-    transition: all .2s ease;
-    border:none;
-    outline: none;
-  }
+.carousel-slide-image img{
+  height: 100%;
+  width: 100%;
+}
 
-  .carousel-right-button{
-    position: absolute;
-    top:30vh;
-    right:10vh;
-    font-size: 5vh;
-    transition: all .2s ease;
-    border:none;
-    outline: none;
-  }
+.carousel-slide-text{
+  width: 55%;
+  height: 100%;
+  background: transparent;
+  margin-left: 2.5%;
+  float: left;
+  color: white;
+  transition: 0.5s;
+}
 
-.carousel-left-button:hover,
-.carousel-right-button:hover{
-    color: green;
-    transform: scale(2.5);
+.read-more-text{
+  position:absolute;
+  visibility: hidden;
+  color: white;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  line-height: 48vh;
+  transition: 1s;
+  z-index:1;
+  opacity: 0;
+  font-size: 6vh;
+}
+
+.carousel-slide-title{
+  width: 100%;
+  height:8%;
+  margin: 6% 0 2% 0;
+  font-weight: bold;
+  font-size: 5vh; 
+  background: transparent;
+  float: left;
+}
+
+.carousel-slide-overview{
+  font-weight: 300;
+  font-size: 2vh;
+  width: 100%;
+  height: 74%;
+  margin-top: 10%;
+  float: left;
+  background: transparent;
+  padding-top: 5%;
+  line-height: 3.5vh;
+}
+
+.start-quotation{
+  font-size: 7vh;
+  width: 100%;
+  text-align: left;
+}
+
+.end-quotation{
+  font-size: 7vh;
+  width: 100%;
+  text-align: right;
+  margin-top: 4vh;
 }

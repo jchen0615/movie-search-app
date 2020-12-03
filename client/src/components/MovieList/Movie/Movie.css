@@ -1,6 +1,6 @@
  .movie{
     margin: 5vh 5vh 2vh 5vh;
-    width:30vh;
+    width:10%;
     height: 55vh;
     margin-top: 5vh;
     margin-bottom: 2vh;
@@ -18,7 +18,7 @@
   
   .movie-cover{
     width: 100%;
-    height:45vh;
+    height:80%;
     color: white;
     transition: all .2s;
     box-shadow: 15px 15px 18px #141414;
@@ -28,19 +28,31 @@
   .movie-info{
     width: 100%;
     margin-top: 2.5vh;
+    height: 20%;
     font-size: 2.5vh;
     text-align: center;
   }
 
   .title{
     width: 100%;
+    height: 50%;
     font-weight: bold;
     text-align: center;
   }  
 
   .released-date{
     width: 100%;
+    height: 50%;
     font-weight: 300;
+    font-size: 2vh;
+  }
+
+  .released-date-header{
+    width: 60%;
+  }
+
+  .date-text{
+    width: 40%;
   }
 
   .duration{

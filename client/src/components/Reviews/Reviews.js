@@ -7,7 +7,7 @@ class Reviews extends Component{
 
     render(){
     
-        let reviewMsg = "Sorry, this movie currently has no reviews..."
+        let reviewMsg = <p className = "no-reviews-text">Sorry, this movie currently has no reviews...</p>;
         if(this.props.list && this.props.list.length>0){
             reviewMsg = this.props.list.map(review =>(
                 <Review 
@@ -19,7 +19,7 @@ class Reviews extends Component{
 
         return(
             <div className = "reviews">
-                <div className = "header" data-testid = "header">Reviews</div>
+                <div className = "reviews_header" data-testid = "header">Reviews</div>
                 <div className = "list_reviews" data-testid = "list-reviews">
                     {reviewMsg}
                 </div>

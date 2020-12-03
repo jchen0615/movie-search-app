@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import {Redirect} from 'react-router-dom';
 import NavigationBar from '../../components/UI/NavigationBar/Navigation';
-import SearchGrid from '../../components/Grids/SearchGrid/SearchGrid';
 import Spinner from '../../components/UI/Spinner/Spinner';
 import Error from '../../components/ErrorPage/Error';
 import Carousel from '../Carousel/Carousel';
 //import axios from '../../axios_server';
 import axios from 'axios'
+import './Home.css';
 //const Client = require('../../service/TMDB_client/TMDB_client');
 
 class Home extends Component {
@@ -18,7 +18,8 @@ class Home extends Component {
         searchValue: null,
         search: false,
         errorMsg: null,
-        loading: true
+        loading: true,
+        navTransparent: true
     }
 
     //Handles click on search button
@@ -46,7 +47,7 @@ class Home extends Component {
 
     //Send get request to backend
     getHome =()=>{
-        axios.get("/api/home").then(response =>{
+        axios.get("http://localhost:5000/api/home").then(response =>{
             this.setState({
                 nowPlaying: response.data.nowPlaying,
                 popularMovies: response.data.popularMovies,
@@ -61,8 +62,26 @@ class Home extends Component {
     }
 
     componentDidMount(){
-       this.getHome()
-    }
+       this.getHome();
+
+        document.addEventListener("scroll", ()=>{
+            const transparent = window.scrollY<100? true:false;
+            if(this.state.navTransparent!==transparent){
+                    this.setState({
+                        navTransparent: transparent
+                    });
+            };
+       });
+
+       let counter = 2;
+       setInterval(function(){
+            document.getElementById('radio' + counter).checked = true;
+            counter++;
+            if(counter>5){
+                counter = 1;
+            }
+        }, 5000)
+    };
 
     render(){
          
@@ -89,11 +108,29 @@ class Home extends Component {
 
         return(
             <div className="Home-page" data-testid="home-page">
-                <NavigationBar data-testid="navigation"/>
-                <SearchGrid data-testid="search-grid" inputHandler={this.searchInputHandler} searchValue={this.state.searchValue} keyHandler={this.EnterKeyHandler}
-                    clickHandler={this.searchClickHandler} search = "movie"/>
-                <Carousel data-testid="nowplaying" movieType = {"Now Playing"} movies = {this.state.nowPlaying}/>
-                <Carousel data-testid="popular" movieType = {"Popular"} movies = {this.state.popularMovies}/>
+                <NavigationBar data-testid="navigation" color={this.state.navTransparent?"transparent":"black"}/>
+                <div className = "home-grid-1">
+                    <div className = "feature-text-grid">
+                        <div className = "feature-text">
+                            <p className = "feature-text-line">BROWSE MOVIE OF YOUR INTEREST</p>
+                            <p className = "feature-text-title">The Movie Search App</p>
+                            <p className = "feature-text-line">Allows users to browse movies by trend or interest,</p>
+                            <p className = "feature-text-line">Helps users to decide what to see on their next movie night,</p>
+                            <p className = "feature-text-line">Enjoy browsing</p>
+                        </div>
+                    </div>
+                    <div className = "carousel-display-grid">
+                        <div className = "carousel-display-header"><span>Author's Favorites</span></div>
+                        <div className = "carousel-display-box">
+                            <Carousel movies={this.state.popularMovies}/>
+                        </div>
+                    </div>
+                </div>
+                <div className = "home-grid-2">
+                    <div className = "home-grid-full-display">
+                       
+                    </div>
+                </div>
             </div>
         )
     }

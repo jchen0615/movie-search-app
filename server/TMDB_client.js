@@ -1,6 +1,6 @@
 const promise = require('promise')
 const axios = require('axios')
-const api_key = process.env.TMDb_KEY;
+const api_key = "";
 const keys = require('./keys');
 
 //Client service file that handles all HTTP requests to TMDB API
@@ -142,7 +142,8 @@ function getHomePage(){
                     title: movie.title,
                     poster: movie.poster_path? keys.posterString+movie.poster_path : null,
                     date: movie.release_date,
-                    voteAverage: movie.vote_average
+                    voteAverage: movie.vote_average,
+                    overview: movie.overview
                 }
             })
     
@@ -152,7 +153,8 @@ function getHomePage(){
                     title: movie.title,
                     poster: keys.posterString+movie.poster_path,
                     date: movie.release_date,
-                    voteAverage: movie.vote_average
+                    voteAverage: movie.vote_average,
+                    overview: movie.overview
                 }
             })
     

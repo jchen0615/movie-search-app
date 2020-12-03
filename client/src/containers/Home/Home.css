@@ -1,4 +1,91 @@
 .Home-page{
-    display: block;
-    min-width: 100%;
+    width: 100%;
 }
+
+.home-grid-1{
+    width: 100%;
+    height: 100vh;
+    background-image:  linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.3) ), url('../../images/background.jpg');
+    background-size: 100% 100%;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .feature-text-grid{
+    width:45%;
+    height:100%;
+    background: transparent;
+    box-sizing: border-box;
+    position: absolute;
+  }
+  
+  .feature-text{
+    color: white;
+    box-sizing: border-box;
+    margin: 40% 0 0 15%;
+    width:80%;
+    height:50%;
+    background: transparent;
+    position: relative;
+  }
+  
+  .feature-text-line{
+    font-size: 2vh; 
+    text-align: left;
+    margin: 0;
+  }
+  
+  .feature-text-title{
+    font-weight: bold;
+    font-size: 5vh; 
+    text-align: left;
+    margin: 1vh 0 1vh 0;
+  }
+  
+  .carousel-display-grid{
+    width:55%;
+    height:100%;
+    background: transparent;
+    box-sizing: border-box;
+    position: absolute;
+    right: 0;
+    background-color: transparent;
+  }
+  
+  .carousel-display-box{
+    width: 80%;
+    height:50%;
+    margin: 25% 0 0 10%;
+    position:absolute;
+  }
+
+  .carousel-display-header{
+    position: absolute;
+    font-weight: 500;
+    width: 100%;
+    font-size: 3vh;
+    color: white;
+    left:0;
+    font-style: italic;
+    text-align: left;
+    top:24.5vh;
+  }
+
+  .carousel-display-header span{
+    border-bottom: 1px solid white;
+    margin-left: 11vh;
+  }
+
+  .home-grid-2{
+    width: 100%;
+    height: 100vh;
+    background-image:  linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.3) ), url('../../images/bg.jpeg');
+    background-size: 100% 100%;
+    display: inline-block;
+  }
+  
+  .home-grid-full-display{
+    width:70%;
+    height: 70%;
+    margin: 10% 0 0 15%;
+  }
