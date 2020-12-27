@@ -114,13 +114,11 @@
   float: left;
   width: 70%;
   height:70%;
-  padding-top: 5%;
   color: white;
   text-align: left;
   text-decoration: none;
   font-size: 2vh;
   box-sizing: border-box;
-  background-color: transparent;
   border: none;
   background: transparent;
   border-bottom: 1px solid #fff;
@@ -140,6 +138,7 @@
   height:30%;
   transition: all .2s ease;
   z-index: 1;
+  cursor: pointer;
 }
 
 .search-menu img:hover{
@@ -161,7 +160,7 @@
 .menu:hover, Link:hover,
 .menu:hover  .arrow{
   color: green;
-  transition: color 0.2s, font-size 0.2s;
+  transition: color 0.2s;
 }
 
 #genre-list{
@@ -178,37 +177,73 @@
   margin-top: -19vh;
 }
 
-  #genre-page-btn:hover #genre-list {
-    margin-top: 0;
-    opacity: 1;
-    transition: 1s;
-  }
+#genre-page-btn:hover #genre-list {
+  margin-top: 0;
+  opacity: 1;
+  transition: 1s;
+}
+
+#genre-page-btn:hover #genre-list .genre{
+  opacity: 1;
+  transition: opacity 2.4s;
+}
+
+#genre-list .genre{
+  display: block;
+  color: white;
+  text-align: center;
+  font-size: 2vh;
+  text-decoration: none;
+  width: 6%;
+  margin: 1vh 3.25% 1vh 3.25%;
+  padding-left: 0;
+  float: left;
+  opacity: 0;
+  transition: 0.2s;
+}
+
+#genre-list .genre:hover {
+  color: green;
+  transition: 0.2s;
+}
+
+.search-input-results{
+  position: fixed;
+  top: -20vh;
+  background-color: black;
+  width: 19vw;
+  height: 20vh;
+  transition: 1s;
+  opacity: 1;
+  margin-top: 0vh;
+  overflow:scroll;
+  overflow-x: hidden;
+  transition: 0.2;
+  opacity: 0;
+}
+
+.search-input-results.active{
+  top:6vh;
+  opacity: 1;
+  transition: 1s;
+}
+
+.simple-search-row{
+  width: 98%;
+  height: 5vh;
+  font-size: 1.8vh;
+  border-bottom: 1px white solid;
+  line-height: 5vh;
+  text-align: left;
+  padding-left: 2%;
+  font-style: italic;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  transition: 0.2s;
+}
   
-  #genre-page-btn:hover #genre-list .genre{
-    opacity: 1;
-    transition: 2.4s;
-  }
-
-  #genre-list .genre{
-      display: block;
-      color: white;
-      text-align: center;
-      font-size: 2vh;
-      transition: color 0.2s, font-size 0.2s;
-      text-decoration: none;
-      width: 6%;
-      margin: 1vh 3.25% 1vh 3.25%;
-      padding-left: 0;
-      float: left;
-      opacity: 0;
-      transition: 0.2s;
-  }
-
-  .genre:hover {
-    color: green;
-    transition: color 0.2s;
-  }
-
-
-  
-  
+.simple-search-row:hover{
+  font-size: 2vh;
+  transition: 0.2s;
+}

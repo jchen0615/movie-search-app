@@ -11,7 +11,7 @@ import axios from 'axios';
 class SearchResult extends Component {
 
     state = {
-        movieList: null,
+        movieList: [],
         pageNumber: 1,
         totalPages: null,
         totalResults: null,
@@ -21,12 +21,28 @@ class SearchResult extends Component {
     };
 
     //Gets a list of movies based on search input and page number
-    getSearchResults =(value, page)=>{
-        axios.get("http://localhost:5000/api/search", {params: {value: this.props.location.state.value, pageNumber: this.state.pageNumber}}).then(response =>{
+    getSearchResults =()=>{
+        let URL = "http://localhost:5000/api/search",
+            param = {params: {value: this.props.location.state.value, pageNumber: this.state.pageNumber}}
+        
+        if(this.props.location.pathname==="/Discover"){
+            URL = "http://localhost:5000/api/discover";
+            param = {
+                        params: {
+                            year: this.props.location.state.YEAR, 
+                            keyword: this.props.location.state.KEYWORD,
+                            cast: this.props.location.state.CAST,
+                            genre: this.props.location.state.GENRE,
+                            pageNumber: this.state.pageNumber
+                        }
+                    }
+        }
+
+        axios.get(URL, param).then(response =>{
             this.setState({
                 movieList: response.data.movieList,
                 totalResults: response.data.totalResults,
-                totalPages: response.data.totalPages,
+                totalPages: response.data.totalPages>0? response.data.totalPages: 1,
                 lastPage: this.state.pageNumber===response.data.totalPages? true: false,
                 loading: false
             })
@@ -68,9 +84,9 @@ class SearchResult extends Component {
             <div className="search-page">
                 <NavigationBar/>
                 <div className = "search-message-container" data-testid = "search-message-container">
-                    <div className = "search-message" data-testid = "search-message">Showing {this.state.pageNumber} of {this.state.totalPages} pages for keyword: "{this.props.location.state.value}"</div> 
+                    <div className = "search-message" data-testid = "search-message">Showing page {this.state.pageNumber} of {this.state.totalPages}</div> 
                 </div>
-                <SearchList list = {this.state.movieList}/>
+                {this.state.movieList.length>0 ? <SearchList list = {this.state.movieList}/> : <div className="search-no-result-txt">No movies found...</div> }
                 <PageNavigation pageNumber = {this.state.pageNumber} lastPage = {this.state.lastPage} setState={(s,c)=>{this.setState(s, c)}}/>
             </div>
         )

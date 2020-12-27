@@ -28,8 +28,8 @@ class Carousel extends Component{
                     <label htmlFor="radio4" className="manual-btn"></label>
                     <label htmlFor="radio5" className="manual-btn"></label>
                 </div>
-                <div className = "carousel-slider">
-                    {this.props.movies.length>0? this.props.movies.slice(0,5).map((movie, index) =>{
+                <div className = "carousel-slider vertical">
+                    {this.props.movies.length>0? this.props.movies.map((movie, index) =>{
                         if(index===0){
                             return <Slide first={true} key={movie.id} id={movie.id} title={movie.title} poster={movie.poster} 
                             date={movie.date} voteAverage = {movie.voteAverage} overview = {movie.overview} radio={"radio"+(index+1)}/>

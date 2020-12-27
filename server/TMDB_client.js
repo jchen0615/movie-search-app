@@ -83,6 +83,90 @@ function getSearchResults(searchValue, pageNumber){
     })
 }
 
+//Make axios get request to TMDB API to get search results for only movie ID and title based on inputs
+function getSimpleSearch(searchValue){
+    return new Promise((resolve, reject)=>{
+        axios.get(`https://api.themoviedb.org/3/search/movie/?api_key=${api_key}&query=${searchValue}`)
+        .then((response)=>{
+            const movieList = response.data.results.map(movie =>{
+                return{
+                    id: movie.id,
+                    title: movie.title,
+                }
+            })
+            result = {
+                movieList:movieList,
+            }
+         
+            resolve(result)
+        })
+        .catch((error)=>{
+            reject({errorCode: error.response.status, errorMsg:error.response.data.status_message})
+        })
+    })
+}
+
+function getKeywordID(keyword){
+    return new promise((resolve, reject)=>{
+        axios.get(`https://api.themoviedb.org/3/search/keyword?api_key=${api_key}&query=${keyword}`)
+        .then(response=>{
+            resolve({keywordID: response.data.results[0] ? response.data.results[0].id:""})
+        }).catch((error)=>{
+            reject({errorCode: error.response.status, errorMsg:error.response.data.status_message})
+        })
+    })
+}
+
+function getDiscover(year, cast, genre, keywordID, pageNumber){
+    return new promise((resolve, reject)=>{
+
+        axios.get(`https://api.themoviedb.org/3/discover/movie?api_key=${api_key}&primary_release_year=${year}&with_people=${cast}&with_genres=${genre}&with_keywords=${keywordID}&page=${pageNumber}`)
+        .then( response =>{
+            const list = response.data.results.map(movie =>{
+                return{
+                    id: movie.id,
+                    title: movie.title,
+                    poster: movie.poster_path? keys.posterString+movie.poster_path : null,
+                    date: movie.release_date,
+                    voteAverage: movie.vote_count>0?movie.vote_average:"No rating available",
+                    overview: movie.overview.length>400? movie.overview.substring(0, 400)+" ...READ MORE":movie.overview
+                }
+            })
+        
+            result = {
+                movieList:list,
+                totalResults: response.data.total_results,
+                totalPages: response.data.total_pages
+            }
+            
+            resolve(result)
+        })
+        .catch((error)=>{
+            reject({errorCode: error.response.status, errorMsg:error.response.data.status_message})
+        })
+    })
+}
+
+//Make axios ger request to TMDB API to get result for actors based on inputs
+function getPersonID(searchValue){
+    return new Promise((resolve, reject)=>{
+        axios.get(`https://api.themoviedb.org/3/search/person?api_key=${api_key}&query=${searchValue}`)
+        .then((response)=>{
+            const list = response.data.results.slice(0, 10).map(person =>{
+                return{
+                    id: person.id,
+                    name: person.name,
+                }
+            })
+
+            resolve({list: list})
+        })
+        .catch((error)=>{
+            reject({errorCode: error.response.status, errorMsg:error.response.data.status_message})
+        })
+    })
+}
+
 //Make axios get request to TMDB API to get movies by genre
 function getMoviesByGenre(pageNumber, releaseYear, id){
     return new promise((resolve, reject)=>{
@@ -136,7 +220,7 @@ function getHomePage(){
             axios.get(`https://api.themoviedb.org/3/movie/popular?api_key=${api_key}`),
             axios.get(`https://api.themoviedb.org/3/movie/now_playing?api_key=${api_key}`)
         ]).then(responseArr =>{
-            const popularList = responseArr[0].data.results.slice(0,12).map(movie =>{
+            const popularList = responseArr[0].data.results.slice(0,5).map(movie =>{
                 return{
                     id: movie.id,
                     title: movie.title,
@@ -147,7 +231,7 @@ function getHomePage(){
                 }
             })
     
-            const nowPlayingList = responseArr[1].data.results.slice(0,12).map(movie =>{
+            const nowPlayingList = responseArr[1].data.results.slice(0,20).map(movie =>{
                 return{
                     id: movie.id,
                     title: movie.title,
@@ -170,5 +254,9 @@ module.exports = {
     'getSearchResults': getSearchResults,
     'getMoviesByGenre': getMoviesByGenre,
     'getNowPlaying': getNowPlaying,
-    'getHomePage': getHomePage
+    'getHomePage': getHomePage,
+    'getSimpleSearch': getSimpleSearch,
+    'getPersonID': getPersonID,
+    'getKeywordID': getKeywordID,
+    'getDiscover': getDiscover
 }

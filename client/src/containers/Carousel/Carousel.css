@@ -43,19 +43,19 @@
   background: white;
 }
 
-#radio1:checked ~ .carousel-slider > .first{
+#radio1:checked ~ .carousel-slider.vertical> .first{
     margin-top: 0;
 }
-#radio2:checked ~ .carousel-slider > .first{
+#radio2:checked ~ .carousel-slider.vertical> .first{
     margin-top: -52.1%;
 }
-#radio3:checked ~ .carousel-slider > .first{
+#radio3:checked ~ .carousel-slider.vertical> .first{
     margin-top: -104.2%;
 }
-#radio4:checked ~ .carousel-slider > .first{
+#radio4:checked ~ .carousel-slider.vertical> .first{
     margin-top: -156.3%;
 }
-#radio5:checked ~ .carousel-slider > .first{
+#radio5:checked ~ .carousel-slider.vertical> .first{
   margin-top: -208.4%;
 }
 #radio1:checked ~ .carousel-slider:hover .radio1,

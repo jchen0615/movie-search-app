@@ -1,22 +1,24 @@
 .page-navigation{
     border-top: 0.1vh solid white;
-    width: 80%;
-    margin: 10vh 10%;
+    width: 90%;
+    margin: 10vh 5%;
     font-size: 3vh;
     font-weight: 300;
+    color: white;
+    float: left;
 }
 
-.prev-page{
+#prev-page{
     left: 30%;
 }
 
-.current-page{
+#current-page{
     position: absolute;
     left: 50%;
     margin-top: 3vh;
 }
 
-.next-page{
+#next-page{
     right: 30%;
 }
 
@@ -27,6 +29,9 @@
     border: none;
     font-size: 2.5vh;
     transition: all .2s;
+    color: white;
+    outline: none;
+    cursor: pointer;
 }
 
 .page-navigation button:hover{

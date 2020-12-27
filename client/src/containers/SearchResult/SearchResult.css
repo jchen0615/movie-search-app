@@ -1,23 +1,26 @@
+.search-page{
+    width: 100%;
+    min-height: 100vh;
+    background-image:  linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.3) ), url('../../images/background.jpg');
+    background-size: 100% 100%;
+    color: white;
+    display: inline-block
+}
+
 .search-message-container{
     width: 100%;
     font-style: italic;
+    display: inline-block;
+    margin-top: 4vh;
 }
 
 .search-message{
-    width: 80%;
+    width: 90%;
     font-size: 4vh;
     text-align: left;
     font-weight: 500;
-    margin: 8vh 15vh 2vh 15vh;
+    margin: 8vh 0 2vh 5%;
     border-bottom: 0.1vh solid white;
-}
-
-.page-navigation{
-    border-top: 0.1vh solid white;
-    width: 80%;
-    margin: 10vh 10%;
-    font-size: 3vh;
-    font-weight: 300;
 }
 
 .prev-page{
@@ -34,15 +37,9 @@
     right: 30%;
 }
 
-.search-page button{
-    position: absolute;
-    margin-top: 3vh;
-    background: transparent;
-    border: none;
-    font-size: 2.5vh;
-    transition: all .2s;
-}
-
-.search-page button:hover{
-    transform: scale(1.1);
+.search-no-result-txt{
+    height: 38vh;
+    text-align: center;
+    font-size: 4vh;
+    padding-top: 22vh;
 }

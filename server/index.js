@@ -35,6 +35,32 @@ app.get('/api/search', (req, res) => {
     });
 });
 
+//Send get request to TMDb API to fetch search result based on filter values provided by user
+app.get('/api/discover', (req, res) => {
+
+    function discover(keyword){
+        TMDB_client.getDiscover(req.query.year, req.query.cast, req.query.genre, keyword, req.query.pageNumber).then((response)=>{
+            res.send({
+                movieList: response.movieList,
+                totalResults: response.totalResults,
+                totalPages: response.totalPages,
+            }).status(200);
+        }).catch((error)=>{
+            res.status(error.errorCode).send({errorMsg: error.errorMsg});
+        });
+    }
+    
+    if(req.query.keyword.length>0){
+        TMDB_client.getKeywordID(req.query.keyword).then((response)=>{
+            discover(response.keywordID);
+        }).catch((error)=>{
+            res.status(error.errorCode).send({errorMsg: error.errorMsg});
+        })
+    }else{
+        discover(req.query.keyword);
+    }
+});
+
 //Send get request to TMDb API to fetch movies by genre
 app.get('/api/genre', (req, res) => {
     TMDB_client.getMoviesByGenre(req.query.pageNumber, req.query.releaseYear, req.query.id).then((response)=>{
@@ -66,6 +92,26 @@ app.get('/api/detail', (req, res) => {
             detail: response.detail,
             movieList: response.movieList,
             reviews: response.reviews
+        }).status(200);
+    }).catch((error)=>{
+        res.status(error.errorCode).send({errorMsg: error.errorMsg? error.errorMsg: "Unexpected error"});
+    });
+});
+
+app.get('/api/quick_search', (req, res) =>{
+    TMDB_client.getSimpleSearch(req.query.searchValue).then((response)=>{
+        res.send({
+            movieList: response.movieList
+        }).status(200);
+    }).catch((error)=>{
+        res.status(error.errorCode).send({errorMsg: error.errorMsg? error.errorMsg: "Unexpected error"});
+    });
+});
+
+app.get('/api/person_id', (req, res) =>{
+    TMDB_client.getPersonID(req.query.searchValue).then((response)=>{
+        res.send({
+            list: response.list
         }).status(200);
     }).catch((error)=>{
         res.status(error.errorCode).send({errorMsg: error.errorMsg? error.errorMsg: "Unexpected error"});

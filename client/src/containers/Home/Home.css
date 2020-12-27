@@ -1,91 +1,131 @@
 .Home-page{
-    width: 100%;
+  width: 100%;
 }
 
 .home-grid-1{
-    width: 100%;
-    height: 100vh;
-    background-image:  linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.3) ), url('../../images/background.jpg');
-    background-size: 100% 100%;
-    margin: 0;
-    padding: 0;
-  }
-  
-  .feature-text-grid{
-    width:45%;
-    height:100%;
-    background: transparent;
-    box-sizing: border-box;
-    position: absolute;
-  }
-  
-  .feature-text{
-    color: white;
-    box-sizing: border-box;
-    margin: 40% 0 0 15%;
-    width:80%;
-    height:50%;
-    background: transparent;
-    position: relative;
-  }
-  
-  .feature-text-line{
-    font-size: 2vh; 
-    text-align: left;
-    margin: 0;
-  }
-  
-  .feature-text-title{
-    font-weight: bold;
-    font-size: 5vh; 
-    text-align: left;
-    margin: 1vh 0 1vh 0;
-  }
-  
-  .carousel-display-grid{
-    width:55%;
-    height:100%;
-    background: transparent;
-    box-sizing: border-box;
-    position: absolute;
-    right: 0;
-    background-color: transparent;
-  }
-  
-  .carousel-display-box{
-    width: 80%;
-    height:50%;
-    margin: 25% 0 0 10%;
-    position:absolute;
-  }
+  width: 100%;
+  height: 100vh;
+  background-image:  linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.3) ), url('../../images/background.jpg');
+  background-size: 100% 100%;
+  margin: 0;
+  padding: 0;
+}
 
-  .carousel-display-header{
-    position: absolute;
-    font-weight: 500;
-    width: 100%;
-    font-size: 3vh;
-    color: white;
-    left:0;
-    font-style: italic;
-    text-align: left;
-    top:24.5vh;
-  }
+.feature-text-grid{
+  width:45%;
+  height:100%;
+  background: transparent;
+  box-sizing: border-box;
+  position: absolute;
+}
 
-  .carousel-display-header span{
-    border-bottom: 1px solid white;
-    margin-left: 11vh;
-  }
+.feature-text{
+  color: white;
+  box-sizing: border-box;
+  margin: 40% 0 0 15%;
+  width:80%;
+  height:50%;
+  background: transparent;
+  position: relative;
+}
 
-  .home-grid-2{
-    width: 100%;
-    height: 100vh;
-    background-image:  linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.3) ), url('../../images/bg.jpeg');
-    background-size: 100% 100%;
-    display: inline-block;
-  }
-  
-  .home-grid-full-display{
-    width:70%;
-    height: 70%;
-    margin: 10% 0 0 15%;
-  }
+.feature-text-line{
+  font-size: 2vh; 
+  text-align: left;
+  margin: 0;
+}
+
+.feature-text-title{
+  font-weight: bold;
+  font-size: 5vh; 
+  text-align: left;
+  margin: 1vh 0 1vh 0;
+}
+
+.carousel-display-grid{
+  width:55%;
+  height:100%;
+  background: transparent;
+  box-sizing: border-box;
+  position: absolute;
+  right: 0;
+  background-color: transparent;
+}
+
+.carousel-display-box{
+  width: 80%;
+  height:50%;
+  margin: 25% 0 0 10%;
+  position:absolute;
+}
+
+.carousel-display-header{
+  font-weight: 500;
+  width: 100%;
+  font-size: 3vh;
+  color: white;
+  left: 0;
+  font-style: italic;
+  text-align: left;
+}
+
+.carousel-display-header span{
+  border-bottom: 1px solid white;
+}
+
+.home-page-grid{
+  float: left;
+  width: 100%;
+  height: 100vh;
+  padding: 0;
+  margin: 0;
+  background-size: 100% 100%;
+}
+
+#home-grid-1,
+#home-grid-3{
+  background-image: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.3) ), url('../../images/background.jpg');
+}
+
+#home-grid-2{
+  background-image: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.3) ), url('../../images/background2.jpg');
+}
+
+.home-grid-full-display{
+  width:90%;
+  height: 70%;
+  margin: 5vh 0 0 5%;
+  position: relative;
+}
+
+.home-grid-2-header{
+  width: 100%;
+  height: 8vh;
+  margin-top: 7vh;
+}
+
+.home-grid-2-header-text{
+  color: white;
+  font-size:4vh;
+  width:90%;
+  margin-left: 5%;
+  text-align: left;
+  border-bottom: 1px white solid;
+}
+
+.home-grid-3-header{
+  height: 10vh;
+  margin: 5vh 0 0 7.5%;
+  color: white;
+}
+
+.home-grid-3-header > .feature-text-title{
+  border-bottom: 1px solid white;
+  width: 26.3vw;
+}
+
+.home-grid-3-content{
+  height:83vh;
+  width: 85%;
+  margin: 2vh 0 0 7.5%;
+}

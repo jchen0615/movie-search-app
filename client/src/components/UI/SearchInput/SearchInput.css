@@ -1,0 +1,22 @@
+.search-input input{
+    font-family: 'Open Sans Condensed', sans-serif;
+    float: left;
+    width: 70%;
+    height: 70%;
+    padding-top: 5%;
+    color: white;
+    text-align: left;
+    text-decoration: none;
+    font-size: 2vh;
+    box-sizing: border-box;
+    border: none;
+    background: transparent;
+    border-bottom: 1px solid #fff;
+    outline: none;
+    font-weight: 300;
+    font-style: italic;
+    overflow: hidden;
+    z-index: 1;
+    margin-top: 1%;
+    padding-top: 2.5%;
+}

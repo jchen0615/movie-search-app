@@ -19,7 +19,7 @@ class ResultMovie extends Component{
                 alt = {this.props.movieTitle}/>
                 <div className = "search-info" data-testid = "search-info">
                     <div className = "search-title" data-testid = "search-title">{this.props.movieTitle} | Released: {this.props.date}</div>
-                    <div className = "search-overview" data-testid = "search-overview"> ---"{this.props.overview}"</div>
+                    <div className = "search-overview" data-testid = "search-overview"> ---"{this.props.overview ? this.props.overview : "No Overview Available..."}"</div>
                 </div>
             </div></Link>
         )

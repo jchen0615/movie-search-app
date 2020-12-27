@@ -4,10 +4,11 @@ import NavigationBar from '../../components/UI/NavigationBar/Navigation';
 import Spinner from '../../components/UI/Spinner/Spinner';
 import Error from '../../components/ErrorPage/Error';
 import Carousel from '../Carousel/Carousel';
-//import axios from '../../axios_server';
+import CarouselHorizontal from '../Carousel/CarouselHorizontal';
 import axios from 'axios'
 import './Home.css';
-//const Client = require('../../service/TMDB_client/TMDB_client');
+import Discover from '../Discover/Discover';
+
 
 class Home extends Component {
 
@@ -20,29 +21,6 @@ class Home extends Component {
         errorMsg: null,
         loading: true,
         navTransparent: true
-    }
-
-    //Handles click on search button
-    searchClickHandler = (event) =>{
-        if(this.state.searchValue)
-        this.setState({
-            search:true
-        })
-    }
-
-    //Stores user input value for search field
-    searchInputHandler = (event) =>{
-        this.setState({searchValue: event.target.value}, function(){})
-    }
-    
-    //Handles 'Enter' key press for search field
-    EnterKeyHandler = (event) =>{
-        if(event.charCode === 13){
-            if(this.state.searchValue)
-                this.setState({
-                    search:true
-                },function(){})
-        }
     }
 
     //Send get request to backend
@@ -63,15 +41,6 @@ class Home extends Component {
 
     componentDidMount(){
        this.getHome();
-
-        document.addEventListener("scroll", ()=>{
-            const transparent = window.scrollY<100? true:false;
-            if(this.state.navTransparent!==transparent){
-                    this.setState({
-                        navTransparent: transparent
-                    });
-            };
-       });
 
        let counter = 2;
        setInterval(function(){
@@ -94,41 +63,42 @@ class Home extends Component {
             return <Spinner data-testid="spinner"/>
         }
 
-        //Redirects to search page with value inputted by user
-        if(this.state.search){
-            return(
-                <Redirect to = {{
-                    pathname: "/search",
-                    state: {
-                        value: this.state.searchValue
-                    }
-                }}/>
-            )
-        }
-
         return(
             <div className="Home-page" data-testid="home-page">
-                <NavigationBar data-testid="navigation" color={this.state.navTransparent?"transparent":"black"}/>
-                <div className = "home-grid-1">
+                <NavigationBar data-testid="navigation"/>
+                <div className = "home-page-grid" id="home-grid-1">
                     <div className = "feature-text-grid">
                         <div className = "feature-text">
-                            <p className = "feature-text-line">BROWSE MOVIE OF YOUR INTEREST</p>
-                            <p className = "feature-text-title">The Movie Search App</p>
-                            <p className = "feature-text-line">Allows users to browse movies by trend or interest,</p>
-                            <p className = "feature-text-line">Helps users to decide what to see on their next movie night,</p>
-                            <p className = "feature-text-line">Enjoy browsing</p>
+                            <div className = "feature-text-line">BROWSE TRENDING MOVIES</div>
+                            <div className = "feature-text-title">Movie Search App</div>
+                            <div className = "feature-text-line">Discover movies of your interests</div>
+                            <div className = "feature-text-line">Let us help on deciding what's next on your movie list</div>
                         </div>
                     </div>
                     <div className = "carousel-display-grid">
-                        <div className = "carousel-display-header"><span>Author's Favorites</span></div>
                         <div className = "carousel-display-box">
+                            <div className = "carousel-display-header">
+                                <span>AUTHOR'S FAVORITE</span>
+                            </div>
                             <Carousel movies={this.state.popularMovies}/>
                         </div>
                     </div>
                 </div>
-                <div className = "home-grid-2">
+                <div className = "home-page-grid" id="home-grid-2">
+                    <div className = "home-grid-2-header">
+                        <div className = "home-grid-2-header-text">Now Playing</div>
+                    </div>
                     <div className = "home-grid-full-display">
-                       
+                        <CarouselHorizontal movies = {this.state.nowPlaying}/>
+                    </div>
+                </div>
+                <div className = "home-page-grid" id="home-grid-3">
+                    <div className = "home-grid-3-header">
+                        <div className = "feature-text-title">Not Feeling Decisive?</div>
+                        <div className = "feature-text-line">Let us help. Start by adding at least one field below.</div>
+                    </div>
+                    <div className = "home-grid-3-content">
+                        <Discover/>
                     </div>
                 </div>
             </div>
