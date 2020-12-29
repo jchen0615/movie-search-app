@@ -18,7 +18,7 @@ class Discover extends Component{
 
     //Send get request to backend
     getPeople =(value, index)=>{
-        axios.get("http://localhost:5000/api/person_id", {params: {searchValue:value}}).then(response =>{
+        axios.get("/api/person_id", {params: {searchValue:value}}).then(response =>{
             let newRows=this.state.rows;
             newRows[index].results=response.data.list;
             this.setState({

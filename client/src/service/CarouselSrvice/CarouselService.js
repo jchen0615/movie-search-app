@@ -4,7 +4,6 @@ class CarouselService{
         this.index = 0
         this.incr = increment
         this.lastIndex = lastIndex
-        console.log("Carousel service injected")
     }
 
     getShow(list){

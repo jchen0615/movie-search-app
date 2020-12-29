@@ -113,8 +113,8 @@
                         "voteAverage": "test_vote_average_2" 
                     }
                 ],
-                "totalPages":"test_total_pages",
-                "totalResults": "test_total_results"
+                "totalPages":"2",
+                "totalResults": "13"
             }
         },
         "error":{

@@ -26,7 +26,7 @@ class Detail extends Component{
 
     //Gets detail information for selected movie
     getDetail = () =>{
-        axios.get("http://localhost:5000/api/detail", {params: {id:this.props.location.state.id}}).then(response =>{
+        axios.get("/api/detail", {params: {id:this.props.location.state.id}}).then(response =>{
             this.setState({
                 overview: response.data.detail.overview,
                 genre: response.data.detail.genre,

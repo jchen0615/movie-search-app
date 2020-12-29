@@ -23,7 +23,7 @@ class Genre extends Component{
     
     //Gets movies based on genre ID
     getMoviesByGenre =()=>{
-        axios.get("http://localhost:5000/api/genre", {params: {pageNumber:this.state.pageNumber, releaseYear:this.state.releaseYear, id:this.state.id}}).then(response =>{
+        axios.get("/api/genre", {params: {pageNumber:this.state.pageNumber, releaseYear:this.state.releaseYear, id:this.state.id}}).then(response =>{
             this.setState({
                 movies:response.data.movieList,
                 totalPages: response.data.totalPages,
