@@ -1,6 +1,6 @@
 const promise = require('promise')
 const axios = require('axios')
-const api_key = "6acdc2a1f286a16206a27d03bb46bbf1";
+const api_key = "";
 const keys = require('./keys');
 
 //Client service file that handles all HTTP requests to TMDB API
