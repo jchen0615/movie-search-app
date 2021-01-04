@@ -25,7 +25,7 @@ class Home extends Component {
 
     //Send get request to backend
     getHome =()=>{
-        axios.get("/api/home").then(response =>{
+        axios.get("http://localhost:5000/api/home").then(response =>{
             this.setState({
                 nowPlaying: response.data.nowPlaying,
                 popularMovies: response.data.popularMovies,

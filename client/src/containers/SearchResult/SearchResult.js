@@ -22,11 +22,11 @@ class SearchResult extends Component {
 
     //Gets a list of movies based on search input and page number
     getSearchResults =()=>{
-        let URL = "/api/search",
+        let URL = "http://localhost:5000/api/search",
             param = {params: {value: this.props.location.state.value, pageNumber: this.state.pageNumber}}
         
         if(this.props.location.pathname==="/Discover"){
-            URL = "/api/discover";
+            URL = "http://localhost:5000/api/discover";
             param = {
                         params: {
                             year: this.props.location.state.YEAR, 

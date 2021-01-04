@@ -1,18 +1,18 @@
 import React, { Component } from 'react';
 import NavigationBar from '../../components/UI/NavigationBar/Navigation';
-import GeneralInfo from '../../components/GeneralInfo/GeneralInfo';
-import Reviews from '../../components/Reviews/Reviews';
+import GeneralInfo from './GeneralInfo/GeneralInfo';
+import Reviews from './Reviews/Reviews';
 import Spinner from '../../components/UI/Spinner/Spinner';
 import BackBtn from '../../components/UI/BackBtn/BackBtn';
 import Error from '../../components/ErrorPage/Error';
-import Carousel from '../Carousel/Carousel';
+import CarouselHorizontal from '../Carousel/CarouselHorizontal';
 import './Detail.css';
 import axios from 'axios';
 
 //Component that contains detail information for selected movie
 class Detail extends Component{
     state= {
-        similarMovies: null,
+        similarMovies: [],
         overview: null,
         genre: null,
         tagline: null,
@@ -26,7 +26,7 @@ class Detail extends Component{
 
     //Gets detail information for selected movie
     getDetail = () =>{
-        axios.get("/api/detail", {params: {id:this.props.location.state.id}}).then(response =>{
+        axios.get("http://localhost:5000/api/detail", {params: {id:this.props.location.state.id}}).then(response =>{
             this.setState({
                 overview: response.data.detail.overview,
                 genre: response.data.detail.genre,
@@ -68,6 +68,11 @@ class Detail extends Component{
             return <Spinner/>
         }
 
+        let carousel = <div className = "detail-no-movies-text">No Similar Movies Found...</div>
+        if(this.state.similarMovies.length>0){
+            carousel =  <CarouselHorizontal movies = {this.state.similarMovies}/>
+        }
+
         return(
             <div className = "Detail">
                 <NavigationBar/>
@@ -76,7 +81,14 @@ class Detail extends Component{
                     vote = {this.props.location.state.voteAverage} poster={this.props.location.state.poster} overview = {this.state.overview} genre = {this.state.genre}
                     tagline = {this.state.tagline} hours = {this.state.hours} minutes = {this.state.minutes} video = {this.state.video}/>
                 <Reviews list = {this.state.reviews}/>
-                <Carousel movieType = {"Similar"} movies = {this.state.similarMovies}/>
+                <div className = "detail-carousel-grid">
+                    <div className = "detail-carousel-header">
+                        <div className = "detail-carousel-header-text">Similar Movies</div>
+                    </div>
+                    <div className = "detail-carousel-display">
+                        {carousel}
+                    </div>
+                </div>
             </div>
         )
     }

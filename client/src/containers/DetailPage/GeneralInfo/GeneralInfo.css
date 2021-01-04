@@ -1,0 +1,109 @@
+
+.general-info{
+    margin-top: 5vh;
+    width: 100%;
+    height: 50vh;
+    overflow: overlay;
+}
+
+.detail-left-grid{
+    width: 40%;
+    float: left;
+    margin-top: 15vh;
+}
+
+.detail-right-grid{
+    width: 60%;
+    float: left;
+    margin-top: 15vh;
+}
+
+.info{
+    margin: 3vh 0 0 10vh;
+    width: 30vh;
+    background: transparent;
+    float: left;
+    list-style-type: none;
+}
+
+.info li{
+    text-indent: 1em;
+    width: 100%;
+    font-size: 2.2vh;
+    font-weight: 400;
+    text-align: left;
+    line-height: 1.5em;
+}
+
+.video{
+    width: 90%;
+    height: 60vh;
+    box-shadow: 15px 15px 18px #141414;
+    float: left;
+    margin: 10vh 5% 0 5%;
+}
+
+.no-video-box{
+    width: 90%;
+    height: 47vh;
+    box-shadow: 15px 15px 18px #141414;
+    float: left;
+    margin: 10vh 5% 0 5%;
+    background:black;
+    position: relative;
+}
+
+.no-video-text{
+    font-size: 3vh;
+    position: absolute;
+    top: 40%;
+    left: 35%;
+    font-style: italic;
+}
+
+.overview-grid{
+    width: 100%;
+    height: 80vh;
+    margin-top: 10vh;
+    display: inline-block;
+}
+
+.detail-cover-image{
+    height: 75vh;
+    width: auto;
+    float: left;
+    margin-top: 5vh;
+    margin-left: 16vh;
+    box-shadow: 15px 15px 18px #141414;
+}
+
+.detail-title{
+    float: left;
+    width: 90%;
+    font-weight: 500;
+    font-size: 6vh;
+    height: 10vh;
+    border-bottom: 1px solid #fff;
+    outline: none;
+    margin: 0vh 5% 5vh 5%;
+    font-style: italic;
+}
+
+.detail-overview{
+    float: left;
+    font-weight: 300;
+    font-size: 2.5vh;
+    text-indent: 3em;
+    line-height: 2em;
+    width: 90%;
+    margin: 0 5% 0 5%;
+}
+
+.tagline{
+    float: left;
+    width: 90%;
+    font-style: italic;
+    font-weight: 500;
+    font-size: 6vh;
+    margin: 5vh 5% 0vh 5%;
+}

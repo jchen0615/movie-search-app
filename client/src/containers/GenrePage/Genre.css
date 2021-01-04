@@ -1,5 +1,6 @@
 .genre-page{
-    width: 100%
+    width: 100%;
+    overflow:overlay;
 }
 
 .search-error-message{

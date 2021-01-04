@@ -3,17 +3,18 @@ import { Link } from 'react-router-dom';
 import './NavigationBar.css';
 import logo from '../../../images/TMDbLogo.png';
 import axios from 'axios';
-import SearchInput from '../SearchInput/SearchInput';
+import search from '../../../images/Search.png';
+import {Redirect} from 'react-router-dom';
 
 class NavigationBar extends Component{
 
     state = {
         search:false,
-        searchValue: null,
-        autocompleteValue: null,
+        searchValue: "",
+        autocompleteValue: "",
         color:"transparent",
         focused: false,
-        results: null
+        results: []
     }
 
     //Send get request to backend
@@ -43,7 +44,7 @@ class NavigationBar extends Component{
     }
 
     searchRowClickHandler = (event) =>{
-        this.setState({searchValue: event.target.textContent, results:null }, function(){})
+        this.setState({searchValue: event.target.textContent, results:[] }, function(){})
     }
 
     autocompleteHandler = (event)=>{
@@ -53,7 +54,7 @@ class NavigationBar extends Component{
                 if(this.state.focused){
                     if(this.state.searchValue === ""){
                         this.setState({
-                            results: null
+                            results: []
                         })
                     }
 
@@ -110,9 +111,9 @@ class NavigationBar extends Component{
             )
         }
 
-        let results = ""
-        if(this.state.results){
-            results = this.state.results.map((movie)=>{
+        let result = ""
+        if(this.state.results.length>0){
+            result = this.state.results.map((movie)=>{
                 return <div className="simple-search-row" key={movie.id} onClick={this.searchRowClickHandler}>{movie.title}</div>
             })
         }
@@ -156,10 +157,13 @@ class NavigationBar extends Component{
                     </button>
                 </div>
                 <div className = "search-menu">
-                    <SearchInput placeholder="Search for movie here.." onfocusHandler={this.autocompleteHandler} onBlurHandler={this.onBlurHandler} onChangeHandler={this.searchInputHandler}
-                    keypressHandler={this.EnterKeyHandler} searchValue={this.state.searchValue} onclickHandler={this.props.searchClickHandler}/> 
-                    <div className = {`search-input-results ${this.state.results?"active":""}`}>
-                        {results}
+                    <div className = "search-input">
+                        <input type="text" data-testid="search-input" placeholder = "Search for movie here.." onFocus={this.autocompleteHandler} 
+                            onBlur={this.onBlurHandler} onChange={this.searchInputHandler} onKeyPress={this.EnterKeyHandler} value={this.state.searchValue}/>
+                        <img className = "search-img-btn" src = {search} data-testid = "search-icon" alt = "search" onClick={this.searchClickHandler}/>
+                    </div>
+                    <div className = {`search-input-results ${this.state.results.length>0?"active":""}`}>
+                        {result}
                     </div>
                 </div>
             </div>

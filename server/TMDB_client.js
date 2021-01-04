@@ -1,6 +1,6 @@
 const promise = require('promise')
 const axios = require('axios')
-const api_key = "";
+const api_key = "6acdc2a1f286a16206a27d03bb46bbf1";
 const keys = require('./keys');
 
 //Client service file that handles all HTTP requests to TMDB API
@@ -23,7 +23,7 @@ function getDetailData(id){
                 video: responseArr[0].data.videos.results.find(element => element.type==="Trailer")? keys.youtubeString+responseArr[0].data.videos.results.find(element => element.type==="Trailer").key:null
             }
          
-            const movieList = responseArr[1].data.results.slice(0,12).map(movie =>{
+            const movieList = responseArr[1].data.results.slice(0,20).map(movie =>{
                 return{
                     id: movie.id,
                     title: movie.title,
@@ -65,7 +65,7 @@ function getSearchResults(searchValue, pageNumber){
                     poster: movie.poster_path? keys.posterString+movie.poster_path : null,
                     date: movie.release_date,
                     voteAverage: movie.vote_count>0?movie.vote_average:"No rating available",
-                    overview: movie.overview
+                    overview: movie.overview.length>400? movie.overview.substring(0, 400)+" ...READ MORE":movie.overview
                 }
             })
             
