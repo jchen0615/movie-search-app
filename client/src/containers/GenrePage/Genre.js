@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Navigation from '../../components/UI/NavigationBar/Navigation';
+import Navigation from '../NavigationBar/Navigation';
 import MovieGrid from '../../components/Grids/MovieGrid/MovieGrid';
 import Spinner from '../../components/UI/Spinner/Spinner';
 import PageNavigation from '../../components/UI/PageNavigation/PageNavigation';
@@ -23,7 +23,7 @@ class Genre extends Component{
     
     //Gets movies based on genre ID
     getMoviesByGenre =()=>{
-        axios.get("http://localhost:5000/api/genre", {params: {pageNumber:this.state.pageNumber, releaseYear:this.state.releaseYear, id:this.state.id}}).then(response =>{
+        axios.get("/api/genre", {params: {pageNumber:this.state.pageNumber, releaseYear:this.state.releaseYear, id:this.state.id}}).then(response =>{
             this.setState({
                 movies:response.data.movieList,
                 totalPages: response.data.totalPages,
@@ -41,7 +41,7 @@ class Genre extends Component{
 
     //Gets movies that are currently playing in theater
     getNowPlaying =()=>{
-        axios.get("http://localhost:5000/api/now_playing", {params: {pageNumber: this.state.pageNumber}}).then(response =>{
+        axios.get("/api/now_playing", {params: {pageNumber: this.state.pageNumber, id:0}}).then(response =>{
             this.setState({
                 movies:response.data.movieList,
                 totalPages: response.data.totalPages,
@@ -59,7 +59,7 @@ class Genre extends Component{
 
     //Render page based on wheterh a 'genre' page or 'now playing' page is accessed
     componentDidMount(){
-        if(!this.props.location.state.now)
+        if(this.props.location.state.id)
             this.getMoviesByGenre()
         else
             this.getNowPlaying()

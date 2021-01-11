@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {Redirect} from 'react-router-dom';
-import NavigationBar from '../../components/UI/NavigationBar/Navigation';
+import NavigationBar from '../NavigationBar/Navigation';
 import Spinner from '../../components/UI/Spinner/Spinner';
 import Error from '../../components/ErrorPage/Error';
 import Carousel from '../Carousel/Carousel';
@@ -9,9 +9,7 @@ import axios from 'axios'
 import './Home.css';
 import Discover from '../Discover/Discover';
 
-
 class Home extends Component {
-
 
     state = {
         popularMovies: null,
@@ -25,7 +23,7 @@ class Home extends Component {
 
     //Send get request to backend
     getHome =()=>{
-        axios.get("http://localhost:5000/api/home").then(response =>{
+        axios.get("/api/home").then(response =>{
             this.setState({
                 nowPlaying: response.data.nowPlaying,
                 popularMovies: response.data.popularMovies,
@@ -41,7 +39,7 @@ class Home extends Component {
 
     componentDidMount(){
        this.getHome();
-
+/*
        let counter = 2;
        setInterval(function(){
             document.getElementById('radio' + counter).checked = true;
@@ -49,7 +47,7 @@ class Home extends Component {
             if(counter>5){
                 counter = 1;
             }
-        }, 5000)
+        }, 5000)*/
     };
 
     render(){

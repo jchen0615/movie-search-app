@@ -1,6 +1,6 @@
 import React, { Component } from 'react';;
-import NavigationBar from '../../components/UI/NavigationBar/Navigation';
-import SearchList from '../../components/SearchList/SearchList';
+import NavigationBar from '../NavigationBar/Navigation';
+import SearchList from './SearchList/SearchList';
 import Spinner from '../../components/UI/Spinner/Spinner';
 import PageNavigation from '../../components/UI/PageNavigation/PageNavigation';
 import Error from '../../components/ErrorPage/Error';
@@ -22,11 +22,11 @@ class SearchResult extends Component {
 
     //Gets a list of movies based on search input and page number
     getSearchResults =()=>{
-        let URL = "http://localhost:5000/api/search",
+        let URL = "/api/search",
             param = {params: {value: this.props.location.state.value, pageNumber: this.state.pageNumber}}
         
         if(this.props.location.pathname==="/Discover"){
-            URL = "http://localhost:5000/api/discover";
+            URL = "/api/discover";
             param = {
                         params: {
                             year: this.props.location.state.YEAR, 

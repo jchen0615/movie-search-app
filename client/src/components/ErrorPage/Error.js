@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import Navigation from '../UI/NavigationBar/Navigation'
+import Navigation from '../../containers/NavigationBar/Navigation'
 import './Error.css'
 
 //Component that is rendered when an error occurs

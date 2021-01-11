@@ -10,13 +10,6 @@ class Slide extends Component{
                 <div className = {name}>
                      <Link to = {{
                         pathname: "/Detail/"+this.props.id,
-                        state:{
-                            id: this.props.id,
-                            title: this.props.title,
-                            poster: this.props.poster,
-                            date: this.props.date,
-                            voteAverage: this.props.voteAverage
-                        }
                     }}><div className = {"read-more-text "+this.props.radio}>READ MORE</div></Link>
                     <div className = "carousel-slide-image">
                         <img src={this.props.poster? this.props.poster : require("../../../images/noImage.png")}/>

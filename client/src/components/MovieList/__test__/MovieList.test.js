@@ -11,15 +11,11 @@ const test_props = {
             id:"test-id-1",
             title: "test-title-1",
             poster: "test-poster-1",
-            date: "test-date-1",
-            voteAverage: "test-vote-1"
         },
         {
             id:"test-id-2",
             title: "test-title-2",
             poster: "test-poster-2",
-            date: "test-date-2",
-            voteAverage: "test-vote-2"
         }
     ]
 }
@@ -35,8 +31,6 @@ describe("'Movie List'", ()=>{
             expect(movie.props().movieID).toBe(test_props.movies[index].id)
             expect(movie.props().movieTitle).toBe(test_props.movies[index].title)
             expect(movie.props().moviePoster).toBe(test_props.movies[index].poster)
-            expect(movie.props().date).toBe(test_props.movies[index].date)
-            expect(movie.props().voteAverage).toBe(test_props.movies[index].voteAverage)
         })
     })
 

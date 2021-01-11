@@ -1,7 +1,7 @@
 const promise = require('promise')
 const axios = require('axios')
-const api_key = "";
 const keys = require('./keys');
+const api_key = keys.TMDbKey;
 
 //Client service file that handles all HTTP requests to TMDB API
     
@@ -15,12 +15,16 @@ function getDetailData(id){
         ]).then(responseArr =>{
             
             let detail = {
+                title: responseArr[0].data.title,
                 overview: responseArr[0].data.overview? responseArr[0].data.overview : "No overview available",
                 genre: responseArr[0].data.genres.length>0? responseArr[0].data.genres[0].name:"No information available",
                 tagline: responseArr[0].data.tagline? responseArr[0].data.tagline:"",
                 hours: responseArr[0].data.runtime>0? Math.floor(parseInt(responseArr[0].data.runtime, 10)/60): null,
                 minutes: responseArr[0].data.runtime>0? Math.floor(parseInt(responseArr[0].data.runtime, 10)%60): null,
-                video: responseArr[0].data.videos.results.find(element => element.type==="Trailer")? keys.youtubeString+responseArr[0].data.videos.results.find(element => element.type==="Trailer").key:null
+                video: responseArr[0].data.videos.results.find(element => element.type==="Trailer")? keys.youtubeString+responseArr[0].data.videos.results.find(element => element.type==="Trailer").key:null,
+                voteAverage: responseArr[0].data.vote_average,
+                releaseDate: responseArr[0].data.release_date,
+                poster: responseArr[0].data.poster_path? keys.posterString+responseArr[0].data.poster_path : null
             }
          
             const movieList = responseArr[1].data.results.slice(0,20).map(movie =>{
@@ -65,7 +69,7 @@ function getSearchResults(searchValue, pageNumber){
                     poster: movie.poster_path? keys.posterString+movie.poster_path : null,
                     date: movie.release_date,
                     voteAverage: movie.vote_count>0?movie.vote_average:"No rating available",
-                    overview: movie.overview.length>400? movie.overview.substring(0, 400)+" ...READ MORE":movie.overview
+                    overview: movie.overview
                 }
             })
             
@@ -177,7 +181,6 @@ function getMoviesByGenre(pageNumber, releaseYear, id){
                 id: movie.id,
                 title: movie.title,
                 poster: movie.poster_path? keys.posterString+movie.poster_path : null,
-                date: movie.release_date,
                 voteAverage: movie.vote_count>0?movie.vote_average:"No rating available"
                 }
             })
@@ -199,7 +202,6 @@ function getNowPlaying(pageNumber){
                  id: movie.id,
                  title: movie.title,
                  poster: movie.poster_path? keys.posterString+movie.poster_path : null,
-                 date: movie.release_date,
                  voteAverage: movie.vote_count>0?movie.vote_average:"No rating available"
                  }
              })
@@ -225,7 +227,6 @@ function getHomePage(){
                     id: movie.id,
                     title: movie.title,
                     poster: movie.poster_path? keys.posterString+movie.poster_path : null,
-                    date: movie.release_date,
                     voteAverage: movie.vote_average,
                     overview: movie.overview
                 }
@@ -236,7 +237,6 @@ function getHomePage(){
                     id: movie.id,
                     title: movie.title,
                     poster: keys.posterString+movie.poster_path,
-                    date: movie.release_date,
                     voteAverage: movie.vote_average,
                     overview: movie.overview
                 }
