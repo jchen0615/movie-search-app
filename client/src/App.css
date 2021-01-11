@@ -1,11 +1,14 @@
 .App {
   text-align: center;
   width:100%;
+  min-height: 100vh;
+  background-image: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.3) ), url('./images/background.jpg');
 }
 
+/*
 body {
   background-image: url("./images/background.jpg");
   background-repeat: no-repeat;
   background-attachment: fixed;
 }
-
+*/

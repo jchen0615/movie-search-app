@@ -1,0 +1,29 @@
+.reviews{
+  width: 100%;
+  font-size: 5vh;
+  margin: 4vh 0 10vh 0;
+  position: relative;
+  float: left;
+  margin-top: 10vh;
+}
+
+.reviews_header{
+  width: 90%;
+  float: left;
+  text-align: left;
+  font-weight: 700;
+  border-bottom: 0.1vh solid white;
+  margin: 0 0 2vh 5%;
+}
+
+.list-reviews{
+  width: 100%;
+  float: left;
+  margin-top: 2vh;
+}
+
+.no-reviews-text{
+  font-size: 3vh;
+  padding-top: 10vh;
+}
+

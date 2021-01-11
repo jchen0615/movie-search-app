@@ -12,12 +12,13 @@
     box-sizing: border-box;
     float: left;
     width: 100%;
-    height: 318vh;
+    height: 260vh;
   }
   
   .header-grid{
     width: 100%;
-    margin-top: 5vh;
+    margin-top: 10vh;
+    float: left;
   }
 
   .grid-header{
@@ -32,8 +33,7 @@
   }
 
   .grid-list{
-    width:160vh;
-    margin-left: 20vh;
+    width:100%;
     display: inline-block;
     padding: 0;
   }

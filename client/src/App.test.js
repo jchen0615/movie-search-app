@@ -9,5 +9,5 @@ test('App renders correctly', () => {
   const wrapper = shallow(<App/>)
   expect(wrapper).toBeTruthy()
   expect(wrapper.find("[data-testid='App']").length).toBe(1)
-  expect(wrapper.find("Route").length).toBe(6)
+  expect(wrapper.find("Route").length).toBe(7)
 });

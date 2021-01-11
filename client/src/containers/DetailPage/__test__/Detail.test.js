@@ -7,13 +7,9 @@ import {mockData as mockData} from '../../../../__mocks__/data.json';
 Enzyme.configure({adapter: new EnzymeAdapter()})
 
 const test_props = {
-    location:{
-        state:{
+    match:{
+        params:{
             id: "test_id",
-            title: "test_title",
-            date: "test_date",
-            voteAverage: "test_vote",
-            poster: "test_poster",
         }
     },
     history:{
@@ -21,8 +17,8 @@ const test_props = {
     }
 }
 
-
 const test_state = {
+    title: "test_title",
     similarMovies: ["test_movie-1", "test_movie-2"],
     overview: "test_overview",
     genre: "test_genre",
@@ -31,6 +27,9 @@ const test_state = {
     minutes: "test_minutes",
     video: "test_video",
     reviews: "test_reviews",
+    voteAverage: "test_voteAverage",
+    releaseDate: "test_releaseDate",
+    poster: "test_poster",
     errorMsg: null,
     loading:false
 }
@@ -78,11 +77,11 @@ describe("'Detail'", ()=>{
         const info = wrapper.find("GeneralInfo").props()
 
         //Check general info has correct props
-        expect(info.id).toBe(test_props.location.state.id)
-        expect(info.title).toBe(test_props.location.state.title)
-        expect(info.date).toBe(test_props.location.state.date)
-        expect(info.vote).toBe(test_props.location.state.voteAverage)
-        expect(info.poster).toBe(test_props.location.state.poster)
+        expect(info.id).toBe(test_props.match.params.id)
+        expect(info.title).toBe(test_state.title)
+        expect(info.date).toBe(test_state.releaseDate)
+        expect(info.vote).toBe(test_state.voteAverage)
+        expect(info.poster).toBe(test_state.poster)
         expect(info.overview).toBe(test_state.overview)
         expect(info.genre).toBe(test_state.genre)
         expect(info.tagline).toBe(test_state.tagline)
@@ -91,22 +90,21 @@ describe("'Detail'", ()=>{
         expect(info.video).toBe(test_state.video)
         
         expect(wrapper.find("Reviews").props().list).toMatch(test_state.reviews)
-        expect(wrapper.find("Carousel").props().movies).toBe(test_state.similarMovies)
+        expect(wrapper.find("CarouselHorizontal").props().movies).toBe(test_state.similarMovies)
     })
 })
 
 
 describe("Detail page fetch", ()=>{
      
-    const detail = mockData.detail.data.detail;
-    const movieList = mockData.detail.data.movieList;
-    const reviews = mockData.detail.data.reviews;
+    const mockDetailData = mockData.detail.data;
+    const detail = mockDetailData.detail;
     const errorMsg = mockData.error.response.data.errorMsg;
     const backendErrorMsg = mockData.backendError.response.statusText;
 
     const api_error_props ={
-        location:{
-            state:{
+        match:{
+            params:{
                 id: "test_api_error"
             }
         },
@@ -116,8 +114,8 @@ describe("Detail page fetch", ()=>{
     }
     
     const backend_error_props ={
-        location:{
-            state:{
+        match:{
+            params:{
                 id: "test_backend_error"
             }
         },
@@ -139,8 +137,8 @@ describe("Detail page fetch", ()=>{
             expect(state.hours).toEqual(detail.hours);
             expect(state.minutes).toEqual(detail.minutes);
             expect(state.video).toEqual(detail.video);
-            expect(state.similarMovies).toEqual(movieList);
-            expect(state.reviews).toEqual(reviews)
+            expect(state.similarMovies).toEqual(mockDetailData.movieList);
+            expect(state.reviews).toEqual(mockDetailData.reviews)
             done();
         })
     })

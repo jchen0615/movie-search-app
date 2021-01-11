@@ -1,0 +1,43 @@
+.result-movie{
+    float: left;
+    width: 80%;
+    margin: 7vh 0 0 10%;
+    transition: all .2s;
+    min-height: 45vh;
+    overflow: overlay;
+}
+
+.result-movie:hover{
+    transform: scale(1.05);
+}
+
+.search-movie-cover{
+    width: 30vh;
+    height: auto;
+    float: left;
+}
+
+.search-info{
+    width: 100vh;
+    margin-left: 20vh;
+    float: left;
+    color: white;
+}
+
+.search-title{
+    margin: 5vh 0 6vh 0;
+    width: 100%;
+    font-size: 3.5vh;
+    font-weight: bold;
+    text-align: left;
+    font-style: italic;
+}
+
+.search-overview{
+    width: 100%;
+    font-size: 2.5vh;
+    text-align: left;
+    text-indent: 2em;
+    line-height: 5vh;
+}
+

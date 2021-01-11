@@ -1,0 +1,36 @@
+.discover-genre-list{
+    float: left;
+    width: 80%;
+    color: white;
+    height: auto;
+}
+
+.discover-genre-options{
+    width: 100%;
+}
+
+.discover-genre-option{
+    width: 12.5%;
+    font-size: 1.5vh;
+    float: left;
+    margin: 1vh 1vh;
+    border: 1px white solid;
+    transition: 0.2s;
+    cursor: pointer;
+}
+
+.discover-genre-option:hover{
+    color: green;
+    transition: 0.2s;
+}
+
+.discover-genre-select{
+    float: left;
+}
+.discover-genre-select p{
+    float:left;
+    font-size: 1.5vh;
+    text-align: left;
+    height: 3vh;
+    margin-right: 2vh;
+}

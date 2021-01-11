@@ -47,7 +47,7 @@ describe("'Search Result'", ()=>{
         expect(wrapper.find("NavigationBar").length).toBe(1)
         expect(findByTestId(wrapper, "search-message-container").length).toBe(1)
         expect(findByTestId(wrapper, "search-message").length).toBe(1)
-        expect(findByTestId(wrapper, "search-message").text()).toBe(`Showing ${test_state.pageNumber} of ${test_state.totalPages} pages for keyword: \"${test_props.location.state.value}\"`)
+        expect(findByTestId(wrapper, "search-message").text()).toBe(`Showing page ${test_state.pageNumber} of ${test_state.totalPages}`)
         expect(wrapper.find("SearchList").props().list).toBe(test_state.movieList)
         expect(wrapper.find("PageNavigation")).toBeTruthy()
     })

@@ -5,6 +5,7 @@ const GENRE_ENDPOINT = "/api/genre";
 const NOWPLAYING_ENDPOINT = "/api/now_playing";
 const HOME_ENDPOINT = "/api/home";
 const SEARCH_ENDPOINT = "/api/search";
+const DISCOVER_ENDPOINT = "/api/discover";
 
 module.exports = {
     get: jest.fn((url, req) => {
@@ -23,6 +24,7 @@ module.exports = {
                 case HOME_ENDPOINT:
                     return Promise.resolve(data.home);
                 case SEARCH_ENDPOINT:
+                case DISCOVER_ENDPOINT:
                     return Promise.resolve(data.search);
             }
 

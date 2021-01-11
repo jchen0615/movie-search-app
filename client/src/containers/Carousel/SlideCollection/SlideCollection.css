@@ -1,0 +1,21 @@
+.carousel-slides-collection{
+    width:25%;
+    height:100%;
+    transition: 0.5s;
+}
+
+.carousel-slides-collection.first.display1{
+    margin-left: 0;
+}
+
+.carousel-slides-collection.first.display2{
+    margin-left: -25%;
+}
+
+.carousel-slides-collection.first.display3{
+    margin-left: -50%;
+}
+
+.carousel-slides-collection.first.display4{
+    margin-left: -75%;
+}

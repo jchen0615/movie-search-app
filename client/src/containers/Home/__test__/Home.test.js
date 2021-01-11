@@ -21,10 +21,11 @@ describe("'Home page'", ()=>{
 
     test("renders correctly when finish loading", ()=>{
         wrapper.setState({loaded:true});
-        expect(findByTestId(wrapper, "navigation")).toBeTruthy();
-        expect(findByTestId(wrapper, "search-grid")).toBeTruthy();
-        expect(findByTestId(wrapper, "nowplaying")).toBeTruthy();
-        expect(findByTestId(wrapper, "popular")).toBeTruthy();
+        expect(wrapper.find('div.Home-page')).toBeTruthy();
+        expect(wrapper.find('div.navigation-bar')).toBeTruthy();
+        expect(wrapper.find('#home-grid-1')).toBeTruthy();
+        expect(wrapper.find('#home-grid-2')).toBeTruthy();
+        expect(wrapper.find('#home-grid-3')).toBeTruthy();
     });
 
     test("renders correctly when encounter error", ()=>{
@@ -39,8 +40,28 @@ describe("'Home page'", ()=>{
     });
 });
 
+describe("'Home Page' fetches", ()=>{
 
+    const nowPlaying = mockData.home.data.nowPlaying;
+    const popular = mockData.home.data.popularMovies;
+    jest.mock("axios");
+
+    test("Fetches data from TMDb API", (done)=>{
+        const wrapper = shallow(<Home />);
+        setTimeout(()=>{
+            wrapper.update();
+            const state = wrapper.instance().state;
+            expect(state.popularMovies).toEqual(popular);
+            expect(state.nowPlaying).toEqual(nowPlaying);
+            done();
+        })
+    })
+
+});
+
+//------NO LONGER VALID PER NEW HOMEPAGE DESIGN-------
 //Tests functionality of searchClickHandler()
+/*
 describe("Search click handler", ()=>{
     const wrapper = shallow(<Home/>, {disableLifecycleMethods: true});
     const val = "test";
@@ -67,7 +88,6 @@ describe("Search input handler", ()=>{
         expect(wrapper.state('searchValue')).toBe(val);
     });
 });
-
 
 
 //Tests functionality of EnterKeyHandler()
@@ -101,22 +121,4 @@ describe("Enter key handler", ()=>{
         expect(wrapper.state('search')).toBeTruthy()
     });    
 });
-
-describe("'Home Page' fetches", ()=>{
-
-    const nowPlaying = mockData.home.data.nowPlaying;
-    const popular = mockData.home.data.popularMovies;
-    jest.mock("axios");
-
-    test("Fetches data from TMDb API", (done)=>{
-        const wrapper = shallow(<Home />);
-        setTimeout(()=>{
-            wrapper.update();
-            const state = wrapper.instance().state;
-            expect(state.popularMovies).toEqual(popular);
-            expect(state.nowPlaying).toEqual(nowPlaying);
-            done();
-        })
-    })
-
-});
+*/
