@@ -4,9 +4,6 @@ language: generic
 services:
     - docker
 
-env:
-    - TMDb_KEY=$TMDb_KEY
-
 before_install:
     - docker build -t jchen96/react-test -f ./client/Dockerfile.dev ./client
 
