@@ -12,6 +12,7 @@ services:
     environment:
       - REDIS_HOST=redis
       - REDIS_PORT=6379
+      - TMDb_KEY=$TMDb_KEY
   client:
     stdin_open: true
     build:

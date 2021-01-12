@@ -3,7 +3,6 @@ const cors = require('cors');
 const TMDB_client = require('./TMDB_client');
 const bodyParser = require('body-parser');
 const redis = require('redis');
-const keys = require('./keys')
 
 const app = express();
 const PORT = process.env.PORT || 5000;
