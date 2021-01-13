@@ -15,7 +15,6 @@ after_sucess:
     - docker build -t jchen96/movie-nginx ./nginx
     - docker build -t jchen96/movie-server ./server
     - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
-    - echo "$TMDb_KEY"
     - docker push jchen96/movie-client
     - docker push jchen96/movie-nginx
     - docker push jchen96/movie-server

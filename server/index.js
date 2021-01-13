@@ -6,7 +6,7 @@ const redis = require('redis');
 const keys = require('./keys');
 
 const app = express();
-const PORT = process.env.PORT || 5000;
+const PORT = 5000;
 
 const redisClient = redis.createClient({
     host: keys.redisHost,
