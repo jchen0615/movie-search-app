@@ -22,7 +22,7 @@ app.use(bodyParser.json());
 //Redis cache layer
 function cache(req, res, next){
     const key = req.path==='/home'? req.path: req.path+'-'+req.query.id+'-'+req.query.pageNumber;
-    console.log(key)
+    console.log("KEY:"+key)
     redisClient.get(key, (err, data) =>{
         console.log("IN REDIS")
         if(err) throw err;
