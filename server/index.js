@@ -17,6 +17,8 @@ const redisClient = redis.createClient({
 app.use(cors());
 app.use(bodyParser.json());
 
+console.log("TMDB_KEYS:" + keys.TMDbKey);
+
 //Redis cache layer
 function cache(req, res, next){
     const key = req.path==='/home'? req.path: req.path+'-'+req.query.id+'-'+req.query.pageNumber;
