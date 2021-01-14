@@ -14,14 +14,15 @@ const redisClient = redis.createClient({
     retry_strategy: () => 1000,
 });
 
+console.log(`Redis client created. Host: ${keys.redisHost} port ${keys.redisPort||6379}!`);
+
 app.use(cors());
 app.use(bodyParser.json());
-
-console.log("TMDB_KEYS:" + keys.TMDbKey);
 
 //Redis cache layer
 function cache(req, res, next){
     const key = req.path==='/home'? req.path: req.path+'-'+req.query.id+'-'+req.query.pageNumber;
+    console.log(key)
     redisClient.get(key, (err, data) =>{
         console.log("IN REDIS")
         if(err) throw err;
@@ -37,10 +38,10 @@ function cache(req, res, next){
 }
 
 //Send get request to TMDb API to fetch data needed for frontend homepage
-app.get('/home', (req, res) => {
+app.get('/home', cache, (req, res) => {
     console.log("IN HOME")
     TMDB_client.getHomePage().then((response)=>{
-        //redisClient.setex(req.path, 86400, JSON.stringify(response))
+        redisClient.setex(req.path, 86400, JSON.stringify(response))
         res.send(response).status(200);
     }).catch((error)=>{
         res.status(error.errorCode).send({errorMsg: error.errorMsg? error.errorMsg: "Unexpected error"});
@@ -126,6 +127,6 @@ app.get('/person_id', (req, res) =>{
 });
 
 app.listen(PORT, () => {
-    console.log(`Example app listening on port ${PORT}!`);
+    console.log(`App listening on port ${PORT}!`);
 });
   
