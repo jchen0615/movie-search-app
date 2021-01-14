@@ -21,21 +21,24 @@ app.use(bodyParser.json());
 function cache(req, res, next){
     const key = req.path==='/home'? req.path: req.path+'-'+req.query.id+'-'+req.query.pageNumber;
     redisClient.get(key, (err, data) =>{
+        console.log("IN REDIS")
         if(err) throw err;
 
         if(data!==null){
             res.send(JSON.parse(data)).status(200);
         }
         else{
+            console.log("ABOUT OUT")
             next();
         }
     })
 }
 
 //Send get request to TMDb API to fetch data needed for frontend homepage
-app.get('/home', cache, (req, res) => {
+app.get('/home', (req, res) => {
+    console.log("IN HOME")
     TMDB_client.getHomePage().then((response)=>{
-        redisClient.setex(req.path, 86400, JSON.stringify(response))
+        //redisClient.setex(req.path, 86400, JSON.stringify(response))
         res.send(response).status(200);
     }).catch((error)=>{
         res.status(error.errorCode).send({errorMsg: error.errorMsg? error.errorMsg: "Unexpected error"});
