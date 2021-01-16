@@ -22,10 +22,10 @@ after_sucess:
 deploy:
   provider: elasticbeanstalk
   region: 'us-east-2'
-  app: 'movie-docker'
-  env: 'MovieDocker-env-1'
+  app: 'movie-search-docker-app'
+  env: 'MovieSearchDockerApp-env'
   bucket_name: 'elasticbeanstalk-us-east-2-519589258831'
-  bucket_path: 'movie-docker'
+  bucket_path: 'movie-search-docker'
   on:
     branch: master
   access_key_id: $AWS_ACCESS_KEY
