@@ -10,7 +10,7 @@ class BackBtn extends Component{
 
     render(){
         return(
-            <button type='button' className = "back-btn" onClick = {this.goBack}>&#8249;&nbsp;Back</button>
+            <button type='button' className = "back-btn" onClick = {this.goBack}>&lsaquo;&nbsp;Back</button>
         )
     }
 }

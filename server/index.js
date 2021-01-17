@@ -14,24 +14,19 @@ const redisClient = redis.createClient({
     retry_strategy: () => 1000,
 });
 
-console.log(`Redis client created. Host: ${keys.redisHost} port ${keys.redisPort||6379}!`);
-
 app.use(cors());
 app.use(bodyParser.json());
 
 //Redis cache layer
 function cache(req, res, next){
     const key = req.path==='/home'? req.path: req.path+'-'+req.query.id+'-'+req.query.pageNumber;
-    console.log("KEY:"+key)
     redisClient.get(key, (err, data) =>{
-        console.log("IN REDIS")
         if(err) throw err;
 
         if(data!==null){
             res.send(JSON.parse(data)).status(200);
         }
         else{
-            console.log("ABOUT OUT")
             next();
         }
     })

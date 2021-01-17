@@ -22,13 +22,13 @@ class Carousel extends Component{
                     <div id="auto-btn5"></div>
                 </div>
                 <div className="carousel-navigation-manual">
-                    <label htmlFor="radio1" className="manual-btn"></label>
-                    <label htmlFor="radio2" className="manual-btn"></label>
-                    <label htmlFor="radio3" className="manual-btn"></label>
-                    <label htmlFor="radio4" className="manual-btn"></label>
-                    <label htmlFor="radio5" className="manual-btn"></label>
+                    <label htmlFor="radio1" data-index = "1" className="manual-btn" onClick = {this.props.counterHandler}></label>
+                    <label htmlFor="radio2" data-index = "2" className="manual-btn" onClick = {this.props.counterHandler}></label>
+                    <label htmlFor="radio3" data-index = "3" className="manual-btn" onClick = {this.props.counterHandler}></label>
+                    <label htmlFor="radio4" data-index = "4" className="manual-btn" onClick = {this.props.counterHandler}></label>
+                    <label htmlFor="radio5" data-index = "5" className="manual-btn" onClick = {this.props.counterHandler}></label>
                 </div>
-                <div className = "carousel-slider vertical">
+                <div className = "carousel-slider vertical" onMouseEnter={this.props.hoverHandler} onMouseLeave={this.props.hoverHandler}>
                     {this.props.movies.length>0? this.props.movies.map((movie, index) =>{
                         if(index===0){
                             return <Slide first={true} key={movie.id} id={movie.id} title={movie.title} poster={movie.poster} 
