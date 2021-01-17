@@ -135,8 +135,7 @@ class Discover extends Component{
 
     optionBtnClickHandler=(event)=>{
         if(!event.target.className.includes("active")){
-            const parent = event.target.parentElement;
-            const index = parseInt(parent.getAttribute("data-index"));
+            const index = parseInt(event.target.parentElement.getAttribute("data-index"));
             
             let newRows = this.state.rows;
             newRows[index].key = event.target.getAttribute("data-key");

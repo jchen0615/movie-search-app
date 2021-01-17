@@ -18,7 +18,9 @@ class Home extends Component {
         search: false,
         errorMsg: null,
         loading: true,
-        navTransparent: true
+        navTransparent: true,
+        carouselCounter: 1,
+        carouselHover: false
     }
 
     //Send get request to backend
@@ -37,17 +39,31 @@ class Home extends Component {
         })
     }
 
+    carouselCounterHandler =(event)=> {
+        const counter = parseInt(event.target.getAttribute("data-index"));
+        this.setState({
+            carouselCounter: counter
+        })
+    }
+
+    carouselHoverHandler =(event)=> {
+        this.setState((prevState)=>({
+            carouselHover: prevState.carouselHover? false: true
+        }))
+    }
+
     componentDidMount(){
-       this.getHome();
-/*
-       let counter = 2;
-       setInterval(function(){
-            document.getElementById('radio' + counter).checked = true;
-            counter++;
-            if(counter>5){
-                counter = 1;
+        this.getHome();
+
+        setInterval(()=>{
+            if(!this.state.carouselHover){
+                this.setState((prevState)=>({
+                    carouselCounter: prevState.carouselCounter===5? 1 : prevState.carouselCounter+1
+                }), ()=>{
+                    document.getElementById('radio' + this.state.carouselCounter).checked = true;
+                })
             }
-        }, 5000)*/
+        }, 5000)
     };
 
     render(){
@@ -78,7 +94,7 @@ class Home extends Component {
                             <div className = "carousel-display-header">
                                 <span>AUTHOR'S FAVORITE</span>
                             </div>
-                            <Carousel movies={this.state.popularMovies}/>
+                            <Carousel movies = {this.state.popularMovies} counterHandler = {this.carouselCounterHandler} hoverHandler = {this.carouselHoverHandler}/>
                         </div>
                     </div>
                 </div>
