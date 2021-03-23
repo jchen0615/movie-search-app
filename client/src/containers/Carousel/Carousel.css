@@ -1,7 +1,7 @@
 
 .carousel-display{
   width: 100%;
-  height:100%;
+  height:25.3vw;
   margin: 0;
   position:absolute;
 }
@@ -19,16 +19,16 @@
 
 .carousel-navigation-auto div,
 .manual-btn{
-  width: 0.1vh;
+  width: 0.1vw;
   border: 1.5px solid white;
-  padding: 4px;
+  padding: 0.25vw;
   border-radius: 10px;
-  cursor: pointer;
+  cursor: pointer
 }
 
 .carousel-navigation-auto div:not(:first-child),
 .manual-btn:not(:first-child){
-  margin-left: 0.5vh;
+  margin-left: 0.25vw;
 }
 
 #radio1:checked ~ .carousel-navigation-auto #auto-btn1,
@@ -69,16 +69,16 @@
 }
 
 #radio1 {
-  right: 8vh;
+  right: 4vw;
 }
 #radio2 {
-  right: 6vh;
+  right: 3vw;
 }
 #radio3 {
-  right: 4vh;
+  right: 2vw;
 }
 #radio4 {
-  right: 2vh;
+  right: 1vw;
 }
 #radio5 {
   right: 0;
@@ -137,17 +137,17 @@
 }
 
 .read-more-text{
-  position:absolute;
+  position: absolute;
   visibility: hidden;
   color: white;
   width: 100%;
   height: 100%;
   text-align: center;
-  line-height: 48vh;
+  line-height: 20vw;
   transition: 1s;
-  z-index:1;
+  z-index: 1;
   opacity: 0;
-  font-size: 6vh;
+  font-size: 2vw;
 }
 
 .carousel-slide-title{
@@ -155,7 +155,7 @@
   height:8%;
   margin: 6% 0 2% 0;
   font-weight: bold;
-  font-size: 4vh; 
+  font-size: 2vw; 
   background: transparent;
   float: left;
   font-style: italic;
@@ -163,25 +163,25 @@
 
 .carousel-slide-overview{
   font-weight: 300;
-  font-size: 2vh;
+  font-size: 1vw;
   width: 100%;
   height: 74%;
   margin-top: 10%;
   float: left;
   background: transparent;
   padding-top: 5%;
-  line-height: 3.5vh;
+  line-height: 2vw;
 }
 
 .start-quotation{
-  font-size: 7vh;
+  font-size: 2vw;
   width: 100%;
   text-align: left;
 }
 
 .end-quotation{
-  font-size: 7vh;
+  font-size: 2vw;
   width: 100%;
   text-align: right;
-  margin-top: 4vh;
+  margin-top: 1vw;
 }

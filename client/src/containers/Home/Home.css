@@ -4,7 +4,7 @@
 
 .home-grid-1{
   width: 100%;
-  height: 100vh;
+  height: 50vw;
   background-image:  linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.3) ), url('../../images/background.jpg');
   background-size: 100% 100%;
   margin: 0;
@@ -13,7 +13,7 @@
 
 .feature-text-grid{
   width:45%;
-  height:100%;
+  height:50vw;
   background: transparent;
   box-sizing: border-box;
   position: absolute;
@@ -30,21 +30,21 @@
 }
 
 .feature-text-line{
-  font-size: 2vh; 
+  font-size: 1vw; 
   text-align: left;
   margin: 0;
 }
 
 .feature-text-title{
   font-weight: bold;
-  font-size: 5vh; 
+  font-size: 2vw; 
   text-align: left;
   margin: 1vh 0 1vh 0;
 }
 
 .carousel-display-grid{
   width:55%;
-  height:100%;
+  height:50vw;
   background: transparent;
   box-sizing: border-box;
   position: absolute;
@@ -62,7 +62,7 @@
 .carousel-display-header{
   font-weight: 500;
   width: 100%;
-  font-size: 3vh;
+  font-size: 1.5vw;
   color: white;
   left: 0;
   font-style: italic;
@@ -76,10 +76,10 @@
 .home-page-grid{
   float: left;
   width: 100%;
-  height: 100vh;
+  height: 50vw;
   padding: 0;
   margin: 0;
-  background-size: 100% 100%;
+  background-size: 100% 100%
 }
 
 #home-grid-1,
@@ -93,30 +93,30 @@
 
 .home-grid-full-display{
   width:90%;
-  height: 70%;
-  margin: 5vh 0 0 5%;
+  height: 40vw;
+  margin: 2vw 0 0 5%;
   position: relative;
 }
 
 .home-grid-2-header{
   width: 100%;
-  height: 8vh;
-  margin-top: 7vh;
+  height: 3vw;
+  margin-top: 2vw;
 }
 
 .home-grid-2-header-text{
   color: white;
-  font-size:4vh;
-  width:90%;
+  font-size: 2vw;
+  width: 90%;
   margin-left: 5%;
   text-align: left;
   border-bottom: 1px white solid;
 }
 
 .home-grid-3-header{
-  height: 10vh;
-  margin: 5vh 0 0 7.5%;
-  color: white;
+  height: 5vw;
+  margin: 4vw 0 0 7vw;
+  color: white
 }
 
 .home-grid-3-header > .feature-text-title{
@@ -125,7 +125,7 @@
 }
 
 .home-grid-3-content{
-  height:83vh;
+  height:35vw;
   width: 85%;
-  margin: 2vh 0 0 7.5%;
+  margin: 2vw 0 0 7.5%;
 }

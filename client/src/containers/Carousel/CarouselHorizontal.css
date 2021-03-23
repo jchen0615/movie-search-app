@@ -13,10 +13,10 @@
 
 .carousel-left-arrow,
 .carousel-right-arrow{
-    font-size: 8vh;
+    font-size: 4vw;
     color: white;
     width:100%;
-    margin-top: 20vh;
+    margin-top: 10vw;
     transition: color 0.2s;
     outline: none;
 }

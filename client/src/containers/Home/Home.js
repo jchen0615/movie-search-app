@@ -98,6 +98,7 @@ class Home extends Component {
                         </div>
                     </div>
                 </div>
+                
                 <div className = "home-page-grid" id="home-grid-2">
                     <div className = "home-grid-2-header">
                         <div className = "home-grid-2-header-text">Now Playing</div>
