@@ -58,7 +58,7 @@ class NavigationBar extends Component{
                         })
                     }
 
-                    if((this.state.autocompleteValue!==this.state.searchValue && this.state.searchValue.length>0)){
+                    if((this.state.autocompleteValue!==this.state.searchValue && this.state.searchValue.length>0 && !this.state.search)){
                         this.setState({
                             autocompleteValue: this.state.searchValue
                         }, this.getSearch())

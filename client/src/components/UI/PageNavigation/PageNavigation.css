@@ -1,8 +1,8 @@
 .page-navigation{
     border-top: 0.1vh solid white;
     width: 90%;
-    margin: 10vh 5%;
-    font-size: 3vh;
+    margin: 5vw 5%;
+    font-size: 1.5vw;
     font-weight: 300;
     color: white;
     float: left;
@@ -15,7 +15,7 @@
 #current-page{
     position: absolute;
     left: 50%;
-    margin-top: 3vh;
+    margin-top: 1.5vw;
 }
 
 #next-page{
@@ -24,10 +24,10 @@
 
 .page-navigation button{
     position: absolute;
-    margin-top: 3vh;
+    margin-top: 1.5vw;
     background: transparent;
     border: none;
-    font-size: 2.5vh;
+    font-size: 1.2vw;
     transition: all .2s;
     color: white;
     outline: none;

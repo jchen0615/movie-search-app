@@ -7,7 +7,7 @@
     color: white;
     text-align: left;
     text-decoration: none;
-    font-size: 2vh;
+    font-size: 1vw;
     box-sizing: border-box;
     border: none;
     background: transparent;
@@ -46,15 +46,15 @@
 }
 
 .discover-input .search-no-result{
-    font-size: 3vh;
+    font-size: 1vw;
     font-weight: 100;
     font-style: italic;
-    line-height: 24vh;
+    line-height: 12vw;
 }
 
 .movie-discover-form .search-img-btn{
-    height: 2vh;
-    padding-top: 1.1vh;
+    height: 1vw;
+    padding-top: 0.6vw;
     float: left;
     cursor: pointer;
     transition: 0.2s;
