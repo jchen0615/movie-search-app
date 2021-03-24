@@ -180,7 +180,6 @@ class Discover extends Component{
         let rows = this.state.rows.map((row, index)=>{
             return <div className = "discover-row" key={"discover-row-"+index}>
                 <button className = {row.added?"discover-add-btn active":"discover-add-btn"} data-index = {index} type="button" onClick={this.addbtnHandler}>+</button>
-                {/*<input className = {row.added?"discover-add-btn active":"discover-add-btn"} data-index = {index} type="button" onClick={this.addbtnHandler}/>*/}
                 <ul className = {row.key?"discover-option-list hidden":"discover-option-list"} data-index = {index}>
                     <li className = "discover-option-btn" data-key="KEYWORD" onClick = {this.optionBtnClickHandler}>KEYWORD</li>
                     <li className = "discover-option-btn" data-key="GENRE" onClick = {this.optionBtnClickHandler}>GENRE</li>
