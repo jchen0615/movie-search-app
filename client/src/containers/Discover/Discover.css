@@ -16,17 +16,6 @@
     border: none;
 }
 
-
-/*
-.discover-add-btn{
-    background:url(../../images/add.png) no-repeat;
-    cursor:pointer;
-    border:none;
-    width:100px;
-    height:100px;
-}
-*/
-
 .discover-add-btn.active{
     color: green;
     border: 0.3vh solid green;
