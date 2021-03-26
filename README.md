@@ -1,15 +1,19 @@
-## Available Scripts
+## Demo Link
+AWS elastic beanstalk: http://moviesearchdockerapp-env.eba-s4xepzfx.us-east-2.elasticbeanstalk.com/
+
+### Quick Setup
+This application leverages The Movie Database (TMDB) API. Please visit https://www.themoviedb.org/?language=en-US for account signup and request for an **API key** if you would like to run this application locally. After you have completed registration and received an API key, open up **'docker-compose.yml'** file that is located in the main working directory **'\movie-search-app'** folder and replace '$TMDb_KEY' with your API key. 
+
 Before running the application, please run **npm install** to install all necessary dependencies.
+The code is split into 3 parts: client, server and nginx. They are containerized using docker. You will need to have docker set up to run this application in docker.
+After docker is set up, you are now ready to run ### `docker-compose up` in the terminal to start up the application. Open [http://localhost:8080](http://localhost:8080) to view it in the browser. Google Chrome is highly recommended.
 
-In the project directory, you can run:
-### `npm start`
-Webpack and babel are configured so simply run 'npm start' will launch app in development mode
-<br />
-Open [http://localhost:8080](http://localhost:8080) to view it in the browser.
-Google Chrome is highly recommended.
+Alternative to docker is to start **'client'** and **'server'** individually by running ### `npm start`. However, the application is developed for nginx to handle routing. Starting the application this way will require modification in request routing.
 
-### `npm test`
-To run unit testing that uses Jest Enzyme
+
+## Unit Testing
+Run **'npm test'** in client directory to run Jest Enzyme test suite for unit testing
+
 
 ### Project Structure
 ```bash
@@ -59,9 +63,6 @@ Please feel free to leverage any code as you would like.
 
 In short, this web app leaverages **React** to implement a single-page web application with a multi-page feeling.
 **Axios** is being used in regards of sending HTTP requests to The Movie Database (TMDB) API to retrieve information regarding movies.**Jest Enzyme** is leveraged for unit testing.
-
-### Quick Setup
-This application leverages The Movie Database (TMDB) API. Please visit https://www.themoviedb.org/?language=en-US for account signup and request for an **API key** before using this application. After you have completed registration and received an API key, open up **'AccessToken.json'** file that is located in 'src' folder and replace 'Enter your API key here' with your API key. You are now ready to run npm start in the terminal to start up the application. 
 
 ### Features
 **Home page**
