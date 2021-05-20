@@ -1,11 +1,11 @@
 import React from 'react';
 import './App.css';
 import {BrowserRouter, Route} from 'react-router-dom';
-import Home from './containers/Home/Home';
-import SearchResult from './containers/SearchResult/SearchResult';
-import Detail from './containers/DetailPage/Detail';
-import Genre from './containers/GenrePage/Genre'
-import About from './components/AboutPage/AboutPage'
+import Home from './pages/Home/Home';
+import SearchResult from './pages/SearchResult/SearchResult';
+import Detail from './pages/DetailPage/Detail';
+import Genre from './pages/GenrePage/Genre'
+import About from './pages/AboutPage/AboutPage'
 
 
 function App() {
